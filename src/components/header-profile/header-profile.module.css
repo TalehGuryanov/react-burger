@@ -1,0 +1,15 @@
+.wr {
+    display: flex;
+    width: calc(100% / 3);
+    justify-content: flex-end;
+    text-decoration: none;
+    padding: 16px 20px;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+.text {
+    color: #fff;
+}

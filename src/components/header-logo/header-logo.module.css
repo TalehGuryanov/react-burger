@@ -1,0 +1,5 @@
+.wr {
+    width: calc(100% / 3);
+    display: flex;
+    justify-content: center;
+}
