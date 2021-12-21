@@ -1,0 +1,32 @@
+.wr {
+    width: 50%;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wr:nth-child(n+3) {
+    margin-top: 40px;
+}
+
+.image {
+    margin-bottom: 4px;
+}
+
+.price {
+    margin-bottom: 4px;
+    display: flex;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.price_icon {
+    margin-left: 9px;
+}
+
+.title {
+    text-align: center;
+}

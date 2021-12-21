@@ -1,0 +1,13 @@
+.wr {
+    background: #131316;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+.title {
+    margin-bottom: 24px;
+}
