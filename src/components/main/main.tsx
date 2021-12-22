@@ -1,5 +1,6 @@
 import style from "./main.module.css"
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function Main(props: any) {
   return (
@@ -9,7 +10,10 @@ function Main(props: any) {
           Соберите бургер
         </h1>
 
-        <BurgerIngredients data={props.data} />
+        <div className={style.content}>
+          <BurgerIngredients data={props.data} />
+          <BurgerConstructor />
+        </div>
       </div>
     </section>
   )

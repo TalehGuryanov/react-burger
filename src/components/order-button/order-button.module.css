@@ -1,0 +1,24 @@
+.wr {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.total__text {
+    margin-right: 10px;
+}
+
+.total__icon {
+    width: 33px;
+    height: 33px;
+}
+
+.total__icon svg {
+    width: 100%;
+    height: 100%;
+}
