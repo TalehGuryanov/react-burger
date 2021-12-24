@@ -12,7 +12,7 @@ function Main(props: any) {
 
         <div className={style.content}>
           <BurgerIngredients data={props.data} />
-          <BurgerConstructor />
+          <BurgerConstructor data={props.data} />
         </div>
       </div>
     </section>

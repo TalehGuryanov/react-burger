@@ -5,9 +5,9 @@ function IngredientsBox(props: any) {
   const bunData = props.data.filter((item: { type: string; }) => item.type === "bun");
   const sauceData = props.data.filter((item: { type: string; }) => item.type === "sauce");
   const mainData = props.data.filter((item: { type: string; }) => item.type === "main");
-  const bun = bunData.map((item: any) => <IngredientsItem key={item.id} image={item.image} name={item.name} price={item.price}/>);
-  const sauce = sauceData.map((item: any) => <IngredientsItem key={item.id} image={item.image} name={item.name} price={item.price}/>);
-  const main = mainData.map((item: any) => <IngredientsItem key={item.id} image={item.image} name={item.name} price={item.price}/>);
+  const bun = bunData.map((item: any) => <IngredientsItem key={item._id} image={item.image} name={item.name} price={item.price}/>);
+  const sauce = sauceData.map((item: any) => <IngredientsItem key={item._id} image={item.image} name={item.name} price={item.price}/>);
+  const main = mainData.map((item: any) => <IngredientsItem key={item._id} image={item.image} name={item.name} price={item.price}/>);
 
   return (
     <div className={style.wr}>

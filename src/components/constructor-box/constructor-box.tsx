@@ -1,83 +1,20 @@
+import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./constructor-box.module.css"
-import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function ConstructorBox () {
+function ConstructorBox (props: { name: string; price: number; image: string; }) {
   return (
-    <div className={style.wr}>
-      <div className={style.main_item}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={"img"}
-        />
+    <div className={style.item}>
+      <div className={style.item_icon}>
+        <DragIcon type="primary" />
       </div>
-      <div className={style.items}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={"img"}
-          />
-        </div>
-      </div>
+
+      <ConstructorElement
+        type={undefined}
+        isLocked={false}
+        text={props.name}
+        price={props.price}
+        thumbnail={props.image}
+      />
     </div>
   )
 }
