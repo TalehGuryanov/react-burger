@@ -70,7 +70,14 @@ function IngredientDetails(props: any) {
 }
 
 IngredientDetails.propsType = {
-  ingredientsData: PropTypes.object
+  ingredientsData: PropTypes.shape({
+    name: PropTypes.string,
+    carbohydrates: PropTypes.string,
+    fat: PropTypes.string,
+    proteins: PropTypes.string,
+    calories: PropTypes.string,
+    image_large: PropTypes.string
+  })
 }
 
 export default IngredientDetails;

@@ -21,7 +21,7 @@ const Modal = (props: any) => {
 
 Modal.propTypes = {
   onClose: PropTypes.func,
-  modalData: PropTypes.object
+  modalData: PropTypes.objectOf(PropTypes.object)
 }
 
 export default Modal;

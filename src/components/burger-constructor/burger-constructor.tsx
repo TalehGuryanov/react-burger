@@ -16,47 +16,28 @@ function BurgerConstructor(props: any) {
     return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
   });
 
-  const burgerBuns = props.data.filter((item: { type: string; }) => item.type === "bun");
-  const topBun = burgerBuns.map(
-    (item: {
-      image: string;
-      name: string;
-      price: number;
-    }, index: number) => {
-    if(index === 0) {
-      return (
-      <ConstructorElement
-        type="top" isLocked={true}
-        text={`${item.name} (вверх)`}
-        price={item.price}
-        thumbnail={item.image}
-      />)
-    }
-  });
+  const topBunData = {
+    name: "Краторная булка N-200i (верх)",
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    price: 20
+  }
 
-  const bottomBun = burgerBuns.map(
-    (item: {
-      image: string;
-      name: string;
-      price: number;
-    }, index: number) => {
-      if(index === 0) {
-        return (
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${item.name} (низ)`}
-            price={item.price}
-            thumbnail={item.image}
-          />)
-      }
-    })
+  const bottomBunData = {
+    name: "Краторная булка N-200i (низ)",
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    price: 20
+  }
 
   return(
     <div className={style.wr}>
       <div className={style.block}>
         <div className={style.block__main_item}>
-          {topBun}
+          <ConstructorElement
+            type="top" isLocked={true}
+            text={topBunData.name}
+            price={topBunData.price}
+            thumbnail={topBunData.image}
+          />
         </div>
 
         <div className={style.block__items}>
@@ -64,7 +45,13 @@ function BurgerConstructor(props: any) {
         </div>
 
         <div className={style.block__main_item}>
-          {bottomBun}
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={bottomBunData.name}
+            price={bottomBunData.price}
+            thumbnail={bottomBunData.image}
+          />
         </div>
       </div>
 

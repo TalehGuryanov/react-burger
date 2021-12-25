@@ -5,11 +5,7 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform .35s;
-}
-
-.wr:hover {
-    transform: scale(1.1);
+    position: relative;
 }
 
 .wr:nth-child(n+3) {

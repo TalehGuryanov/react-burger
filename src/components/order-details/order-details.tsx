@@ -36,7 +36,12 @@ function OrderDetails(props: any) {
 }
 
 OrderDetails.propsType = {
-  ordersData: PropTypes.object
+  ordersData: PropTypes.shape({
+    id: PropTypes.number,
+    idText: PropTypes.string,
+    notification: PropTypes.string,
+    subTitle: PropTypes.string
+  })
 }
 
 export default OrderDetails;
