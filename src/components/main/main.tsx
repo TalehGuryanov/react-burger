@@ -11,8 +11,8 @@ function Main(props: any) {
         </h1>
 
         <div className={style.content}>
-          <BurgerIngredients data={props.data} />
-          <BurgerConstructor data={props.data} />
+          <BurgerIngredients {...props} />
+          <BurgerConstructor {...props} />
         </div>
       </div>
     </section>

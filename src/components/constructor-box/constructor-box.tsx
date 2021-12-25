@@ -1,5 +1,6 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./constructor-box.module.css"
+import PropTypes from "prop-types";
 
 function ConstructorBox (props: { name: string; price: number; image: string; }) {
   return (
@@ -17,6 +18,12 @@ function ConstructorBox (props: { name: string; price: number; image: string; })
       />
     </div>
   )
+}
+
+ConstructorBox.propTypes = {
+  name: PropTypes.string,
+  price: PropTypes.number,
+  image: PropTypes.string,
 }
 
 export  default ConstructorBox;

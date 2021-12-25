@@ -9,7 +9,7 @@ function BurgerIngredients (props: any) {
         <Tabs />
       </div>
 
-      <IngredientsBox data={props.data}/>
+      <IngredientsBox {...props}/>
     </div>
   )
 }

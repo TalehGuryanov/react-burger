@@ -3,6 +3,7 @@ import style from "./burger-constructor.module.css"
 import OrderButton from "../order-button/order-button";
 import ConstructorBox from "../constructor-box/constructor-box";
 import React from "react";
+import PropTypes from "prop-types";
 
 function BurgerConstructor(props: any) {
   const burgerItems = props.data.filter((item: { type: string; }) => item.type !== "bun");
@@ -67,9 +68,13 @@ function BurgerConstructor(props: any) {
         </div>
       </div>
 
-      <OrderButton />
+      <OrderButton onOpen={props.handlers.openOrder}/>
     </div>
   )
 };
+
+BurgerConstructor.propsType = {
+  data: PropTypes.array,
+}
 
 export default BurgerConstructor;

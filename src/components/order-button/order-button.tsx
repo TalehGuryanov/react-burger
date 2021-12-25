@@ -1,7 +1,7 @@
 import style from "./order-button.module.css"
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function OrderButton() {
+function OrderButton(props: any) {
   return (
     <div className={style.wr}>
       <div className={style.total}>
@@ -16,6 +16,7 @@ function OrderButton() {
 
       <Button type="primary"
               size="large"
+              onClick={props.onOpen}
       >
         Оформить заказ
       </Button>

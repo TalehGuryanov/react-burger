@@ -1,9 +1,10 @@
 import style from "./ingredients-item.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 function IngredientsItem(props: any) {
   return(
-    <li className={style.wr}>
+    <li className={style.wr} onClick={props.onOpen} id={props.id}>
       <div className={style.img}>
         <img src={props.image}
              alt={props.name}
@@ -24,6 +25,14 @@ function IngredientsItem(props: any) {
       </div>
     </li>
   )
+}
+
+IngredientsItem.propType = {
+  onOpen: PropTypes.func,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  id: PropTypes.number
 }
 
 export default IngredientsItem;
