@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function IngredientsItem(props: any) {
   return(
-    <li className={style.wr} onClick={props.onOpen} id={props.id}>
+    <li className={style.wr} onClick={props.openModalIngredient} id={props.id}>
       <Counter count={1} size="default" />
       <div className={style.img}>
         <img src={props.image}
@@ -29,11 +29,11 @@ function IngredientsItem(props: any) {
 }
 
 IngredientsItem.propType = {
-  onOpen: PropTypes.func,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  id: PropTypes.number
+  openModalHandlers: PropTypes.objectOf(PropTypes.func).isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired
 }
 
 export default IngredientsItem;

@@ -1,13 +1,16 @@
 import React from 'react';
-import './App.css';
+import './app.module.css';
 import Header from "../header/header";
 import Main from "../main/main";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import Modal from "../modal/modal";
+import style from "./app.module.css"
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
 
 function App() {
   const [state, setState] = React.useState<any>([]);
-  const [ingredientsDetails, setIngredientsDetails] = React.useState<object>({isIngredientModal: false});
-  const [orderDetails, setOrderDetails] = React.useState<object>({isOrderModal: false});
+  const [ingredientsDetails, setIngredientsDetails] = React.useState<any>({isIngredientModal: false});
+  const [orderDetails, setOrderDetails] = React.useState<any>({isOrderModal: false});
   const [isModal, setModal] = React.useState<boolean>(false);
   const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -22,28 +25,12 @@ function App() {
       })
       .then((data) => setState(data.data))
       .catch((error) => console.log(error))
-
-    document.addEventListener("keyup", onKeyCloseModal)
-
-    return (() => {
-      document.removeEventListener("keyup", onKeyCloseModal)
-    })
   }, []);
 
-  function closeModal() {
+  function onCloseModal() {
     setModal(false);
-    setIngredientsDetails({});
-    setOrderDetails({});
-  }
-
-  function onKeyCloseModal() {
-    document.addEventListener("keyup", (e) => {
-      if(e.code === "Escape") {
-        setModal(false);
-        setIngredientsDetails({});
-        setOrderDetails({});
-      }
-    })
+    setIngredientsDetails({isIngredientModal: false});
+    setOrderDetails({isOrderModal: false});
   }
 
   function openIngredient(event: any) {
@@ -71,13 +58,22 @@ function App() {
     setModal(true);
   }
 
-  const handlers = {openOrder, openIngredient};
-
   return (
-    <main className="app">
+    <main className={style.app}>
       <Header />
-      <Main data={state} handlers={handlers}/>
-      {isModal && <ModalOverlay onClose={closeModal} modalData={{ingredientsDetails, orderDetails}}/>}
+      <Main data={state} openModalHandlers={{openOrder, openIngredient}}/>
+      {isModal &&
+      (
+        <Modal onCloseModal={onCloseModal}>
+          <>
+          {ingredientsDetails.isIngredientModal &&
+            <IngredientDetails ingredientsDetails={ingredientsDetails.ingredientData} onCloseModal={onCloseModal}/>
+          }
+          {orderDetails.isOrderModal && <OrderDetails orderDetails={orderDetails.orderData} onCloseModal={onCloseModal}/>}
+          </>
+        </Modal>
+      )
+      }
     </main>
   );
 }

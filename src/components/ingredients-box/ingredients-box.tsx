@@ -1,14 +1,50 @@
 import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import PropTypes from "prop-types";
+import React from "react";
 
 function IngredientsBox(props: any) {
-  const bunData = props.data.filter((item: { type: string; }) => item.type === "bun");
-  const sauceData = props.data.filter((item: { type: string; }) => item.type === "sauce");
-  const mainData = props.data.filter((item: { type: string; }) => item.type === "main");
-  const bun = bunData.map((item: any) => <IngredientsItem onOpen={props.handlers.openIngredient} key={item._id} id={item._id} image={item.image} name={item.name} price={item.price}/>);
-  const sauce = sauceData.map((item: any) => <IngredientsItem onOpen={props.handlers.openIngredient} key={item._id} id={item._id} image={item.image} name={item.name} price={item.price}/>);
-  const main = mainData.map((item: any) => <IngredientsItem onOpen={props.handlers.openIngredient} key={item._id} id={item._id} image={item.image} name={item.name} price={item.price}/>);
+  const bunData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "bun"), [props.data]);
+  const sauceData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "sauce"), [props.data]);
+  const mainData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "main"), [props.data]);
+  const bun = React.useMemo(
+    () =>
+      bunData.map((item: any) =>
+        <IngredientsItem openModalIngredient={props.openModalIngredient}
+                         key={item._id}
+                         id={item._id}
+                         image={item.image}
+                         name={item.name}
+                         price={item.price}
+        />
+      ),
+    [props.data]
+  );
+  const sauce = React.useMemo(
+    () =>
+      sauceData.map((item: any) =>
+        <IngredientsItem openModalIngredient={props.openModalIngredient}
+                         key={item._id}
+                         id={item._id}
+                         image={item.image}
+                         name={item.name}
+                         price={item.price}
+        />
+      ),
+    [props.data]
+  );
+  const main = React.useMemo(
+    () => mainData.map((item: any) =>
+        <IngredientsItem openModalIngredient={props.openModalIngredient}
+                         key={item._id}
+                         id={item._id}
+                         image={item.image}
+                         name={item.name}
+                         price={item.price}
+        />
+    ),
+    [props.data]
+  )
 
   return (
     <div className={style.wr}>
@@ -46,7 +82,7 @@ function IngredientsBox(props: any) {
 }
 
 IngredientsBox.propType = {
-  data: PropTypes.array
+  data: PropTypes.array.isRequired
 }
 
 export default IngredientsBox;

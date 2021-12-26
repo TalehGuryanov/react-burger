@@ -16,7 +16,7 @@ function OrderButton(props: any) {
 
       <Button type="primary"
               size="large"
-              onClick={props.onOpen}
+              onClick={props.openOrderModal}
       >
         Оформить заказ
       </Button>

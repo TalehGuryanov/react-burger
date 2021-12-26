@@ -9,7 +9,7 @@ function OrderDetails(props: any) {
   return (
     <div className={style.wr}>
       <div className={style.icon_close}>
-        <CloseIcon type="primary" onClick={props.onClose}/>
+        <CloseIcon type="primary" onClick={props.onCloseModal}/>
       </div>
 
       <div className={`${style.title} ${"text text_type_digits-large"}`}>
@@ -41,7 +41,8 @@ OrderDetails.propsType = {
     idText: PropTypes.string,
     notification: PropTypes.string,
     subTitle: PropTypes.string
-  })
+  }).isRequired,
+  onCloseModal: PropTypes.func
 }
 
 export default OrderDetails;

@@ -1,27 +1,43 @@
 import style from "./modal.module.css"
 import PropTypes from "prop-types";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details"
+import ReactDOM from "react-dom";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import React from "react";
 
 const Modal = (props: any) => {
-  const ingredientsDetails = props.modalData.ingredientsDetails.ingredientData;
-  const orderDetails = props.modalData.orderDetails.orderData;
-  const isOrderModal = props.modalData.orderDetails.isOrderModal;
-  const isIngredientModal = props.modalData.ingredientsDetails.isIngredientModal;
+  const modalContainer = document.getElementById("react-modals")!;
+
+  React.useEffect(() => {
+    function keyCloseModal(e:any) {
+      if(e.code === "Escape") {
+        props.onCloseModal();
+      }
+    }
+
+    document.addEventListener("keyup", keyCloseModal)
+
+    return(() => document.removeEventListener("keyup", keyCloseModal))
+  }, []);
 
   return(
+    ReactDOM.createPortal(
     <div className={style.wr}>
-      <div className={style.body}>
-        {isIngredientModal && <IngredientDetails ingredientsDetails={ingredientsDetails} onClose={props.onClose}/>}
-        {isOrderModal && <OrderDetails orderDetails={orderDetails} onClose={props.onClose}/>}
+      <ModalOverlay onClose={props.onCloseModal}/>
+
+      <div className={style.content} >
+        <div className={style.body}>
+          {props.children}
+        </div>
       </div>
-    </div>
+    </div>,
+    modalContainer
+    )
   )
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func,
-  modalData: PropTypes.objectOf(PropTypes.object)
+  onCloseModal: PropTypes.func,
+  children: PropTypes.element.isRequired
 }
 
 export default Modal;

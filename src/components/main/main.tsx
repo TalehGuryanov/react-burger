@@ -11,8 +11,8 @@ function Main(props: any) {
         </h1>
 
         <div className={style.content}>
-          <BurgerIngredients {...props} />
-          <BurgerConstructor {...props} />
+          <BurgerIngredients data={props.data} openModalIngredient={props.openModalHandlers.openIngredient} />
+          <BurgerConstructor data={props.data} openOrderModal={props.openModalHandlers.openOrder} />
         </div>
       </div>
     </section>

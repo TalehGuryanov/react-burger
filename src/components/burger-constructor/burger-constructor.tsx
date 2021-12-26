@@ -6,15 +6,22 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function BurgerConstructor(props: any) {
-  const burgerItems = props.data.filter((item: { type: string; }) => item.type !== "bun");
-  const constructorItems = burgerItems.map((item: {
-    _id: any;
-    image: string;
-    price: number;
-    name: string;
-    type: string; }) => {
-    return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
-  });
+  const burgerItems = React.useMemo(
+    () => props.data.filter((item: { type: string; }) => item.type !== "bun"),
+    [props.data]
+  );
+
+  const constructorItems = React.useMemo(
+    () =>
+      burgerItems.map((item: {
+        _id: any;
+        image: string;
+        price: number;
+        name: string;
+        type: string; }) => {
+        return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
+      }), [props.data]
+  );
 
   const topBunData = {
     name: "Краторная булка N-200i (верх)",
@@ -55,13 +62,13 @@ function BurgerConstructor(props: any) {
         </div>
       </div>
 
-      <OrderButton onOpen={props.handlers.openOrder}/>
+      <OrderButton openOrderModal={props.openOrderModal}/>
     </div>
   )
 };
 
 BurgerConstructor.propsType = {
-  data: PropTypes.array,
+  data: PropTypes.array.isRequired,
 }
 
 export default BurgerConstructor;

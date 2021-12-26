@@ -13,7 +13,7 @@ function IngredientDetails(props: any) {
         </h3>
 
         <div className={style.header__icon_close}>
-          <CloseIcon type="primary" onClick={props.onClose}/>
+          <CloseIcon type="primary" onClick={props.onCloseModal}/>
         </div>
       </div>
 
@@ -77,7 +77,8 @@ IngredientDetails.propsType = {
     proteins: PropTypes.string,
     calories: PropTypes.string,
     image_large: PropTypes.string
-  })
+  }).isRequired,
+  onCloseModal: PropTypes.func
 }
 
 export default IngredientDetails;

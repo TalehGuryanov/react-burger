@@ -21,9 +21,9 @@ function ConstructorBox (props: { name: string; price: number; image: string; })
 }
 
 ConstructorBox.propTypes = {
-  name: PropTypes.string,
-  price: PropTypes.number,
-  image: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
 }
 
 export  default ConstructorBox;
