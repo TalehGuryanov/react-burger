@@ -1,5 +1,6 @@
 import style from "./order-button.module.css"
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 function OrderButton(props: any) {
   return (
@@ -23,5 +24,9 @@ function OrderButton(props: any) {
     </div>
   )
 };
+
+OrderButton.propsType = {
+  openOrderModal: PropTypes.func
+}
 
 export default OrderButton;

@@ -1,6 +1,7 @@
 import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import ingredientType from "../../utils/types"
 
 function IngredientsItem(props: any) {
   return(
@@ -33,7 +34,7 @@ IngredientsItem.propType = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.string.isRequired
 }
 
 export default IngredientsItem;

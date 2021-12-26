@@ -1,6 +1,7 @@
 import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientType from "../../utils/types"
 
 function IngredientDetails(props: any) {
   const ingredientsData = props.ingredientsDetails;
@@ -70,14 +71,7 @@ function IngredientDetails(props: any) {
 }
 
 IngredientDetails.propsType = {
-  ingredientsData: PropTypes.shape({
-    name: PropTypes.string,
-    carbohydrates: PropTypes.string,
-    fat: PropTypes.string,
-    proteins: PropTypes.string,
-    calories: PropTypes.string,
-    image_large: PropTypes.string
-  }).isRequired,
+  ingredientsDetails: PropTypes.shape(ingredientType).isRequired,
   onCloseModal: PropTypes.func
 }
 

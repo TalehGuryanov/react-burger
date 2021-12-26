@@ -1,6 +1,8 @@
 import style from "./main.module.css"
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import PropTypes from "prop-types";
+import ingredientType from "../../utils/types";
 
 function Main(props: any) {
   return (
@@ -17,6 +19,11 @@ function Main(props: any) {
       </div>
     </section>
   )
+}
+
+Main.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  openModalHandlers: PropTypes.objectOf(PropTypes.func)
 }
 
 export default Main;

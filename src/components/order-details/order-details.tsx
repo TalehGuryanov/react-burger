@@ -36,7 +36,7 @@ function OrderDetails(props: any) {
 }
 
 OrderDetails.propsType = {
-  ordersData: PropTypes.shape({
+  orderDetails: PropTypes.shape({
     id: PropTypes.number,
     idText: PropTypes.string,
     notification: PropTypes.string,

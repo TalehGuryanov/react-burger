@@ -4,6 +4,7 @@ import OrderButton from "../order-button/order-button";
 import ConstructorBox from "../constructor-box/constructor-box";
 import React from "react";
 import PropTypes from "prop-types";
+import ingredientType from "../../utils/types";
 
 function BurgerConstructor(props: any) {
   const burgerItems = React.useMemo(
@@ -68,7 +69,8 @@ function BurgerConstructor(props: any) {
 };
 
 BurgerConstructor.propsType = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  openOrderModal: PropTypes.func
 }
 
 export default BurgerConstructor;

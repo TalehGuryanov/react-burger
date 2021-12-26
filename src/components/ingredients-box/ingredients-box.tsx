@@ -2,6 +2,7 @@ import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import PropTypes from "prop-types";
 import React from "react";
+import ingredientType from "../../utils/types"
 
 function IngredientsBox(props: any) {
   const bunData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "bun"), [props.data]);
@@ -82,7 +83,8 @@ function IngredientsBox(props: any) {
 }
 
 IngredientsBox.propType = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
+  openModalIngredient: PropTypes.func
 }
 
 export default IngredientsBox;
