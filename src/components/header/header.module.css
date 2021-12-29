@@ -1,0 +1,15 @@
+.wr {
+    background: #1C1C21;
+}
+
+.in {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.nav {
+    display: flex;
+    align-content: center;
+}

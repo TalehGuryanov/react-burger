@@ -1,0 +1,27 @@
+.wr {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.wr::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+}
+
+.wr::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    border-radius: 0;
+}
+
+.in {
+    padding-bottom: 40px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+    list-style: none;
+    padding: 0 16px;
+}
