@@ -79,8 +79,4 @@ function BurgerConstructor() {
   )
 };
 
-BurgerConstructor.propsType = {
-  openOrderModal: PropTypes.func
-}
-
 export default BurgerConstructor;

@@ -11,7 +11,7 @@ function IngredientsBox(props: any) {
   const bun = React.useMemo(
     () =>
       bunData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -19,12 +19,12 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
       ),
-    [props.data]
+    [bunData]
   );
   const sauce = React.useMemo(
     () =>
       sauceData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -32,11 +32,11 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
       ),
-    [props.data]
+    [sauceData]
   );
   const main = React.useMemo(
     () => mainData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -44,7 +44,7 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
     ),
-    [props.data]
+    [mainData]
   )
 
   return (
@@ -84,7 +84,7 @@ function IngredientsBox(props: any) {
 
 IngredientsBox.propType = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  openModalIngredient: PropTypes.func
+  openIngredientModal: PropTypes.func.isRequired
 }
 
 export default IngredientsBox;

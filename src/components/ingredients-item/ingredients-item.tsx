@@ -1,11 +1,10 @@
 import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types"
 
 function IngredientsItem(props: any) {
   return(
-    <li className={style.wr} onClick={props.openModalIngredient} id={props.id}>
+    <li className={style.wr} onClick={props.openIngredientModal} id={props.id}>
       <Counter count={1} size="default" />
       <div className={style.img}>
         <img src={props.image}

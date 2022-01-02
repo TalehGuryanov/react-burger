@@ -21,7 +21,8 @@ function Main(props: any) {
         </h1>
 
         <div className={style.content}>
-          <BurgerIngredients data={props.data} openModalIngredient={props.openModalHandlers.openIngredient} />
+          <BurgerIngredients data={props.data} />
+
           <IngredientsContext.Provider value={burgerBuns}>
             <BurgerConstructor />
           </IngredientsContext.Provider>
