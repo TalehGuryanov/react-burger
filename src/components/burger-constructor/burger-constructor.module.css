@@ -30,3 +30,7 @@
     padding: 0 16px 0 60px;
 }
 
+.block__main_item:first-child {
+    margin-bottom: 16px;
+}
+

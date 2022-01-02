@@ -5,16 +5,14 @@ import Main from "../main/main";
 import Modal from "../modal/modal";
 import style from "./app.module.css"
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details";
 
 function App() {
   const [state, setState] = React.useState<any>([]);
   const [ingredientsDetails, setIngredientsDetails] = React.useState<any>({isIngredientModal: false});
-  const [orderDetails, setOrderDetails] = React.useState<any>({isOrderModal: false});
   const [isModal, setModal] = React.useState<boolean>(false);
-  const url = "https://norma.nomoreparties.space/api/ingredients";
 
   React.useEffect(() => {
+    const url = "https://norma.nomoreparties.space/api/ingredients";
 
     fetch(url)
       .then((response) => {
@@ -30,7 +28,6 @@ function App() {
   function onCloseModal() {
     setModal(false);
     setIngredientsDetails({isIngredientModal: false});
-    setOrderDetails({isOrderModal: false});
   }
 
   function openIngredient(event: any) {
@@ -44,24 +41,10 @@ function App() {
     setModal(true);
   }
 
-  function openOrder() {
-    const orderData = {
-      id: 34536,
-      idText: "идентификатор заказа",
-      notification: "Ваш заказ начали готовить",
-      subTitle: "Дождитесь готовности на орбитальной станции",
-    }
-    setOrderDetails({
-      orderData,
-      isOrderModal: true
-    });
-    setModal(true);
-  }
-
   return (
     <main className={style.app}>
       <Header />
-      <Main data={state} openModalHandlers={{openOrder, openIngredient}}/>
+      <Main data={state} setState={setState} openModalHandlers={{openIngredient}}/>
       {isModal &&
       (
         <Modal onCloseModal={onCloseModal}>
@@ -69,7 +52,6 @@ function App() {
           {ingredientsDetails.isIngredientModal &&
             <IngredientDetails ingredientsDetails={ingredientsDetails.ingredientData} onCloseModal={onCloseModal}/>
           }
-          {orderDetails.isOrderModal && <OrderDetails orderDetails={orderDetails.orderData} onCloseModal={onCloseModal}/>}
           </>
         </Modal>
       )

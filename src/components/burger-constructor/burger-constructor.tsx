@@ -1,75 +1,85 @@
-import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-constructor.module.css"
 import OrderButton from "../order-button/order-button";
-import ConstructorBox from "../constructor-box/constructor-box";
 import React from "react";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
+import { IngredientsContext } from "../../utils/ingredients-context";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
-function BurgerConstructor(props: any) {
-  const burgerItems = React.useMemo(
-    () => props.data.filter((item: { type: string; }) => item.type !== "bun"),
-    [props.data]
-  );
+function BurgerConstructor() {
+  const [isModal, setModal] = React.useState<boolean>(false);
+  const [orderDetails, setOrderDetails] = React.useState<any>();
+  const constructorState = React.useContext(IngredientsContext);
 
-  const constructorItems = React.useMemo(
-    () =>
-      burgerItems.map((item: {
-        _id: any;
-        image: string;
-        price: number;
-        name: string;
-        type: string; }) => {
-        return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
-      }), [props.data]
-  );
-
-  const topBunData = {
-    name: "Краторная булка N-200i (верх)",
-    image: "https://code.s3.yandex.net/react/code/bun-02.png",
-    price: 20
+  function onCloseModal() {
+    setModal(false);
   }
 
-  const bottomBunData = {
-    name: "Краторная булка N-200i (низ)",
-    image: "https://code.s3.yandex.net/react/code/bun-02.png",
-    price: 20
+  function openOrderModal() {
+    const body = {"ingredients": [constructorState._id]};
+    const post = {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    };
+
+    fetch("https://norma.nomoreparties.space/api/orders", post)
+      .then((response) => {
+        if(!response.ok) {
+          throw new Error('Something went wrong');
+        }
+        return response.json()
+      })
+      .then((result) => {
+        setOrderDetails(result);
+        setModal(true);
+      })
+      .catch((error) => console.log(error));
   }
 
   return(
     <div className={style.wr}>
       <div className={style.block}>
         <div className={style.block__main_item}>
-          <ConstructorElement
-            type="top" isLocked={true}
-            text={topBunData.name}
-            price={topBunData.price}
-            thumbnail={topBunData.image}
-          />
-        </div>
-
-        <div className={style.block__items}>
-          {constructorItems}
+          {constructorState &&
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${constructorState.name} (вверх)`}
+              price={constructorState.price}
+              thumbnail={constructorState.image}
+            />
+          }
         </div>
 
         <div className={style.block__main_item}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bottomBunData.name}
-            price={bottomBunData.price}
-            thumbnail={bottomBunData.image}
-          />
+          {constructorState &&
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${constructorState.name} (низ)`}
+              price={constructorState.price}
+              thumbnail={constructorState.image}
+            />
+          }
         </div>
       </div>
 
-      <OrderButton openOrderModal={props.openOrderModal}/>
+      <OrderButton openOrderModal={openOrderModal} selectedIngredients={[constructorState]}/>
+
+      {isModal &&
+        <Modal onCloseModal={onCloseModal}>
+            <OrderDetails orderDetails={orderDetails} onCloseModal={onCloseModal}/>
+        </Modal>
+      }
     </div>
   )
 };
 
 BurgerConstructor.propsType = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   openOrderModal: PropTypes.func
 }
 
