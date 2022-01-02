@@ -24,7 +24,7 @@ function App() {
   return (
     <main className={style.app}>
       <Header />
-      <Main data={state} />
+      {state[0] && <Main data={state} setData={setState}/>}
     </main>
   );
 }

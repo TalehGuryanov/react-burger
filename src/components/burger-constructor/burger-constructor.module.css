@@ -9,7 +9,7 @@
 .block__items {
     max-height: 400px;
     overflow-y: auto;
-    margin: 16px 0;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;

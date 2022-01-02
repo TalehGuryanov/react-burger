@@ -6,22 +6,40 @@ import PropTypes from "prop-types";
 import { IngredientsContext } from "../../utils/ingredients-context";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import ConstructorBox from "../constructor-box/constructor-box";
 
 function BurgerConstructor() {
   const [isModal, setModal] = React.useState<boolean>(false);
   const [orderDetails, setOrderDetails] = React.useState<any>();
-  const constructorState = React.useContext(IngredientsContext);
+  const stateContext = React.useContext(IngredientsContext);
+  const selectedBun = React.useMemo(() => stateContext.find((item: any) => item.type === "bun"), [stateContext]);
+  const selectedFilling = React.useMemo(() => stateContext.filter((item: any) => item.type !== "bun"), [stateContext]);
+  const selectedBunPrice = selectedBun.price * 2;
+  const selectedFillingPrices = React.useMemo( () => selectedFilling.map((item: any) => item.price), [selectedFilling]);
+
+  const constructorItems = React.useMemo(
+    () =>
+      selectedFilling.map((item: {
+        _id: any;
+        image: string;
+        price: number;
+        name: string;
+        type: string; }) => {
+        return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
+      }), [selectedFilling]
+  );
 
   function onCloseModal() {
     setModal(false);
   }
 
   function openOrderModal() {
-    const body = {"ingredients": [constructorState._id]};
+    const selectedIngredientsIds = stateContext.map((item: any) => item._id);
+    const body = {"ingredients": selectedIngredientsIds};
     const post = {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     };
@@ -44,31 +62,37 @@ function BurgerConstructor() {
     <div className={style.wr}>
       <div className={style.block}>
         <div className={style.block__main_item}>
-          {constructorState &&
+          {selectedBun &&
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={`${constructorState.name} (вверх)`}
-              price={constructorState.price}
-              thumbnail={constructorState.image}
+              text={`${selectedBun.name} (вверх)`}
+              price={selectedBun.price}
+              thumbnail={selectedBun.image}
             />
           }
         </div>
 
+        {selectedFilling &&
+          <div className={style.block__items}>
+            {constructorItems}
+          </div>
+        }
+
         <div className={style.block__main_item}>
-          {constructorState &&
+          {selectedBun &&
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${constructorState.name} (низ)`}
-              price={constructorState.price}
-              thumbnail={constructorState.image}
+              text={`${selectedBun.name} (низ)`}
+              price={selectedBun.price}
+              thumbnail={selectedBun.image}
             />
           }
         </div>
       </div>
 
-      <OrderButton openOrderModal={openOrderModal} selectedIngredients={[constructorState]}/>
+      <OrderButton openOrderModal={openOrderModal} selectedIngredientsPrice={[...selectedFillingPrices, selectedBunPrice]}/>
 
       {isModal &&
         <Modal onCloseModal={onCloseModal}>

@@ -4,29 +4,15 @@ import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
 import React from "react";
 
-function OrderButton(props: any) {
+function OrderButton({selectedIngredientsPrice, openOrderModal}:any) {
   const [price, setPrice] = React.useState(0);
 
-  const setTotalPrice = () => {
-    if(props.selectedIngredients[0]) {
-      const burgerBuns = props.selectedIngredients.find((item: any) => item.type === "bun");
-      const burgerFilling = props.selectedIngredients.filter((item: any) => item.type !== "bun");
-
-      const burgerBunsPrice = burgerBuns.price * 2;
-
-      if(burgerFilling) {
-        const burgerFillingPrice = burgerFilling.reduce((sum: number, item: any) => sum + item.price, 0);
-        return burgerBunsPrice + burgerFillingPrice;
-      } else {
-        return burgerBunsPrice
-      }
-    }
-  }
+  const setTotalPrice = () => selectedIngredientsPrice.reduce((sum: number, item: number) => sum + item, 0);
 
   React.useEffect(() => {
     const totalPrice = setTotalPrice();
     setPrice(totalPrice)
-  }, [props.selectedIngredients]);
+  }, [selectedIngredientsPrice]);
 
   return (
     <div className={style.wr}>
@@ -42,7 +28,7 @@ function OrderButton(props: any) {
 
       <Button type="primary"
               size="large"
-              onClick={props.openOrderModal}
+              onClick={openOrderModal}
       >
         Оформить заказ
       </Button>
@@ -52,7 +38,7 @@ function OrderButton(props: any) {
 
 OrderButton.propsType = {
   openOrderModal: PropTypes.func,
-  selectedIngredients: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired
+  selectedIngredientsPrice: PropTypes.arrayOf(PropTypes.number).isRequired
 }
 
 export default OrderButton;

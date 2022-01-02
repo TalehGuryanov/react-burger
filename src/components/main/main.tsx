@@ -8,11 +8,6 @@ import React from "react";
 
 function Main(props: any) {
 
-  const burgerBuns = React.useMemo(
-    () => props.data.find((item: { type: string; }) => item.type === "bun"),
-    [props.data]
-  );
-
   return (
     <section className={style.wr}>
       <div className={style.container}>
@@ -23,7 +18,7 @@ function Main(props: any) {
         <div className={style.content}>
           <BurgerIngredients data={props.data} />
 
-          <IngredientsContext.Provider value={burgerBuns}>
+          <IngredientsContext.Provider value={props.data}>
             <BurgerConstructor />
           </IngredientsContext.Provider>
         </div>
@@ -35,7 +30,7 @@ function Main(props: any) {
 Main.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   openModalHandlers: PropTypes.objectOf(PropTypes.func),
-  setState: PropTypes.func
+  setData: PropTypes.func
 }
 
 export default Main;
