@@ -1,22 +1,11 @@
 import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types"
 
 function IngredientDetails({ ingredientDetails, onCloseModal }) {
 
   return(
     <div className={style.wr}>
-      <div className={style.header}>
-        <h3 className={`${style.header__title} ${"text text_type_main-large"}`}>
-          Детали ингредиента
-        </h3>
-
-        <div className={style.header__icon_close}>
-          <CloseIcon type="primary" onClick={onCloseModal}/>
-        </div>
-      </div>
-
       <div className={style.img}>
         <img src={ingredientDetails.image_large} alt=""/>
       </div>

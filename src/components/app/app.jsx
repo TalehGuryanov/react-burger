@@ -3,14 +3,13 @@ import './app.module.css';
 import Header from "../header/header";
 import Main from "../main/main";
 import style from "./app.module.css"
+import { URL } from "../../utils/constants";
 
 function App() {
   const [state, setState] = React.useState([]);
 
   React.useEffect(() => {
-    const url = "https://norma.nomoreparties.space/api/ingredients";
-
-    fetch(url)
+    fetch(`${URL}/ingredients`)
       .then((response) => {
         if(!response.ok) {
           throw new Error('Something went wrong');

@@ -3,7 +3,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
-import { IngredientsContext } from "../../utils/ingredients-context";
+import { IngredientsContext } from "../../services/ingredients-context";
 import React from "react";
 
 function Main(props) {
@@ -29,8 +29,6 @@ function Main(props) {
 
 Main.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  openModalHandlers: PropTypes.objectOf(PropTypes.func),
-  setData: PropTypes.func
 }
 
 export default Main;

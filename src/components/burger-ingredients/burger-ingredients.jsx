@@ -8,11 +8,10 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import React from "react";
 
 function BurgerIngredients (props) {
-  const [isModal, setModal] = React.useState(false);
-  const [ingredientDetails, setIngredientDetails] = React.useState({});
+  const [ingredientDetails, setIngredientDetails] = React.useState(false);
 
   function onCloseModal() {
-    setModal(false);
+    setIngredientDetails(false);
   }
 
   function openIngredientModal(event) {
@@ -20,7 +19,6 @@ function BurgerIngredients (props) {
     const ingredientsArr = props.data.filter((burger) => burger._id === id);
 
     ingredientsArr.forEach((ingredient) => setIngredientDetails(ingredient));
-    setModal(true);
   }
 
   return(
@@ -31,9 +29,9 @@ function BurgerIngredients (props) {
 
       <IngredientsBox data={props.data} openIngredientModal={openIngredientModal}/>
 
-      {isModal &&
-        <Modal onCloseModal={onCloseModal}>
-          <IngredientDetails ingredientDetails={ingredientDetails} onCloseModal={onCloseModal}/>
+      {ingredientDetails &&
+        <Modal onCloseModal={onCloseModal} title="Детали ингредиента">
+          <IngredientDetails ingredientDetails={ingredientDetails}/>
         </Modal>
       }
     </div>
@@ -45,4 +43,4 @@ BurgerIngredients.PropsType = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired
 }
 
-export default BurgerIngredients
+export default BurgerIngredients;
