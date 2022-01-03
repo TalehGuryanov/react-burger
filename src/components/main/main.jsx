@@ -6,7 +6,7 @@ import ingredientType from "../../utils/types";
 import { IngredientsContext } from "../../utils/ingredients-context";
 import React from "react";
 
-function Main(props: any) {
+function Main(props) {
 
   return (
     <section className={style.wr}>

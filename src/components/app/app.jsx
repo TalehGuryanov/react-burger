@@ -5,7 +5,7 @@ import Main from "../main/main";
 import style from "./app.module.css"
 
 function App() {
-  const [state, setState] = React.useState<any>([]);
+  const [state, setState] = React.useState([]);
 
   React.useEffect(() => {
     const url = "https://norma.nomoreparties.space/api/ingredients";

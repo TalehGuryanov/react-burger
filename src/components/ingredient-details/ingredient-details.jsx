@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types"
 
-function IngredientDetails({ ingredientDetails, onCloseModal }: any) {
+function IngredientDetails({ ingredientDetails, onCloseModal }) {
 
   return(
     <div className={style.wr}>

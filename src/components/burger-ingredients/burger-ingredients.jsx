@@ -7,19 +7,19 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import React from "react";
 
-function BurgerIngredients (props: any) {
-  const [isModal, setModal] = React.useState<boolean>(false);
-  const [ingredientDetails, setIngredientDetails] = React.useState<any>({});
+function BurgerIngredients (props) {
+  const [isModal, setModal] = React.useState(false);
+  const [ingredientDetails, setIngredientDetails] = React.useState({});
 
   function onCloseModal() {
     setModal(false);
   }
 
-  function openIngredientModal(event: any) {
+  function openIngredientModal(event) {
     const id = event.currentTarget.getAttribute("id");
-    const ingredientsArr = props.data.filter((burger: any) => burger._id === id);
+    const ingredientsArr = props.data.filter((burger) => burger._id === id);
 
-    ingredientsArr.forEach((ingredient: any) => setIngredientDetails(ingredient));
+    ingredientsArr.forEach((ingredient) => setIngredientDetails(ingredient));
     setModal(true);
   }
 

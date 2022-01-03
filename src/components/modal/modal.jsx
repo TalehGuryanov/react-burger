@@ -4,11 +4,11 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import React from "react";
 
-const Modal = (props: any) => {
-  const modalContainer = document.getElementById("react-modals")!;
+const Modal = (props) => {
+  const modalContainer = document.getElementById("react-modals");
 
   React.useEffect(() => {
-    function keyCloseModal(e:any) {
+    function keyCloseModal(e) {
       if(e.code === "Escape") {
         props.onCloseModal();
       }

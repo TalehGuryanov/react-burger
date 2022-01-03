@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
 import React from "react";
 
-function OrderButton({selectedIngredientsPrice, openOrderModal}:any) {
+function OrderButton({selectedIngredientsPrice, openOrderModal}) {
   const [price, setPrice] = React.useState(0);
 
-  const setTotalPrice = () => selectedIngredientsPrice.reduce((sum: number, item: number) => sum + item, 0);
+  const setTotalPrice = () => selectedIngredientsPrice.reduce((sum, item) => sum + item, 0);
 
   React.useEffect(() => {
     const totalPrice = setTotalPrice();

@@ -9,22 +9,17 @@ import Modal from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 
 function BurgerConstructor() {
-  const [isModal, setModal] = React.useState<boolean>(false);
-  const [orderDetails, setOrderDetails] = React.useState<any>();
+  const [isModal, setModal] = React.useState(false);
+  const [orderDetails, setOrderDetails] = React.useState();
   const stateContext = React.useContext(IngredientsContext);
-  const selectedBun = React.useMemo(() => stateContext.find((item: any) => item.type === "bun"), [stateContext]);
-  const selectedFilling = React.useMemo(() => stateContext.filter((item: any) => item.type !== "bun"), [stateContext]);
+  const selectedBun = React.useMemo(() => stateContext.find((item) => item.type === "bun"), [stateContext]);
+  const selectedFilling = React.useMemo(() => stateContext.filter((item) => item.type !== "bun"), [stateContext]);
   const selectedBunPrice = selectedBun.price * 2;
-  const selectedFillingPrices = React.useMemo( () => selectedFilling.map((item: any) => item.price), [selectedFilling]);
+  const selectedFillingPrices = React.useMemo( () => selectedFilling.map((item) => item.price), [selectedFilling]);
 
   const constructorItems = React.useMemo(
     () =>
-      selectedFilling.map((item: {
-        _id: any;
-        image: string;
-        price: number;
-        name: string;
-        type: string; }) => {
+      selectedFilling.map((item) => {
         return <ConstructorBox name={item.name} price={item.price} image={item.image} key={item._id}/>
       }), [selectedFilling]
   );
@@ -34,7 +29,7 @@ function BurgerConstructor() {
   }
 
   function openOrderModal() {
-    const selectedIngredientsIds = stateContext.map((item: any) => item._id);
+    const selectedIngredientsIds = stateContext.map((item) => item._id);
     const body = {"ingredients": selectedIngredientsIds};
     const post = {
       method: "POST",

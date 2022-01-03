@@ -3,7 +3,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import doneImg from "../../images/graphics.png"
 
-function OrderDetails({ orderDetails, onCloseModal }: any) {
+function OrderDetails({ orderDetails, onCloseModal }) {
 
   return (
     <div className={style.wr}>
