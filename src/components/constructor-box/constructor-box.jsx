@@ -2,7 +2,7 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import style from "./constructor-box.module.css"
 import PropTypes from "prop-types";
 
-function ConstructorBox (props: { name: string; price: number; image: string; }) {
+function ConstructorBox (props) {
   return (
     <div className={style.item}>
       <div className={style.item_icon}>

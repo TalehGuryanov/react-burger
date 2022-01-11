@@ -1,29 +1,17 @@
 import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types"
 
-function IngredientDetails(props: any) {
-  const ingredientsData = props.ingredientsDetails;
+function IngredientDetails({ ingredientDetails, onCloseModal }) {
 
   return(
     <div className={style.wr}>
-      <div className={style.header}>
-        <h3 className={`${style.header__title} ${"text text_type_main-large"}`}>
-          Детали ингредиента
-        </h3>
-
-        <div className={style.header__icon_close}>
-          <CloseIcon type="primary" onClick={props.onCloseModal}/>
-        </div>
-      </div>
-
       <div className={style.img}>
-        <img src={ingredientsData.image_large} alt=""/>
+        <img src={ingredientDetails.image_large} alt=""/>
       </div>
 
       <div className={`${style.title} ${"text text_type_main-medium"}`}>
-        {ingredientsData.name}
+        {ingredientDetails.name}
       </div>
 
       <ul className={style.composition}>
@@ -32,7 +20,7 @@ function IngredientDetails(props: any) {
               Калории,ккал
             </span>
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientsData.calories}
+              {ingredientDetails.calories}
             </span>
         </li>
 
@@ -42,7 +30,7 @@ function IngredientDetails(props: any) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientsData.proteins}
+              {ingredientDetails.proteins}
             </span>
         </li>
 
@@ -52,7 +40,7 @@ function IngredientDetails(props: any) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientsData.fat}
+              {ingredientDetails.fat}
             </span>
         </li>
 
@@ -62,7 +50,7 @@ function IngredientDetails(props: any) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientsData.carbohydrates}
+              {ingredientDetails.carbohydrates}
             </span>
         </li>
       </ul>
@@ -71,8 +59,8 @@ function IngredientDetails(props: any) {
 }
 
 IngredientDetails.propsType = {
-  ingredientsDetails: PropTypes.shape(ingredientType).isRequired,
-  onCloseModal: PropTypes.func
+  ingredientDetails: PropTypes.shape(ingredientType).isRequired,
+  onCloseModal: PropTypes.func.isRequired
 }
 
 export default IngredientDetails;

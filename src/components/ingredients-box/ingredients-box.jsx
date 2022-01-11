@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import ingredientType from "../../utils/types"
 
-function IngredientsBox(props: any) {
-  const bunData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "bun"), [props.data]);
-  const sauceData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "sauce"), [props.data]);
-  const mainData = React.useMemo(() => props.data.filter((item: { type: string; }) => item.type === "main"), [props.data]);
+function IngredientsBox(props) {
+  const bunData = React.useMemo(() => props.data.filter((item) => item.type === "bun"), [props.data]);
+  const sauceData = React.useMemo(() => props.data.filter((item) => item.type === "sauce"), [props.data]);
+  const mainData = React.useMemo(() => props.data.filter((item) => item.type === "main"), [props.data]);
   const bun = React.useMemo(
     () =>
-      bunData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+      bunData.map((item) =>
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -19,12 +19,12 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
       ),
-    [props.data]
+    [bunData]
   );
   const sauce = React.useMemo(
     () =>
-      sauceData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+      sauceData.map((item) =>
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -32,11 +32,11 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
       ),
-    [props.data]
+    [sauceData]
   );
   const main = React.useMemo(
-    () => mainData.map((item: any) =>
-        <IngredientsItem openModalIngredient={props.openModalIngredient}
+    () => mainData.map((item) =>
+        <IngredientsItem openIngredientModal={props.openIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -44,7 +44,7 @@ function IngredientsBox(props: any) {
                          price={item.price}
         />
     ),
-    [props.data]
+    [mainData]
   )
 
   return (
@@ -84,7 +84,7 @@ function IngredientsBox(props: any) {
 
 IngredientsBox.propType = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  openModalIngredient: PropTypes.func
+  openIngredientModal: PropTypes.func.isRequired
 }
 
 export default IngredientsBox;

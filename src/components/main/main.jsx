@@ -3,8 +3,11 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
+import { IngredientsContext } from "../../services/ingredients-context";
+import React from "react";
 
-function Main(props: any) {
+function Main(props) {
+
   return (
     <section className={style.wr}>
       <div className={style.container}>
@@ -13,8 +16,11 @@ function Main(props: any) {
         </h1>
 
         <div className={style.content}>
-          <BurgerIngredients data={props.data} openModalIngredient={props.openModalHandlers.openIngredient} />
-          <BurgerConstructor data={props.data} openOrderModal={props.openModalHandlers.openOrder} />
+          <BurgerIngredients data={props.data} />
+
+          <IngredientsContext.Provider value={props.data}>
+            <BurgerConstructor />
+          </IngredientsContext.Provider>
         </div>
       </div>
     </section>
@@ -23,7 +29,6 @@ function Main(props: any) {
 
 Main.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  openModalHandlers: PropTypes.objectOf(PropTypes.func)
 }
 
 export default Main;

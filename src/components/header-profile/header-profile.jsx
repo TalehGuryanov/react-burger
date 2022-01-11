@@ -1,5 +1,5 @@
 import style from "./header-profile.module.css";
-import {ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function HeaderProfile () {
   return (

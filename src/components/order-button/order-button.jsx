@@ -1,13 +1,23 @@
 import style from "./order-button.module.css"
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import React from "react";
 
-function OrderButton(props: any) {
+function OrderButton({selectedIngredientsPrice, openOrderModal}) {
+  const [price, setPrice] = React.useState(0);
+
+  React.useEffect(() => {
+    const setTotalPrice = () => selectedIngredientsPrice.reduce((sum, item) => sum + item, 0);
+    const totalPrice = setTotalPrice();
+
+    setPrice(totalPrice);
+  }, [selectedIngredientsPrice]);
+
   return (
     <div className={style.wr}>
       <div className={style.total}>
         <span className={`${"text text_type_main-large"} ${style.total__text}`}>
-          610
+          {price}
         </span>
 
         <div className={style.total__icon}>
@@ -17,7 +27,7 @@ function OrderButton(props: any) {
 
       <Button type="primary"
               size="large"
-              onClick={props.openOrderModal}
+              onClick={openOrderModal}
       >
         Оформить заказ
       </Button>
@@ -26,7 +36,8 @@ function OrderButton(props: any) {
 };
 
 OrderButton.propsType = {
-  openOrderModal: PropTypes.func
+  openOrderModal: PropTypes.func,
+  selectedIngredientsPrice: PropTypes.arrayOf(PropTypes.number).isRequired
 }
 
 export default OrderButton;
