@@ -15,15 +15,17 @@ function ConstructorBox (props) {
         text={props.name}
         price={props.price}
         thumbnail={props.image}
+        handleClose={props.removeItem}
       />
     </div>
   )
 }
 
 ConstructorBox.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  image: PropTypes.string,
+  removeItem: PropTypes.func
 }
 
 export  default ConstructorBox;

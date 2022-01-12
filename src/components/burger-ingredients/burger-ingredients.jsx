@@ -1,24 +1,45 @@
 import style from "./burger-ingredients.module.css"
 import Tabs  from "../tabs/tabs";
 import IngredientsBox from "../ingredients-box/ingredients-box";
-import PropTypes from "prop-types";
-import ingredientType from "../../utils/types"
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import React from "react";
+import React, {useEffect} from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { getIngredients } from "../../services/actions/actions";
+import { SET_INGREDIENT_DATA, DELETE_INGREDIENT_DATA } from "../../services/actions/actions";
+import Preloader from "../preloader/preloader";
+import ErrorMessage from "../error-message/error-message";
 
-function BurgerIngredients (props) {
-  const [ingredientDetails, setIngredientDetails] = React.useState(false);
+
+function BurgerIngredients () {
+  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
+  const { ingredientData, isOpenModal } = useSelector(store => store.currentIngredient);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, []);
+
 
   function onCloseModal() {
-    setIngredientDetails(false);
+    dispatch({type: DELETE_INGREDIENT_DATA});
   }
 
   function openIngredientModal(event) {
     const id = event.currentTarget.getAttribute("id");
-    const ingredientsArr = props.data.filter((burger) => burger._id === id);
+    const selectedIngredient = ingredientItems.find((burger) => burger._id === id);
 
-    ingredientsArr.forEach((ingredient) => setIngredientDetails(ingredient));
+    dispatch({type: SET_INGREDIENT_DATA, item: selectedIngredient});
+  }
+
+  const renderContent = () => {
+    if(ingredientItemsFailed) {
+      return <ErrorMessage />
+    } else if(ingredientItemsRequest) {
+      return <Preloader />
+    } else {
+      return <IngredientsBox data={ingredientItems} openIngredientModal={openIngredientModal}/>
+    }
   }
 
   return(
@@ -27,20 +48,15 @@ function BurgerIngredients (props) {
         <Tabs />
       </div>
 
-      <IngredientsBox data={props.data} openIngredientModal={openIngredientModal}/>
+      {renderContent()}
 
-      {ingredientDetails &&
+      {isOpenModal &&
         <Modal onCloseModal={onCloseModal} title="Детали ингредиента">
-          <IngredientDetails ingredientDetails={ingredientDetails}/>
+          <IngredientDetails ingredientDetails={ingredientData}/>
         </Modal>
       }
     </div>
   )
-}
-
-BurgerIngredients.PropsType = {
-  openModalIngredient: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired
 }
 
 export default BurgerIngredients;

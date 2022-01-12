@@ -17,6 +17,7 @@ function IngredientsBox(props) {
                          image={item.image}
                          name={item.name}
                          price={item.price}
+                         type={item.type}
         />
       ),
     [bunData]
@@ -30,6 +31,7 @@ function IngredientsBox(props) {
                          image={item.image}
                          name={item.name}
                          price={item.price}
+
         />
       ),
     [sauceData]
@@ -45,7 +47,7 @@ function IngredientsBox(props) {
         />
     ),
     [mainData]
-  )
+  );
 
   return (
     <div className={style.wr}>
@@ -83,8 +85,8 @@ function IngredientsBox(props) {
 }
 
 IngredientsBox.propType = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-  openIngredientModal: PropTypes.func.isRequired
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)),
+  openIngredientModal: PropTypes.func
 }
 
 export default IngredientsBox;

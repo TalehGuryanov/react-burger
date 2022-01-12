@@ -1,10 +1,18 @@
 import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {useDrag} from "react-dnd";
 
 function IngredientsItem(props) {
+  const { image, id, name, price, type } = props;
+  const [{isDrag}, dragRef] = useDrag({
+    type: "ingredient",
+    item: { image, id, name, price, type },
+    collect: monitor => ({isDrag: monitor.isDragging()}),
+  });
+
   return(
-    <li className={style.wr} onClick={props.openIngredientModal} id={props.id}>
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={props.openIngredientModal} id={props.id} ref={dragRef}>
       <Counter count={1} size="default" />
       <div className={style.img}>
         <img src={props.image}
@@ -29,11 +37,12 @@ function IngredientsItem(props) {
 }
 
 IngredientsItem.propType = {
-  openModalHandlers: PropTypes.objectOf(PropTypes.func).isRequired,
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired
+  openModalHandlers: PropTypes.objectOf(PropTypes.func),
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  id: PropTypes.string,
+  type: PropTypes.string
 }
 
 export default IngredientsItem;

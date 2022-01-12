@@ -12,6 +12,10 @@
     margin-top: 40px;
 }
 
+.dragging {
+    opacity: .5;
+}
+
 .image {
     margin-bottom: 4px;
 }
