@@ -12,7 +12,7 @@ function IngredientsItem(props) {
   });
 
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={props.openIngredientModal} id={props.id} ref={dragRef}>
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={props.showIngredientModal} id={props.id} ref={dragRef}>
       <Counter count={1} size="default" />
       <div className={style.img}>
         <img src={props.image}
@@ -37,7 +37,6 @@ function IngredientsItem(props) {
 }
 
 IngredientsItem.propType = {
-  openModalHandlers: PropTypes.objectOf(PropTypes.func),
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,

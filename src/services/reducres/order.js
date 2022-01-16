@@ -1,4 +1,4 @@
-import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED} from "../actions/actions";
+import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED} from "../actions/order";
 
 const initialState =  {
   orderData: null,
@@ -6,7 +6,7 @@ const initialState =  {
   orderFailed: false
 };
 
-export function sendOrderData(state = initialState, action) {
+export function orderReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ORDER: {
       return {

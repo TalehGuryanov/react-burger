@@ -1,4 +1,4 @@
-import { GET_ITEMS, GET_ITEMS_SUCCESS, GET_ITEMS_FAILED } from "../actions/actions";
+import { GET_ITEMS, GET_ITEMS_SUCCESS, GET_ITEMS_FAILED } from "../actions/ingredients";
 
 const initialState = {
   ingredientItems: [],
@@ -6,7 +6,7 @@ const initialState = {
   ingredientItemsFailed: false,
 };
 
-export const ingredientsList = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS: {
       return {

@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import ingredientType from "../../utils/types"
 
-function IngredientsBox(props) {
-  const bunData = React.useMemo(() => props.data.filter((item) => item.type === "bun"), [props.data]);
-  const sauceData = React.useMemo(() => props.data.filter((item) => item.type === "sauce"), [props.data]);
-  const mainData = React.useMemo(() => props.data.filter((item) => item.type === "main"), [props.data]);
+function IngredientsBox({data, showIngredientModal}) {
+  const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
+  const sauceData = React.useMemo(() =>data.filter((item) => item.type === "sauce"), [data]);
+  const mainData = React.useMemo(() => data.filter((item) => item.type === "main"), [data]);
   const bun = React.useMemo(
     () =>
       bunData.map((item) =>
-        <IngredientsItem openIngredientModal={props.openIngredientModal}
+        <IngredientsItem showIngredientModal={showIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -25,7 +25,7 @@ function IngredientsBox(props) {
   const sauce = React.useMemo(
     () =>
       sauceData.map((item) =>
-        <IngredientsItem openIngredientModal={props.openIngredientModal}
+        <IngredientsItem showIngredientModal={showIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -38,7 +38,7 @@ function IngredientsBox(props) {
   );
   const main = React.useMemo(
     () => mainData.map((item) =>
-        <IngredientsItem openIngredientModal={props.openIngredientModal}
+        <IngredientsItem showIngredientModal={showIngredientModal}
                          key={item._id}
                          id={item._id}
                          image={item.image}
@@ -86,7 +86,7 @@ function IngredientsBox(props) {
 
 IngredientsBox.propType = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)),
-  openIngredientModal: PropTypes.func
+  showIngredientModal: PropTypes.func
 }
 
 export default IngredientsBox;

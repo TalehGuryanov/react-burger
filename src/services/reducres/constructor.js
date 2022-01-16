@@ -1,11 +1,11 @@
-import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR } from "../actions/actions";
+import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR } from "../actions/constuctor";
 
 const initialState = {
   bun: null,
   fillingItems: []
 }
 
-export function updateConstructor(state = initialState, action) {
+export function constructorReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_ITEM_TO_CONSTRUCTOR: {
       return {
