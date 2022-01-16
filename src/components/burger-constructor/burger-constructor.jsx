@@ -32,8 +32,8 @@ function BurgerConstructor() {
   }
 
   // Removed bun from constructor
-  const removeFilling = (index) => {
-    dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index })
+  const removeFilling = (item) => {
+    dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index: item.index });
   }
 
   const [{isHover}, dropTarget] = useDrop({
@@ -64,7 +64,7 @@ function BurgerConstructor() {
                       price={item.price}
                       image={item.image}
                       key={item.index}
-                      removeItem={() => removeFilling(item.index)}/>),
+                      removeItem={() => removeFilling(item)}/>),
   [fillingItems]);
 
   // Work with order modal

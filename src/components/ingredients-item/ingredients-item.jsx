@@ -2,27 +2,40 @@ import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
+import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 
-function IngredientsItem(props) {
-  const { image, id, name, price, type } = props;
+function IngredientsItem({ image, id, name, price, type, showIngredientModal }) {
+  const { fillingItems, bun } = useSelector((store) => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: { image, id, name, price, type },
     collect: monitor => ({isDrag: monitor.isDragging()}),
   });
+  const [count, updateCount] = useState(0);
+  const setCount = () => {
+    if(bun && bun.id === id) {
+      return 2
+    } else if (fillingItems.length) {
+      return fillingItems.filter(item => item.id === id).length
+    }
+  };
+  useEffect(() => {
+    updateCount(setCount());
+  }, [setCount])
 
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={props.showIngredientModal} id={props.id} ref={dragRef}>
-      <Counter count={1} size="default" />
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={showIngredientModal} id={id} ref={dragRef}>
+      {count > 0 && <Counter count={count} size="default"/>}
       <div className={style.img}>
-        <img src={props.image}
-             alt={props.name}
+        <img src={image}
+             alt={name}
         />
       </div>
 
       <div className={style.price}>
         <span className={`${"text text_type_main-medium"} ${style.price_icon}`}>
-          {props.price}
+          {price}
         </span>
         <div className={style.price_icon}>
           <CurrencyIcon type="primary" />
@@ -30,7 +43,7 @@ function IngredientsItem(props) {
       </div>
 
       <div className={`${"text text_type_main-default"} ${style.title}`}>
-        {props.name}
+        {name}
       </div>
     </li>
   )
@@ -41,7 +54,8 @@ IngredientsItem.propType = {
   name: PropTypes.string,
   price: PropTypes.number,
   id: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  showIngredientModal: PropTypes.func
 }
 
 export default IngredientsItem;
