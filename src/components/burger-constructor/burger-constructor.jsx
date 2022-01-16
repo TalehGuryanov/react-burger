@@ -6,8 +6,13 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
-import { useDrop } from "react-dnd";
-import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR } from "../../services/actions/constuctor";
+import {useDrag, useDrop} from "react-dnd";
+import {
+  ADD_ITEM_TO_CONSTRUCTOR,
+  DELETE_ITEM_FROM_CONSTRUCTOR,
+  ADD_BUN_TO_CONSTRUCTOR,
+  swapIngredients
+} from "../../services/actions/constuctor";
 import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
 import burger from "../../images/burger.png";
 import Preloader from "../preloader/preloader";
@@ -58,15 +63,6 @@ function BurgerConstructor() {
   const fillingIds = React.useMemo(() =>fillingItems.map((item) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
-  const fillingItem = React.useMemo(() =>
-    fillingItems.map((item) =>
-      <ConstructorBox name={item.name}
-                      price={item.price}
-                      image={item.image}
-                      key={item.index}
-                      removeItem={() => removeFilling(item)}/>),
-  [fillingItems]);
-
   // Work with order modal
   const onCloseModal = () => {
     dispatch({type: CLOSE_ORDER_MODAL})
@@ -99,6 +95,27 @@ function BurgerConstructor() {
       return <OrderDetails orderDetails={orderData} onCloseModal={onCloseModal}/>
     }
   }
+
+  // Swapping ingredients
+  const moveIngredients = (dragIndex, hoverIndex) => {
+    if(dragIndex >= 0) {
+      dispatch(swapIngredients(fillingItems, dragIndex, hoverIndex));
+    }
+  }
+
+  const fillingItem = React.useMemo(() =>
+      fillingItems.map((item, index) =>
+        <ConstructorBox name={item.name}
+                        price={item.price}
+                        image={item.image}
+                        key={item.index}
+                        id={item.id}
+                        index={index}
+                        removeItem={() => removeFilling(item)}
+                        moveIngredients={moveIngredients}
+        />
+      ),
+    [fillingItems]);
 
   const burgerIcon =
     <div className={style.burger_img_wr}>

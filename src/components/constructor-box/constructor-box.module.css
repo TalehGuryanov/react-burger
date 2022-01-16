@@ -3,6 +3,7 @@
     align-items: center;
     position: relative;
     padding-left: 60px;
+    transition: opacity .35s ease-in-out;
 }
 
 .item_icon {
@@ -12,4 +13,8 @@
     transform: translateY(-50%);
     left: 26px;
     cursor: pointer;
+}
+
+.dragging {
+    opacity: .7;
 }

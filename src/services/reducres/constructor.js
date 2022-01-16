@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR } from "../actions/constuctor";
+import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR, SWAMP_INGREDIENTS } from "../actions/constuctor";
 
 const initialState = {
   bun: null,
@@ -23,6 +23,12 @@ export function constructorReducer(state = initialState, action) {
       return {
         ...state,
         bun: action.bun
+      }
+    }
+    case SWAMP_INGREDIENTS: {
+      return {
+        ...state,
+        fillingItems: action.changedArray
       }
     }
     default: {
