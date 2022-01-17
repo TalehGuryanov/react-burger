@@ -3,6 +3,7 @@
     align-items: center;
     position: relative;
     padding-left: 60px;
+    cursor: pointer;
     transition: opacity .35s ease-in-out;
 }
 
