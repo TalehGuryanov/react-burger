@@ -1,9 +1,7 @@
 import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Tabs () {
-  const [current, setCurrent] = React.useState('one');
-
+function Tabs ({current, setCurrent}) {
   return (
     <div style={{ display: 'flex' }}>
       <Tab value="one" active={current === 'one'} onClick={setCurrent}>

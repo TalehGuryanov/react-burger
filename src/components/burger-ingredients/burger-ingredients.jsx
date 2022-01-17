@@ -1,5 +1,4 @@
 import style from "./burger-ingredients.module.css"
-import Tabs  from "../tabs/tabs";
 import IngredientsBox from "../ingredients-box/ingredients-box";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -51,10 +50,6 @@ function BurgerIngredients () {
 
   return(
     <div className={style.wr}>
-      <div className={style.tabs}>
-        <Tabs />
-      </div>
-
       {renderContent()}
 
       {isIngredientModalOpen &&

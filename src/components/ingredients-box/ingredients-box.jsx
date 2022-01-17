@@ -1,8 +1,9 @@
 import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import PropTypes from "prop-types";
-import React from "react";
+import React, {useRef} from "react";
 import ingredientType from "../../utils/types"
+import Tabs from "../tabs/tabs";
 
 function IngredientsBox({data, showIngredientModal}) {
   const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
@@ -49,38 +50,68 @@ function IngredientsBox({data, showIngredientModal}) {
     [mainData]
   );
 
+  const [current, setCurrent] = React.useState('one');
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
+
+  const onScroll = (event) => {
+    const wrapperClientY = event.target.getBoundingClientRect().y;
+    const bunClientY = bunRef.current.getBoundingClientRect().y;
+    const sauceClientY = sauceRef.current.getBoundingClientRect().y;
+    const mainClientY = mainRef.current.getBoundingClientRect().y;
+
+    if(bunClientY <= wrapperClientY) {
+      setCurrent('one');
+    }
+
+    if(sauceClientY <= wrapperClientY) {
+      setCurrent('two');
+    }
+
+    if(mainClientY <= wrapperClientY) {
+      setCurrent('three');
+    }
+  };
+
   return (
-    <div className={style.wr}>
-      <div className={style.in}>
-        <h3 className={`${"text text_type_main-medium"} ${style.title}`}>
-          Булки
-        </h3>
-
-        <ul className={style.list}>
-          {bun}
-        </ul>
+    <>
+      <div>
+        <Tabs current={current} setCurrent={setCurrent}/>
       </div>
 
-      <div className={style.in}>
-        <h3 className={`${"text text_type_main-medium"} ${style.title}`}>
-          Соусы
-        </h3>
+      <div className={style.content} onScroll={onScroll}>
+        <div className={style.in} ref={bunRef}>
+          <h3 className="text text_type_main-medium">
+            Булки
+          </h3>
 
-        <ul className={style.list}>
-          {sauce}
-        </ul>
+          <ul className={style.list}>
+            {bun}
+          </ul>
+        </div>
+
+        <div className={style.in} ref={sauceRef}>
+          <h3 className="text text_type_main-medium">
+            Соусы
+          </h3>
+
+          <ul className={style.list}>
+            {sauce}
+          </ul>
+        </div>
+
+        <div className={style.in} ref={mainRef}>
+          <h3 className="text text_type_main-medium">
+            Начинки
+          </h3>
+
+          <ul className={style.list}>
+            {main}
+          </ul>
+        </div>
       </div>
-
-      <div className={style.in}>
-        <h3 className={`${"text text_type_main-medium"} ${style.title}`}>
-          Начинки
-        </h3>
-
-        <ul className={style.list}>
-          {main}
-        </ul>
-      </div>
-    </div>
+    </>
   )
 }
 
