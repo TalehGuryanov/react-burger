@@ -37,7 +37,6 @@ function OrderButton({selectedIngredientsPrice, showOrderData}) {
 
 OrderButton.propsType = {
   selectedIngredientsPrice: PropTypes.arrayOf(PropTypes.number),
-  constructorItemsIds: PropTypes.arrayOf(PropTypes.string),
   showOrderData: PropTypes.func
 }
 

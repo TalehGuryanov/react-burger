@@ -1,5 +1,8 @@
 import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import ingredientType from "../../utils/types";
+import IngredientsBox from "../ingredients-box/ingredients-box";
 
 function Tabs ({current, setCurrent}) {
   return (
@@ -15,6 +18,11 @@ function Tabs ({current, setCurrent}) {
       </Tab>
     </div>
   )
+}
+
+Tabs.propType = {
+  current: PropTypes.string,
+  setCurrent: PropTypes.func
 }
 
 export default Tabs;
