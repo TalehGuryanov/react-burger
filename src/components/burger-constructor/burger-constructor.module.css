@@ -1,5 +1,12 @@
 .wr {
     width: 50%;
+    border: 1px solid transparent;
+    transition: border-color .35s;
+    border-radius: 10px;
+}
+
+.hover {
+    border-color: red;
 }
 
 .block {
@@ -34,3 +41,21 @@
     margin-bottom: 16px;
 }
 
+.burger_img_wr {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.burger_img {
+    width: 80%;
+    max-height: 100%;
+    vertical-align: bottom;
+    transition: opacity .35s ease-in-out;
+}
+
+.burger_img__hover {
+    opacity: .7;
+}

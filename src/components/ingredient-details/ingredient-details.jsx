@@ -2,7 +2,7 @@ import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import ingredientType from "../../utils/types"
 
-function IngredientDetails({ ingredientDetails, onCloseModal }) {
+function IngredientDetails({ ingredientDetails }) {
 
   return(
     <div className={style.wr}>
@@ -59,8 +59,7 @@ function IngredientDetails({ ingredientDetails, onCloseModal }) {
 }
 
 IngredientDetails.propsType = {
-  ingredientDetails: PropTypes.shape(ingredientType).isRequired,
-  onCloseModal: PropTypes.func.isRequired
+  ingredientDetails: PropTypes.shape(ingredientType)
 }
 
 export default IngredientDetails;

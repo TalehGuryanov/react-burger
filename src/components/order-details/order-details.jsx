@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import doneImg from "../../images/graphics.png"
 
 function OrderDetails({ orderDetails }) {
-
   return (
     <div className={style.wr}>
       <div className={`${style.title} ${"text text_type_digits-large"}`}>
@@ -30,8 +29,7 @@ function OrderDetails({ orderDetails }) {
 }
 
 OrderDetails.propsType = {
-  orderDetails: PropTypes.object.isRequired,
-  onCloseModal: PropTypes.func.isRequired
+  orderDetails: PropTypes.object
 }
 
 export default OrderDetails;

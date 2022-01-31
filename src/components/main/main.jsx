@@ -1,12 +1,11 @@
 import style from "./main.module.css"
+import React from "react";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
-import { IngredientsContext } from "../../services/ingredients-context";
-import React from "react";
+import {DndProvider} from "react-dnd";
 
-function Main(props) {
+function Main() {
 
   return (
     <section className={style.wr}>
@@ -15,20 +14,16 @@ function Main(props) {
           Соберите бургер
         </h1>
 
-        <div className={style.content}>
-          <BurgerIngredients data={props.data} />
+        <DndProvider backend={HTML5Backend}>
+          <div className={style.content}>
+            <BurgerIngredients />
 
-          <IngredientsContext.Provider value={props.data}>
             <BurgerConstructor />
-          </IngredientsContext.Provider>
-        </div>
+          </div>
+        </DndProvider>
       </div>
     </section>
   )
-}
-
-Main.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
 }
 
 export default Main;

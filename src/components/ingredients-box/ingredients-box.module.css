@@ -1,21 +1,21 @@
-.wr {
-    max-height: 400px;
+.content {
+    max-height: 700px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.wr::-webkit-scrollbar {
+.content::-webkit-scrollbar {
     width: 8px;
     background: #2F2F37;
 }
 
-.wr::-webkit-scrollbar-thumb {
+.content::-webkit-scrollbar-thumb {
     background-color: #8585AD;
     border-radius: 0;
 }
 
 .in {
-    padding-bottom: 40px;
+    padding-top: 40px;
 }
 
 .list {
