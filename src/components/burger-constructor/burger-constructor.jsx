@@ -6,11 +6,12 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrop} from "react-dnd";
 import {
   ADD_ITEM_TO_CONSTRUCTOR,
   DELETE_ITEM_FROM_CONSTRUCTOR,
   ADD_BUN_TO_CONSTRUCTOR,
+  CLEAN_CONSTRUCTOR,
   swapIngredients
 } from "../../services/actions/constuctor";
 import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
@@ -41,6 +42,10 @@ function BurgerConstructor() {
     dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index: item.index });
   }
 
+  const cleanConstructor = () => {
+    dispatch({type: CLEAN_CONSTRUCTOR})
+  }
+
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -60,7 +65,7 @@ function BurgerConstructor() {
 
   // Get elements id's
   const bunId = bun ? bun.id : null;
-  const fillingIds = React.useMemo(() =>fillingItems.map((item) => item.id), [fillingItems]);
+  const fillingIds = React.useMemo(() => fillingItems.map((item) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
   // Work with order modal
@@ -82,6 +87,7 @@ function BurgerConstructor() {
       };
 
       dispatch(order(post));
+      cleanConstructor();
       openModal();
     }
   }

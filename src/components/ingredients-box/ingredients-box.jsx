@@ -74,10 +74,23 @@ function IngredientsBox({data, showIngredientModal}) {
     }
   };
 
+  const scrollOnClick = (event) => {
+    if (event === "one") {
+      bunRef.current.scrollIntoView({block: "start", behavior: "smooth"});
+      setCurrent('one');
+    } else if(event === "two") {
+      sauceRef.current.scrollIntoView({block: "start", behavior: "smooth"});
+      setCurrent('two');
+    } else {
+      mainRef.current.scrollIntoView({block: "start", behavior: "smooth"});
+      setCurrent('three');
+    }
+  }
+
   return (
     <>
       <div>
-        <Tabs current={current} setCurrent={setCurrent}/>
+        <Tabs current={current} setCurrent={setCurrent} scrollOnClick={scrollOnClick}/>
       </div>
 
       <div className={style.content} onScroll={onScroll}>

@@ -2,8 +2,10 @@ import style from "./order-button.module.css"
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import React from "react";
+import {useSelector} from "react-redux";
 
 function OrderButton({selectedIngredientsPrice, showOrderData}) {
+  const { bun } = useSelector((store) => store.constructorData);
   const [price, setPrice] = React.useState(0);
 
   React.useEffect(() => {
@@ -28,6 +30,7 @@ function OrderButton({selectedIngredientsPrice, showOrderData}) {
       <Button type="primary"
               size="large"
               onClick={showOrderData}
+              disabled={!bun}
       >
         Оформить заказ
       </Button>
