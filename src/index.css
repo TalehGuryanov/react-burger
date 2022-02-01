@@ -25,3 +25,7 @@ code {
 .tab_tab__2UQID {
   width: 33.3333% !important;
 }
+
+.input__icon.input__icon-action {
+  width: auto;
+}

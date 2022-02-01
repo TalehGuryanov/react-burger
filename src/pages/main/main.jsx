@@ -1,8 +1,8 @@
 import style from "./main.module.css"
 import React from "react";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import {DndProvider} from "react-dnd";
 
 function Main() {

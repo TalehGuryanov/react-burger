@@ -1,30 +1,38 @@
 import React from 'react';
 import './app.module.css';
 import Header from "../header/header";
-import Main from "../main/main";
 import style from "./app.module.css"
-import { URL } from "../../utils/constants";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import {Login, Main, Register, ForgotPassword, ResetPassword} from "../../pages";
 
 function App() {
-  // const [state, setState] = React.useState([]);
-  //
-  // React.useEffect(() => {
-  //   fetch(`${URL}/ingredients`)
-  //     .then((response) => {
-  //       if(!response.ok) {
-  //         throw new Error('Something went wrong');
-  //       }
-  //       return response.json()
-  //     })
-  //     .then((data) => setState(data.data))
-  //     .catch((error) => console.log(error))
-  // }, []);
-
   return (
-    <main className={style.app}>
-      <Header />
-      <Main />
-    </main>
+      <main className={style.app}>
+        <Header />
+        <Router>
+          <Switch>
+            <Route path="/" exact={true}>
+              <Main />
+            </Route>
+            <Route path="/login" exact={true}>
+              <Login/>
+            </Route>
+            <Route path="/register" exact={true}>
+              <Register/>
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+              <ForgotPassword/>
+            </Route>
+            <Route path="/reset-password" exact={true}>
+              <ResetPassword/>
+            </Route>
+          </Switch>
+        </Router>
+      </main>
   );
 }
 
