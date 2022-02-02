@@ -1,19 +1,54 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, Redirect} from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./reset-password.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPasswordThunk} from "../../services/actions/auth";
+import Preloader from "../../components/preloader/preloader";
+import Notification from "../../components/notification/notification";
 
 const ResetPassword = () => {
+  const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector(store => store.authResponse);
+  const dispatch = useDispatch();
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onResetPassword = (event) => {
+    event.preventDefault();
+    dispatch(resetPasswordThunk(password, code));
+  }
+
+  const onSetPassword = ({target}) => {
+    setPassword(target.value);
+  }
+
+  const onSetCode = ({target}) => {
+    setCode(target.value);
+  }
+
+  const renderResponse= () => {
+    if (resetPasswordError){
+      return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
+    } else if(resetPasswordSuccess) {
+      return <Notification text="Пароль успешно восстановлен" status={false}/>
+    }
+  }
+
+  const redirect = () => {
+    setTimeout(() => <Redirect to={"/"}/>, 1000)
+  }
+
   return (
+    resetPasswordRequest ? <Preloader /> :
     <div className={style.wr}>
       <div className={style.title + " text text_type_main-medium"}>
         Восстановление пароля
       </div>
 
-      <form className={style.form}>
+      <form className={style.form} onSubmit={onResetPassword}>
         <div className={style.form_field__wr}>
           <Input
             type={"password"}
@@ -21,6 +56,8 @@ const ResetPassword = () => {
             name={"password"}
             error={false}
             size={"default"}
+            onChange={onSetPassword}
+            value={password}
           />
         </div>
         <div className={style.form_field__wr}>
@@ -30,6 +67,8 @@ const ResetPassword = () => {
             name={"code"}
             error={false}
             size={"default"}
+            onChange={onSetCode}
+            value={code}
           />
         </div>
         <div className={style.form_submit__wr}>
@@ -45,6 +84,8 @@ const ResetPassword = () => {
           <Link className={ style.footer_link + " text text_type_main-default"} to="/login"> Войти</Link>
         </div>
       </div>
+      {renderResponse()}
+      {redirect()}
     </div>
   );
 };
