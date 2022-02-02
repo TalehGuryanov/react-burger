@@ -1,0 +1,18 @@
+.wr {
+    width: 100%;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.success {
+    background: #015b01;
+}
+
+.error {
+    background: #d00505;
+}

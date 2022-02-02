@@ -1,27 +1,67 @@
-import React  from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 import {
-  EmailInput,
   PasswordInput,
-  Button,
+  Button, Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import style from "./login.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {loginUserThunk} from "../../services/actions/auth";
+import Preloader from "../../components/preloader/preloader";
+import Notification from "../../components/notification/notification";
 
 const Login = () => {
+  const { isLoginSuccess, isLoginRequest, isLoginFailed } = useSelector(store => store.authResponse);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmitLogin = (event) => {
+    event.preventDefault();
+    console.log(email)
+    console.log(password)
+    dispatch(loginUserThunk(email, password));
+  }
+
+  const onSetEmail = ({target}) => {
+    setEmail(target.value);
+  }
+
+  const onSetPassword = ({target}) => {
+    setPassword(target.value);
+  }
+
+  const renderError = () => {
+    if (isLoginFailed){
+      return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
+    }
+  }
+
   return (
+    isLoginRequest ? <Preloader /> :
     <div className={style.wr}>
       <div className={style.title + " text text_type_main-medium"}>
         Вход
       </div>
 
-      <form action="" className={style.form}>
+      <form action="" className={style.form} onSubmit={onSubmitLogin}>
         <div className={style.form_field__wr}>
-          <EmailInput name={"email"} />
+          <Input
+            type={"text"}
+            placeholder={"E-mail"}
+            name={"email"}
+            error={false}
+            size={"default"}
+            onChange={onSetEmail}
+            value={email}
+          />
         </div>
         <div className={style.form_field__wr}>
           <PasswordInput
             name={"password"}
+            onChange={onSetPassword}
+            value={password}
           />
         </div>
 
@@ -43,6 +83,8 @@ const Login = () => {
           <Link className={ style.footer_link + " text text_type_main-default"} to="/forgot-password"> Восстановить пароль</Link>
         </div>
       </div>
+
+      {renderError()}
     </div>
   )
 };
