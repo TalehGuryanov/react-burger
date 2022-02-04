@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './app.module.css';
 import Header from "../header/header";
 import style from "./app.module.css"
@@ -7,7 +7,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {Login, Main, Register, ForgotPassword, ResetPassword} from "../../pages";
+import {Login, Main, Register, ForgotPassword, ResetPassword, Profile} from "../../pages";
 
 function App() {
   return (
@@ -18,16 +18,19 @@ function App() {
             <Route path="/" exact={true}>
               <Main />
             </Route>
-            <Route path="/login" exact={true}>
+            <Route path="/profile" >
+              <Profile />
+            </Route>
+            <Route path="/login" >
               <Login/>
             </Route>
-            <Route path="/register" exact={true}>
+            <Route path="/register" >
               <Register/>
             </Route>
-            <Route path="/forgot-password" exact={true}>
+            <Route path="/forgot-password" >
               <ForgotPassword/>
             </Route>
-            <Route path="/reset-password" exact={true}>
+            <Route path="/reset-password" >
               <ResetPassword/>
             </Route>
           </Switch>

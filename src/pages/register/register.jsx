@@ -33,7 +33,7 @@ const Register = () => {
 
   useEffect(() => {
     redirectToLogin();
-  }, [isRegisterSuccess, redirectToLogin])
+  }, [redirectToLogin])
 
   const onSetName = ({target}) => {
     setUserName(target.value);

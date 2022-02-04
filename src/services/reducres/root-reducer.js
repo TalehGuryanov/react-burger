@@ -5,6 +5,7 @@ import { constructorReducer } from "./constructor";
 import { orderReducer } from "./order";
 import { showHideModal } from "./modal";
 import {authReducer} from "./auth";
+import {userDataReducer} from "./user-data";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   modal: showHideModal,
   authResponse: authReducer,
+  user: userDataReducer
 });

@@ -3,5 +3,6 @@ import Main from "./main/main";
 import Register from "./register/register";
 import ForgotPassword from "./forgot-password/forgot-password";
 import ResetPassword from "./reset-password/reset-password";
+import Profile from "./profile/profile"
 
-export { Login, Main, Register, ForgotPassword, ResetPassword };
+export { Login, Main, Register, ForgotPassword, ResetPassword, Profile };

@@ -10,7 +10,7 @@ import {
   GET_RESET_PASSWORD_CODE_SUCCESS,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_ERROR
+  RESET_PASSWORD_ERROR,
 } from "../actions/auth";
 
 const initialState = {
@@ -44,9 +44,6 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS : {
       return {
         ...state,
-        user: action.user,
-        refreshToken: action.refreshToken,
-        accessToken: action.accessToken,
         isRegisterRequest: false,
         isRegisterFailed: false,
         isRegisterSuccess: true
@@ -71,9 +68,6 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        user: action.user,
-        refreshToken: action.refreshToken,
-        accessToken: action.accessToken,
         isLoginRequest: false,
         isLoginFailed: false,
         isLoginSuccess: true

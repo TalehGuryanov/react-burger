@@ -1,4 +1,5 @@
-import {AUTH_API} from "../../utils/constants";
+import {accessTokenLifeTime, apiRequest} from "../../utils/constants";
+import {setCookie} from "../../utils/set-cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -16,41 +17,34 @@ export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_ERROR = "RESET_PASSWORD_ERROR";
 
-const authRequest = (endpoint, data, method="POST") => {
-  const options = {
-    method: method,
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
-  };
-
-  return fetch(AUTH_API + endpoint, options)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error: " + response.statusText);
-      }
-    })
-};
-
 export const registerUserThunk = (user, email, password) => {
   return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
 
-    authRequest("/auth/register", {
+    const data = {
       name: user,
       email: email,
       password: password,
-    })
+    }
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    apiRequest("/auth/register", options)
       .then((res) => {
-        dispatch({type: REGISTER_SUCCESS, accessToken: res.accessToken, refreshToken: res.refreshToken, user: res.user })
+        dispatch({type: REGISTER_SUCCESS })
+        setCookie('refreshToken', res.refreshToken);
+        setCookie('accessToken', res.accessToken, {expires: accessTokenLifeTime});
       })
       .catch(() => dispatch({type: REGISTER_ERROR}))
   }
@@ -60,11 +54,30 @@ export const loginUserThunk = (email, password) => {
   return function (dispatch) {
     dispatch({ type: LOGIN_REQUEST });
 
-    authRequest("/auth/login", {
+    const data = {
       email: email,
       password: password,
-    })
-      .then((res) => dispatch({type: LOGIN_SUCCESS, accessToken: res.accessToken, refreshToken: res.refreshToken, user: res.user}))
+    };
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    apiRequest("/auth/login", options)
+      .then((res) => {
+        dispatch({type: LOGIN_SUCCESS });
+        setCookie('refreshToken', res.refreshToken);
+        setCookie('accessToken', res.accessToken, {expires: accessTokenLifeTime});
+      })
       .catch(() => dispatch({type: LOGIN_ERROR}))
   }
 }
@@ -73,9 +86,24 @@ export const forgotPasswordThunk = (email) => {
   return function (dispatch) {
     dispatch({ type: GET_RESET_PASSWORD_CODE_REQUEST });
 
-    authRequest("/password-reset", {
-      email: email,
-    })
+    const data = {
+      email: email
+    };
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    apiRequest("/password-reset", options)
       .then(() => dispatch({type: GET_RESET_PASSWORD_CODE_SUCCESS }))
       .catch(() => dispatch({type: GET_RESET_PASSWORD_CODE_ERROR}))
   }
@@ -85,10 +113,25 @@ export const resetPasswordThunk = (password, code) => {
   return function (dispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
-    authRequest("/password-reset/reset", {
+    const data = {
       password: password,
       token: code,
-    })
+    };
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    apiRequest("/password-reset/reset", options)
       .then(() => dispatch({type: RESET_PASSWORD_SUCCESS }))
       .catch(() => dispatch({type: RESET_PASSWORD_ERROR}))
   }
