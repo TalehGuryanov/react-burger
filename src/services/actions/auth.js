@@ -1,5 +1,6 @@
 import {accessTokenLifeTime, apiRequest} from "../../utils/constants";
 import {setCookie} from "../../utils/set-cookie";
+import {deleteCookie} from "../../utils/delete-cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -16,6 +17,10 @@ export const GET_RESET_PASSWORD_CODE_ERROR = "GET_RESET_PASSWORD_CODE_ERROR";
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_ERROR = "RESET_PASSWORD_ERROR";
+
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_ERROR = "LOGOUT_ERROR";
 
 export const registerUserThunk = (user, email, password) => {
   return function (dispatch) {
@@ -134,6 +139,37 @@ export const resetPasswordThunk = (password, code) => {
     apiRequest("/password-reset/reset", options)
       .then(() => dispatch({type: RESET_PASSWORD_SUCCESS }))
       .catch(() => dispatch({type: RESET_PASSWORD_ERROR}))
+  }
+}
+
+export const logoutThunk = (refreshToken) => {
+  return function (dispatch) {
+    dispatch({type: LOGOUT_REQUEST})
+
+    const data = {
+      token: refreshToken
+    }
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    apiRequest("/auth/logout", options)
+      .then(() => {
+        deleteCookie("refreshToken");
+        deleteCookie("accessToken");
+        dispatch({type: LOGOUT_SUCCESS });
+      })
+      .catch(() => dispatch({type: LOGOUT_ERROR}))
   }
 }
 

@@ -24,7 +24,7 @@ function App() {
           <Route path="/" exact >
             <Main />
           </Route>
-          <ProtectedRoute path="/profile" isLogged={!!isLoggedSelector} redirectTo={"/login"}>
+          <ProtectedRoute exact path="/profile" isLogged={!!isLoggedSelector} redirectTo={"/login"}>
             <Profile />
           </ProtectedRoute>
           <Route path="/login">

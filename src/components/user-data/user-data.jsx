@@ -53,7 +53,7 @@ function UserData() {
 
   const renderNotification = () => {
     if(userDataError || updateTokenError || editUserDataError) {
-      return <Notification status={false} text="Что-то пошло не так, попробуйте еще раз"/>
+      return <Notification status={false} text="Что-то пошло не так. Попробуйте еще раз"/>
     } else if (editUserDataSuccess) {
       return <Notification status={true} text="Данные успешно обновлены"/>
     }

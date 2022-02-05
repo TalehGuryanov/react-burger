@@ -11,12 +11,12 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_ERROR
 } from "../actions/auth";
 
 const initialState = {
-  user: null,
-  refreshToken: '',
-  accessToken: '',
   isRegisterRequest: false,
   isRegisterFailed: false,
   isRegisterSuccess: false,
@@ -29,6 +29,9 @@ const initialState = {
   resetPasswordRequest: false,
   resetPasswordSuccess: false,
   resetPasswordError: false,
+  logoutRequest: false,
+  logoutSuccess: false,
+  logoutError: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -127,6 +130,30 @@ export const authReducer = (state = initialState, action) => {
         resetPasswordRequest: false,
         resetPasswordSuccess: false,
         resetPasswordError: true,
+      }
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequest: true,
+        logoutSuccess: false,
+        logoutError: false,
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutSuccess: true,
+        logoutError: false,
+      }
+    }
+    case LOGOUT_ERROR: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutSuccess: false,
+        logoutError: true,
       }
     }
     default: {
