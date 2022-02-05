@@ -5,17 +5,17 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./register.module.css"
-import {Link, useHistory} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUserThunk} from "../../services/actions/auth";
 import Preloader from "../../components/preloader/preloader";
 import Notification from "../../components/notification/notification";
+import PropTypes from "prop-types";
 
 
-const Register = () => {
+const Register = ({isLogged, redirectTo}) => {
   const { isRegisterSuccess, isRegisterRequest, isRegisterFailed } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
-  const history = useHistory();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,16 +24,6 @@ const Register = () => {
     event.preventDefault();
     dispatch(registerUserThunk(userName, email, password));
   };
-
-  const redirectToLogin = () => {
-    if(isRegisterSuccess) {
-      setTimeout(() => history.replace('/login'), 1000);
-    }
-  }
-
-  useEffect(() => {
-    redirectToLogin();
-  }, [redirectToLogin])
 
   const onSetName = ({target}) => {
     setUserName(target.value);
@@ -53,6 +43,12 @@ const Register = () => {
     } else if(isRegisterSuccess) {
       return <Notification text="Спасибо за регистрацию" status={true}/>
     }
+  }
+
+  if(isLogged || isRegisterSuccess) {
+    return (
+      <Redirect to={redirectTo}/>
+    );
   }
 
   return (
@@ -110,5 +106,10 @@ const Register = () => {
       </div>
   );
 };
+
+Register.propsType = {
+  isLogged: PropTypes.bool,
+  redirectTo:  PropTypes.string
+}
 
 export default Register;

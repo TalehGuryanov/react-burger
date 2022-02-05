@@ -1,4 +1,3 @@
-import style from "./user-data.module.css"
 import {useEffect, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
@@ -24,10 +23,10 @@ function UserData() {
     const newAccessToken = updateTokenSuccess ? getCookie('accessToken') : null;
     const currentAccessToken = newAccessToken || oldAccessToken;
 
-    if(currentAccessToken) {
+    if(!user && currentAccessToken) {
       dispatch(getUserDataThunk(currentAccessToken));
     }
-  }, [updateTokenSuccess]);
+  }, [user, updateTokenSuccess]);
 
   const onEditUserData = (event) => {
     event.preventDefault();

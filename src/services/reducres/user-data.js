@@ -20,7 +20,7 @@ const initialState = {
   updateTokenError: false,
   editUserDataRequest: false,
   editUserDataSuccess: false,
-  editUserDataError: false,
+  editUserDataError: false
 }
 
 export const userDataReducer = (state=initialState, action) => {

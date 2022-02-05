@@ -9,8 +9,9 @@ import {forgotPasswordThunk} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../../components/preloader/preloader";
 import Notification from "../../components/notification/notification";
+import PropTypes from "prop-types";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({isLogged, redirectTo}) => {
   const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector(store => store.authResponse);
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
@@ -28,6 +29,12 @@ const ForgotPassword = () => {
     if (isPasswordCodeError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     }
+  }
+
+  if(isLogged) {
+    return (
+      <Redirect to={ redirectTo }/>
+    );
   }
 
   return (
@@ -68,5 +75,10 @@ const ForgotPassword = () => {
     </div>
   );
 };
+
+ForgotPassword.propsType = {
+  isLogged: PropTypes.bool,
+  redirectTo:  PropTypes.string
+}
 
 export default ForgotPassword;

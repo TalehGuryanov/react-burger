@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import {
   PasswordInput,
   Button, Input,
@@ -9,18 +9,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginUserThunk} from "../../services/actions/auth";
 import Preloader from "../../components/preloader/preloader";
 import Notification from "../../components/notification/notification";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({isLogged, redirectTo}) => {
   const { isLoginSuccess, isLoginRequest, isLoginFailed } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const onSubmitLogin = (event) => {
     event.preventDefault();
-    console.log(email)
-    console.log(password)
     dispatch(loginUserThunk(email, password));
   }
 
@@ -36,6 +35,14 @@ const Login = () => {
     if (isLoginFailed){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     }
+  }
+
+  const destination = history.location.state?.from || redirectTo;
+
+  if(isLogged || isLoginSuccess) {
+    return (
+      <Redirect to={ redirectTo }/>
+    );
   }
 
   return (
@@ -88,5 +95,10 @@ const Login = () => {
     </div>
   )
 };
+
+Login.propsType = {
+  isLogged: PropTypes.bool,
+  redirectTo:  PropTypes.string
+}
 
 export default Login;
