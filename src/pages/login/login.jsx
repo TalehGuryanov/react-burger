@@ -41,7 +41,7 @@ const Login = ({isLogged, redirectTo}) => {
 
   if(isLogged || isLoginSuccess) {
     return (
-      <Redirect to={ redirectTo }/>
+      <Redirect to={ destination }/>
     );
   }
 
