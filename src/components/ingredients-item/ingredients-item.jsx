@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 function IngredientsItem({ image, id, name, price, type, showIngredientModal }) {
   const { fillingItems, bun } = useSelector((store) => store.constructorData);
@@ -26,25 +27,33 @@ function IngredientsItem({ image, id, name, price, type, showIngredientModal }) 
 
   return(
     <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={showIngredientModal} id={id} ref={dragRef}>
-      {count > 0 && <Counter count={count} size="default"/>}
-      <div className={style.img}>
-        <img src={image}
-             alt={name}
-        />
-      </div>
-
-      <div className={style.price}>
-        <span className={`${"text text_type_main-medium"} ${style.price_icon}`}>
-          {price}
-        </span>
-        <div className={style.price_icon}>
-          <CurrencyIcon type="primary" />
+      <Link
+        to={{
+          pathname: `/ingredients/${id}`,
+          state: { isModal: true },
+        }}
+        style={{ textDecoration: 'none' }}
+      >
+        {count > 0 && <Counter count={count} size="default"/>}
+        <div className={style.img}>
+          <img src={image}
+               alt={name}
+          />
         </div>
-      </div>
 
-      <div className={`${"text text_type_main-default"} ${style.title}`}>
-        {name}
-      </div>
+        <div className={style.price}>
+          <span className={`${"text text_type_main-medium"} ${style.price_icon}`}>
+            {price}
+          </span>
+          <div className={style.price_icon}>
+            <CurrencyIcon type="primary" />
+          </div>
+        </div>
+
+        <div className={`${"text text_type_main-default"} ${style.title}`}>
+          {name}
+        </div>
+      </Link>
     </li>
   )
 }

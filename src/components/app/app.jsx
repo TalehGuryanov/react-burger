@@ -7,7 +7,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {Login, Main, Register, ForgotPassword, ResetPassword, Profile} from "../../pages";
+import {Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient} from "../../pages";
 import ProtectedRoute from "../protected-route";
 import {getCookie} from "../../utils/get-cookie";
 import {useSelector} from "react-redux";
@@ -23,6 +23,9 @@ function App() {
         <Switch>
           <Route path="/" exact >
             <Main />
+          </Route>
+          <Route path="/ingredients/:id" exact >
+            <Ingredient />
           </Route>
           <ProtectedRoute exact path="/profile" isLogged={!!isLoggedSelector} redirectTo={"/login"}>
             <Profile />
