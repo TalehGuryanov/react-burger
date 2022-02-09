@@ -5,6 +5,7 @@ import {getCookie} from "../../utils/cookie";
 import {editUserDataThunk, getUserDataThunk, updateTokenThunk} from "../../services/actions/user-data";
 import Preloader from "../preloader/preloader";
 import Notification from "../notification/notification";
+import style from "./user-data.module.css"
 
 function UserData() {
   const { updateTokenRequest, updateTokenSuccess, updateTokenError, user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
@@ -12,6 +13,18 @@ function UserData() {
   const [newName, setUserNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [isDataChanged, setDataChanged] = useState(false);
+
+  const compareData = () => {
+    const defaultData = user.name + user.email;
+    const newData = newName + newEmail + newPassword;
+
+    if(defaultData === newData) {
+      setDataChanged(false);
+    } else {
+      setDataChanged(true);
+    }
+  }
 
   useEffect(() => {
     const oldAccessToken = getCookie('accessToken');
@@ -26,7 +39,11 @@ function UserData() {
     if(!user && currentAccessToken) {
       dispatch(getUserDataThunk(currentAccessToken));
     }
-  }, [user, updateTokenSuccess]);
+
+    if(user) {
+      compareData();
+    }
+  }, [user, updateTokenSuccess, compareData]);
 
   const onEditUserData = (event) => {
     event.preventDefault();
@@ -49,6 +66,14 @@ function UserData() {
 
   const onSetPassword = ({target}) => {
     setNewPassword(target.value);
+  }
+
+  const onReset = (event) => {
+    event.preventDefault();
+
+    setUserNewName(user.name);
+    setNewEmail(user.email);
+    setNewPassword("");
   }
 
   const renderNotification = () => {
@@ -102,11 +127,18 @@ function UserData() {
               size={"default"}
             />
           </div>
-          <div className="pb-6">
-            <Button type="primary" size="medium">
-              Сохранить
-            </Button>
-          </div>
+
+          {isDataChanged &&
+            <div className={style.form_buttons}>
+              <Button type="primary" size="medium">
+                Сохранить
+              </Button>
+
+              <Button type="primary" size="medium" onClick={onReset}>
+                Отмена
+              </Button>
+            </div>
+          }
         </form>
 
         {renderNotification()}
