@@ -29,9 +29,10 @@ const initialState = {
   resetPasswordRequest: false,
   resetPasswordSuccess: false,
   resetPasswordError: false,
-  logoutRequest: false,
-  logoutSuccess: false,
-  logoutError: false,
+  isLogoutRequest: false,
+  isLogoutSuccess: false,
+  isLogoutError: false,
+  isLogged: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -47,6 +48,7 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS : {
       return {
         ...state,
+        isLogged: true,
         isRegisterRequest: false,
         isRegisterFailed: false,
         isRegisterSuccess: true
@@ -71,6 +73,7 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS: {
       return {
         ...state,
+        isLogged: true,
         isLoginRequest: false,
         isLoginFailed: false,
         isLoginSuccess: true
@@ -135,25 +138,26 @@ export const authReducer = (state = initialState, action) => {
     case LOGOUT_REQUEST: {
       return {
         ...state,
-        logoutRequest: true,
-        logoutSuccess: false,
-        logoutError: false,
+        isLogoutRequest: true,
+        isLogoutSuccess: false,
+        isLogoutError: false,
       }
     }
     case LOGOUT_SUCCESS: {
       return {
         ...state,
-        logoutRequest: false,
-        logoutSuccess: true,
-        logoutError: false,
+        isLogged: false,
+        isLogoutRequest: false,
+        isLogoutSuccess: true,
+        isLogoutError: false,
       }
     }
     case LOGOUT_ERROR: {
       return {
         ...state,
-        logoutRequest: false,
-        logoutSuccess: false,
-        logoutError: true,
+        isLogoutRequest: false,
+        isLogoutSuccess: false,
+        isLogoutError: true,
       }
     }
     default: {

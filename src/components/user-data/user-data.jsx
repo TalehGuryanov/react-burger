@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {getCookie} from "../../utils/get-cookie";
+import {getCookie} from "../../utils/cookie";
 import {editUserDataThunk, getUserDataThunk, updateTokenThunk} from "../../services/actions/user-data";
 import Preloader from "../preloader/preloader";
 import Notification from "../notification/notification";

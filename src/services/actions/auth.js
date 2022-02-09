@@ -1,6 +1,5 @@
 import {accessTokenLifeTime, apiRequest} from "../../utils/constants";
-import {setCookie} from "../../utils/set-cookie";
-import {deleteCookie} from "../../utils/delete-cookie";
+import {setCookie, deleteCookie} from "../../utils/cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

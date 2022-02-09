@@ -45,7 +45,7 @@ const Register = ({isLogged, redirectTo}) => {
     }
   }
 
-  if(isLogged || isRegisterSuccess) {
+  if(isLogged) {
     return (
       <Redirect to={redirectTo}/>
     );

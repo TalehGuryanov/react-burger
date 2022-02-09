@@ -1,5 +1,4 @@
-import {getCookie} from "../../utils/get-cookie";
-import {setCookie} from "../../utils/set-cookie";
+import {getCookie, setCookie} from "../../utils/cookie";
 import {accessTokenLifeTime, apiRequest} from "../../utils/constants";
 
 export const GET_USER_DATA_REQUEST = "GET_USER_DATA_REQUEST";
@@ -38,8 +37,6 @@ export const updateTokenThunk = () => {
       apiRequest("/auth/token", options)
         .then((res) => {
           dispatch({type: UPDATE_TOKEN_SUCCESS});
-          console.log("token updated")
-          console.log(res.accessToken)
           setCookie('refreshToken', res.refreshToken);
           setCookie('accessToken', res.accessToken, {expires: accessTokenLifeTime});
         })

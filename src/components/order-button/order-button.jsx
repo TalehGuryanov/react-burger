@@ -3,10 +3,13 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import PropTypes from "prop-types";
 import React from "react";
 import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 function OrderButton({selectedIngredientsPrice, showOrderData}) {
+  const { isLogged } = useSelector(store => store.authResponse);
   const { bun } = useSelector((store) => store.constructorData);
   const [price, setPrice] = React.useState(0);
+  const history = useHistory();
 
   React.useEffect(() => {
     const setTotalPrice = () => selectedIngredientsPrice.reduce((sum, item) => sum + item, 0);
@@ -14,6 +17,8 @@ function OrderButton({selectedIngredientsPrice, showOrderData}) {
 
     setPrice(totalPrice);
   }, [selectedIngredientsPrice]);
+
+  const redirectToLogin = () => history.replace("/login");
 
   return (
     <div className={style.wr}>
@@ -29,7 +34,7 @@ function OrderButton({selectedIngredientsPrice, showOrderData}) {
 
       <Button type="primary"
               size="large"
-              onClick={showOrderData}
+              onClick={isLogged ? showOrderData : redirectToLogin}
               disabled={!bun}
       >
         Оформить заказ

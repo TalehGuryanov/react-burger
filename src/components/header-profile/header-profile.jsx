@@ -2,7 +2,6 @@ import style from "./header-profile.module.css";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
 
 function HeaderProfile ({isLogged}) {
   return (

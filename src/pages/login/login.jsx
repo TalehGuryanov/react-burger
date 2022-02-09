@@ -39,8 +39,9 @@ const Login = ({isLogged, redirectTo}) => {
 
   // NOTE: The Profile Page breaks when adding a destination
   const destination = history.location.state?.from || redirectTo;
+  console.log(isLogged)
 
-  if(isLogged || isLoginSuccess) {
+  if(isLogged) {
     return (
       <Redirect to={ redirectTo }/>
     );

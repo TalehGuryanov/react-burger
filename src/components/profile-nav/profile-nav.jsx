@@ -1,13 +1,13 @@
 import style from "./profile-nav.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutThunk} from "../../services/actions/auth";
-import {getCookie} from "../../utils/get-cookie";
+import {getCookie} from "../../utils/cookie";
 import Notification from "../notification/notification";
 import {NavLink} from "react-router-dom";
 
 
 function ProfileNav() {
-  const {logoutError} = useSelector(store => store.authResponse);
+  const {isLogoutError} = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
 
   const onLogout = () => {
@@ -42,7 +42,7 @@ function ProfileNav() {
         "В этом разделе вы можете изменить свои персональные данные"
       </p>
 
-      {logoutError && <Notification status={false} text="Что-то пошло не так. Попробуйте еще раз"/>}
+      {isLogoutError && <Notification status={false} text="Что-то пошло не так. Попробуйте еще раз"/>}
     </div>
   )
 };

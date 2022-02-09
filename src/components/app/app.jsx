@@ -9,14 +9,12 @@ import {
 } from "react-router-dom";
 import {Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient} from "../../pages";
 import ProtectedRoute from "../protected-route";
-import {getCookie} from "../../utils/get-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
 
 function App() {
   // Constants for authenticator
-  const isLoggedSelector = getCookie("refreshToken") || false;
-  const { isPasswordCodeSuccess } = useSelector(store => store.authResponse);
+  const { isPasswordCodeSuccess, isLogged } = useSelector(store => store.authResponse);
 
   // Get ingredients
   const { ingredientItems }  = useSelector(store => store.ingredients);
@@ -31,7 +29,7 @@ function App() {
   return (
     <main className={style.app}>
       <Router>
-        <Header isLogged={isLoggedSelector}/>
+        <Header isLogged={isLogged}/>
         <Switch>
           <Route path="/" exact >
             <Main />
@@ -39,17 +37,17 @@ function App() {
           <Route path="/ingredients/:id" exact >
             <Ingredient />
           </Route>
-          <ProtectedRoute exact path="/profile" isLogged={!!isLoggedSelector} redirectTo={"/login"}>
+          <ProtectedRoute exact path="/profile" isLogged={isLogged} redirectTo={"/login"}>
             <Profile />
           </ProtectedRoute>
           <Route path="/login">
-            <Login isLogged={!!isLoggedSelector} redirectTo={"/"}/>
+            <Login isLogged={isLogged} redirectTo={"/"}/>
           </Route>
           <Route path="/register" >
-            <Register isLogged={!!isLoggedSelector} redirectTo={"/"}/>
+            <Register isLogged={isLogged} redirectTo={"/"}/>
           </Route>
           <Route path="/forgot-password" >
-            <ForgotPassword isLogged={!!isLoggedSelector} redirectTo={"/"}/>
+            <ForgotPassword isLogged={isLogged} redirectTo={"/"}/>
           </Route>
           <ProtectedRoute path="/reset-password" redirectTo={"/forgot-password"} isLogged={isPasswordCodeSuccess}>
             <ResetPassword />
