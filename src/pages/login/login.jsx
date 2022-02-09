@@ -12,7 +12,7 @@ import Notification from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
 const Login = ({isLogged, redirectTo}) => {
-  const { isLoginSuccess, isLoginRequest, isLoginFailed } = useSelector(store => store.authResponse);
+  const { isLoginRequest, isLoginFailed } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +39,6 @@ const Login = ({isLogged, redirectTo}) => {
 
   // NOTE: The Profile Page breaks when adding a destination
   const destination = history.location.state?.from || redirectTo;
-  console.log(isLogged)
 
   if(isLogged) {
     return (

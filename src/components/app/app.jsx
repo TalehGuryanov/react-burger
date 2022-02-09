@@ -11,10 +11,14 @@ import {Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredien
 import ProtectedRoute from "../protected-route";
 import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
+import {getCookie} from "../../utils/cookie";
 
 function App() {
   // Constants for authenticator
-  const { isPasswordCodeSuccess, isLogged } = useSelector(store => store.authResponse);
+  const { isPasswordCodeSuccess } = useSelector(store => store.authResponse);
+  const refreshToken = getCookie("refreshToken");
+  const isLogged = !!refreshToken;
+  console.log(isLogged)
 
   // Get ingredients
   const { ingredientItems }  = useSelector(store => store.ingredients);
