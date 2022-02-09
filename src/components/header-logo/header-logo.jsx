@@ -3,11 +3,9 @@ import style from "./header-logo.module.css"
 
 function HeaderLogo() {
   return (
-    <a href="#"
-      className={style.wr}
-    >
+    <div className={style.wr}>
       <Logo />
-    </a>
+    </div>
   )
 }
 

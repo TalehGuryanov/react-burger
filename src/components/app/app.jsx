@@ -18,8 +18,8 @@ function App() {
 
   return (
     <main className={style.app}>
-      <Header />
       <Router>
+        <Header isLogged={isLoggedSelector}/>
         <Switch>
           <Route path="/" exact >
             <Main />
