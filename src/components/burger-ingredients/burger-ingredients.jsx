@@ -4,7 +4,6 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import React, {useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { ingredients } from "../../services/actions/ingredients";
 import { ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA } from "../../services/actions/ingredient-data";
 import Preloader from "../preloader/preloader";
 import ErrorMessage from "../error-message/error-message";
@@ -16,10 +15,6 @@ function BurgerIngredients () {
   const { ingredientData } = useSelector(store => store.currentIngredient);
   const { isIngredientModalOpen } = useSelector(store => store.modal)
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(ingredients())
-  }, []);
 
   function onCloseModal() {
     dispatch({type: DELETE_INGREDIENT_DATA});

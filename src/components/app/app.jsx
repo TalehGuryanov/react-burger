@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './app.module.css';
 import Header from "../header/header";
 import style from "./app.module.css"
@@ -10,11 +10,23 @@ import {
 import {Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient} from "../../pages";
 import ProtectedRoute from "../protected-route";
 import {getCookie} from "../../utils/get-cookie";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {ingredients} from "../../services/actions/ingredients";
 
 function App() {
+  // Constants for authenticator
   const isLoggedSelector = getCookie("refreshToken") || false;
   const { isPasswordCodeSuccess } = useSelector(store => store.authResponse);
+
+  // Get ingredients
+  const { ingredientItems }  = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!ingredientItems.length) {
+      dispatch(ingredients())
+    }
+  }, [ingredientItems]);
 
   return (
     <main className={style.app}>
