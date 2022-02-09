@@ -4,10 +4,10 @@ import UserData from "../../components/user-data/user-data";
 
 function Profile () {
   return (
-<div className={style.wr}>
-  <ProfileNav />
-  <UserData/>
-</div>
+    <div className={style.wr}>
+      <ProfileNav/>
+      <UserData/>
+    </div>
   )
 };
 
