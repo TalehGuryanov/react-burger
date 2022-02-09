@@ -31,7 +31,7 @@ const ForgotPassword = ({isLogged, redirectTo}) => {
     }
   }
 
-  if(!isLogged) {
+  if(isLogged) {
     return (
       <Redirect to={ redirectTo }/>
     );
