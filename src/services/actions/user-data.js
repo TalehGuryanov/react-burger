@@ -14,7 +14,7 @@ export const UPDATE_TOKEN_ERROR = "UPDATE_TOKEN_ERROR";
 export const updateTokenThunk = () => {
   const refreshToken = getCookie('refreshToken');
 
-  return function (dispatch) {
+  return async function (dispatch) {
       dispatch({type: UPDATE_TOKEN_REQUEST});
 
       const data = {
@@ -34,7 +34,7 @@ export const updateTokenThunk = () => {
         body: JSON.stringify(data),
       };
 
-      apiRequest("/auth/token", options)
+      await apiRequest("/auth/token", options)
         .then((res) => {
           dispatch({type: UPDATE_TOKEN_SUCCESS});
           setCookie('refreshToken', res.refreshToken);
@@ -65,7 +65,7 @@ export const getUserDataThunk = (accessToken) => {
       .then((res) => {
         dispatch({type: GET_USER_DATA_SUCCESS, user: res.user});
       })
-      .catch(() => dispatch({type: GET_USER_DATA_ERROR}))
+      .catch(() => dispatch({type: GET_USER_DATA_ERROR}));
   }
 }
 

@@ -9,11 +9,11 @@ import style from "./user-data.module.css"
 
 function UserData() {
   const { updateTokenRequest, updateTokenSuccess, updateTokenError, user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
-  const dispatch = useDispatch();
   const [newName, setUserNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("******");
   const [isDataChanged, setDataChanged] = useState(false);
+  const dispatch = useDispatch();
 
   const compareData = () => {
     const defaultData = user.name + user.email;
@@ -43,7 +43,7 @@ function UserData() {
     if(user) {
       compareData();
     }
-  }, [user, updateTokenSuccess, compareData]);
+  }, []);
 
   const onEditUserData = (event) => {
     event.preventDefault();

@@ -18,7 +18,6 @@ function App() {
   const { isPasswordCodeSuccess } = useSelector(store => store.authResponse);
   const refreshToken = getCookie("refreshToken");
   const isLogged = !!refreshToken;
-  console.log(isLogged)
 
   // Get ingredients
   const { ingredientItems }  = useSelector(store => store.ingredients);
