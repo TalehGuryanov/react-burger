@@ -40,7 +40,7 @@ function App() {
           <Route path="/ingredients/:id" exact >
             <Ingredient />
           </Route>
-          <ProtectedRoute exact path="/profile" isLogged={isLogged} redirectTo={"/login"}>
+          <ProtectedRoute path="/profile" isLogged={isLogged} redirectTo={"/login"}>
             <Profile />
           </ProtectedRoute>
           <Route path="/login">

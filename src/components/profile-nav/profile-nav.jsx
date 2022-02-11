@@ -3,12 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {logoutThunk} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookie";
 import Notification from "../notification/notification";
-import {NavLink} from "react-router-dom";
+import {NavLink, useRouteMatch} from "react-router-dom";
 
 
 function ProfileNav() {
   const {isLogoutError} = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
+  const {path} = useRouteMatch();
 
   const onLogout = () => {
     const refreshToken = getCookie("refreshToken");
@@ -20,7 +21,7 @@ function ProfileNav() {
     <div className={style.wr}>
       <NavLink className={`${style.link } text text_type_main-medium`}
                activeClassName={style.link__active}
-               to={"/profile"}
+               to={path}
                exact
       >
         Профиль
@@ -28,7 +29,7 @@ function ProfileNav() {
 
       <NavLink className={`${style.link } text text_type_main-medium`}
                activeClassName={style.link__active}
-               to={"/profile/orders"}
+               to={`${path}/orders`}
                exact
       >
         История заказов
