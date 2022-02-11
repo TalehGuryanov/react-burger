@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/cookie";
@@ -11,15 +11,17 @@ function UserData() {
   const { updateTokenRequest, updateTokenSuccess, updateTokenError, user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
   const [newName, setUserNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("******");
+  const [newPassword, setNewPassword] = useState("");
   const [isDataChanged, setDataChanged] = useState(false);
   const dispatch = useDispatch();
+  const formRef = useRef();
 
-  const compareData = () => {
+  const onChangeForm = () => {
+    const {elements} = formRef.current;
+    const currentValue = elements.name.value + elements.email.value + elements.password.value
     const defaultData = user.name + user.email;
-    const newData = newName + newEmail + newPassword;
 
-    if(defaultData === newData) {
+    if(defaultData === currentValue) {
       setDataChanged(false);
     } else {
       setDataChanged(true);
@@ -39,10 +41,6 @@ function UserData() {
     if(!user && currentAccessToken) {
       dispatch(getUserDataThunk(currentAccessToken));
     }
-
-    if(user) {
-      compareData();
-    }
   }, []);
 
   const onEditUserData = (event) => {
@@ -54,6 +52,10 @@ function UserData() {
     const password = newPassword || user.password;
 
     dispatch(editUserDataThunk(accessToken, email, password, name));
+
+    if(editUserDataSuccess) {
+      setDataChanged(false);
+    }
   }
 
   const onSetUserName = ({target}) => {
@@ -74,6 +76,7 @@ function UserData() {
     setUserNewName(user.name);
     setNewEmail(user.email);
     setNewPassword("");
+    setDataChanged(false);
   }
 
   const renderNotification = () => {
@@ -87,7 +90,7 @@ function UserData() {
   return(
     updateTokenRequest || userDataRequest || editUserDataRequest ? <Preloader /> :
       <div>
-        <form onSubmit={onEditUserData}>
+        <form onSubmit={onEditUserData} onChange={onChangeForm} ref={formRef}>
           <div className="pb-6">
             <Input
               type={"text"}
