@@ -13,25 +13,26 @@ import {
   RESET_PASSWORD_ERROR,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  LOGOUT_ERROR
+  LOGOUT_ERROR,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_ERROR,
+  UPDATE_TOKEN_REQUEST,
 } from "../actions/auth";
 
 const initialState = {
-  isRegisterRequest: false,
-  isRegisterFailed: false,
-  isRegisterSuccess: false,
-  isLoginRequest: false,
-  isLoginFailed: false,
-  isLoginSuccess: false,
+  isAuthRequest: false,
+  isAuthSuccess: false,
+  isAuthError: false,
+  isLoggedSelector: false,
   isPasswordCodeRequest: false,
   isPasswordCodeError: false,
   isPasswordCodeSuccess: false,
   resetPasswordRequest: false,
   resetPasswordSuccess: false,
   resetPasswordError: false,
-  isLogoutRequest: false,
-  isLogoutSuccess: false,
-  isLogoutError: false,
+  updateTokenRequest: false,
+  updateTokenSuccess: false,
+  updateTokenError: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -39,49 +40,82 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_REQUEST: {
       return {
         ...state,
-        isRegisterRequest: true,
-        isRegisterFailed: false,
-        isRegisterSuccess: false
+        isAuthRequest: true,
+        isAuthSuccess: false,
+        isAuthError: false,
+        isLoggedSelector: false,
       }
     }
     case REGISTER_SUCCESS : {
       return {
         ...state,
-        isRegisterRequest: false,
-        isRegisterFailed: false,
-        isRegisterSuccess: true
+        isAuthRequest: false,
+        isAuthSuccess: true,
+        isAuthError: false,
+        isLoggedSelector: true,
       }
     }
     case REGISTER_ERROR: {
       return {
         ...state,
-        isRegisterRequest: false,
-        isRegisterFailed: true,
-        isRegisterSuccess: false
+        isAuthRequest: false,
+        isAuthSuccess: false,
+        isAuthError: true,
+        isLoggedSelector: false,
       }
     }
     case LOGIN_REQUEST: {
       return  {
         ...state,
-        isLoginRequest: true,
-        isLoginFailed: false,
-        isLoginSuccess: false
+        isAuthRequest: true,
+        isAuthSuccess: false,
+        isAuthError: false,
+        isLoggedSelector: false,
       }
     }
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        isLoginRequest: false,
-        isLoginFailed: false,
-        isLoginSuccess: true
+        isAuthRequest: false,
+        isAuthSuccess: true,
+        isAuthError: false,
+        isLoggedSelector: true,
       }
     }
     case LOGIN_ERROR: {
       return {
         ...state,
-        isLoginRequest: false,
-        isLoginFailed: true,
-        isLoginSuccess: false
+        isAuthRequest: false,
+        isAuthSuccess: false,
+        isAuthError: true,
+        isLoggedSelector: false,
+      }
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        isAuthRequest: true,
+        isAuthSuccess: false,
+        isAuthError: false,
+        isLoggedSelector: false,
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        isAuthRequest: false,
+        isAuthSuccess: true,
+        isAuthError: false,
+        isLoggedSelector: false,
+      }
+    }
+    case LOGOUT_ERROR: {
+      return {
+        ...state,
+        isAuthRequest: false,
+        isAuthSuccess: false,
+        isAuthError: true,
+        isLoggedSelector: false,
       }
     }
     case GET_RESET_PASSWORD_CODE_REQUEST: {
@@ -132,28 +166,28 @@ export const authReducer = (state = initialState, action) => {
         resetPasswordError: true,
       }
     }
-    case LOGOUT_REQUEST: {
+    case UPDATE_TOKEN_REQUEST: {
       return {
         ...state,
-        isLogoutRequest: true,
-        isLogoutSuccess: false,
-        isLogoutError: false,
+        updateTokenRequest: true,
+        updateTokenSuccess: false,
+        updateTokenError: false,
       }
     }
-    case LOGOUT_SUCCESS: {
+    case UPDATE_TOKEN_SUCCESS: {
       return {
         ...state,
-        isLogoutRequest: false,
-        isLogoutSuccess: true,
-        isLogoutError: false,
+        updateTokenRequest: false,
+        updateTokenSuccess: true,
+        updateTokenError: false,
       }
     }
-    case LOGOUT_ERROR: {
+    case UPDATE_TOKEN_ERROR: {
       return {
         ...state,
-        isLogoutRequest: false,
-        isLogoutSuccess: false,
-        isLogoutError: true,
+        updateTokenRequest: false,
+        updateTokenSuccess: false,
+        updateTokenError: true,
       }
     }
     default: {

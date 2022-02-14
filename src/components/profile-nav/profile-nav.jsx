@@ -5,9 +5,8 @@ import {getCookie} from "../../utils/cookie";
 import Notification from "../notification/notification";
 import {NavLink, useRouteMatch} from "react-router-dom";
 
-
 function ProfileNav() {
-  const {isLogoutError} = useSelector(store => store.authResponse);
+  const {isAuthError} = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const {path} = useRouteMatch();
 
@@ -43,7 +42,7 @@ function ProfileNav() {
         "В этом разделе вы можете изменить свои персональные данные"
       </p>
 
-      {isLogoutError && <Notification status={false} text="Что-то пошло не так. Попробуйте еще раз"/>}
+      {isAuthError && <Notification status={false} text="Что-то пошло не так. Попробуйте еще раз"/>}
     </div>
   )
 };

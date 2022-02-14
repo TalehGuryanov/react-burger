@@ -21,6 +21,10 @@ export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
 
+export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
+export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
+export const UPDATE_TOKEN_ERROR = "UPDATE_TOKEN_ERROR";
+
 export const registerUserThunk = (user, email, password) => {
   return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
@@ -171,4 +175,37 @@ export const logoutThunk = (refreshToken) => {
       .catch(() => dispatch({type: LOGOUT_ERROR}))
   }
 }
+
+export const updateTokenThunk = (refreshToken) => {
+
+  return async function (dispatch) {
+    dispatch({type: UPDATE_TOKEN_REQUEST});
+
+    const data = {
+      token: refreshToken
+    };
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    };
+
+    await apiRequest("/auth/token", options)
+      .then((res) => {
+        dispatch({type: UPDATE_TOKEN_SUCCESS});
+        setCookie('refreshToken', res.refreshToken);
+        setCookie('accessToken', res.accessToken, {expires: accessTokenLifeTime});
+      })
+      .catch(() => dispatch({type: UPDATE_TOKEN_ERROR}))
+  }
+}
+
 

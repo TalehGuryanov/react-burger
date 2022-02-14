@@ -8,13 +8,11 @@ import style from "./register.module.css"
 import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUserThunk} from "../../services/actions/auth";
-import Preloader from "../../components/preloader/preloader";
 import Notification from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
-
 const Register = ({isLogged, redirectTo}) => {
-  const { isRegisterSuccess, isRegisterRequest, isRegisterFailed } = useSelector(store => store.authResponse);
+  const { isAuthSuccess, isAuthError } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,9 +36,9 @@ const Register = ({isLogged, redirectTo}) => {
   }
 
   const renderResult = () => {
-    if (isRegisterFailed){
+    if (isAuthError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
-    } else if(isRegisterSuccess) {
+    } else if(isAuthSuccess) {
       return <Notification text="Спасибо за регистрацию" status={true}/>
     }
   }
@@ -52,7 +50,6 @@ const Register = ({isLogged, redirectTo}) => {
   }
 
   return (
-    isRegisterRequest ? <Preloader/> :
       <div className={style.wr}>
         <div className={style.title + " text text_type_main-medium"}>
           Регистрация

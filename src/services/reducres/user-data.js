@@ -2,9 +2,6 @@ import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_ERROR,
-  UPDATE_TOKEN_SUCCESS,
-  UPDATE_TOKEN_ERROR,
-  UPDATE_TOKEN_REQUEST,
   EDIT_USER_DATA_REQUEST,
   EDIT_USER_DATA_SUCCESS,
   EDIT_USER_DATA_ERROR
@@ -15,9 +12,6 @@ const initialState = {
   userDataRequest: false,
   userDataSuccess: false,
   userDataError: false,
-  updateTokenRequest: false,
-  updateTokenSuccess: false,
-  updateTokenError: false,
   editUserDataRequest: false,
   editUserDataSuccess: false,
   editUserDataError: false
@@ -48,30 +42,6 @@ export const userDataReducer = (state=initialState, action) => {
         userDataRequest: false,
         userDataSuccess: false,
         userDataError: true
-      }
-    }
-    case UPDATE_TOKEN_REQUEST: {
-      return {
-        ...state,
-        updateTokenRequest: true,
-        updateTokenSuccess: false,
-        updateTokenError: false,
-      }
-    }
-    case UPDATE_TOKEN_SUCCESS: {
-      return {
-        ...state,
-        updateTokenRequest: false,
-        updateTokenSuccess: true,
-        updateTokenError: false,
-      }
-    }
-    case UPDATE_TOKEN_ERROR: {
-      return {
-        ...state,
-        updateTokenRequest: false,
-        updateTokenSuccess: false,
-        updateTokenError: true,
       }
     }
     case EDIT_USER_DATA_REQUEST: {

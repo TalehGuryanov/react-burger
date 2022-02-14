@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './app.module.css';
 import Header from "../header/header";
 import style from "./app.module.css"
@@ -12,24 +12,33 @@ import ProtectedRoute from "../protected-route";
 import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
 import {getCookie} from "../../utils/cookie";
+import Preloader from "../preloader/preloader";
 
 function App() {
-  // Constants for authenticator
-  const { isPasswordCodeSuccess } = useSelector(store => store.authResponse);
-  const refreshToken = getCookie("refreshToken");
-  const isLogged = !!refreshToken;
-
   // Get ingredients
   const { ingredientItems }  = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
 
+  // Constants for authenticator
+  const { isPasswordCodeSuccess, isAuthRequest, isLoggedSelector } = useSelector(store => store.authResponse);
+  const accessToken = getCookie("accessToken");
+  const [isLogged, setIsLogged] = useState(!!accessToken);
+
   useEffect(() => {
+
+    if(isLoggedSelector) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+
     if(!ingredientItems.length) {
       dispatch(ingredients())
     }
-  }, [ingredientItems]);
+  }, [ingredientItems, isLoggedSelector]);
 
   return (
+    isAuthRequest ? <Preloader/> :
     <main className={style.app}>
       <Router>
         <Header isLogged={isLogged}/>

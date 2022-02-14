@@ -7,12 +7,11 @@ import {
 import style from "./login.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserThunk} from "../../services/actions/auth";
-import Preloader from "../../components/preloader/preloader";
 import Notification from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
 const Login = ({isLogged, redirectTo}) => {
-  const { isLoginRequest, isLoginFailed } = useSelector(store => store.authResponse);
+  const { isAuthError } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +31,7 @@ const Login = ({isLogged, redirectTo}) => {
   }
 
   const renderError = () => {
-    if (isLoginFailed){
+    if (isAuthError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     }
   }
@@ -46,7 +45,6 @@ const Login = ({isLogged, redirectTo}) => {
   }
 
   return (
-    isLoginRequest ? <Preloader /> :
     <div className={style.wr}>
       <div className={style.title + " text text_type_main-medium"}>
         Вход
