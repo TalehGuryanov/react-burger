@@ -5,15 +5,14 @@ import React, {useRef} from "react";
 import ingredientType from "../../utils/types"
 import Tabs from "../tabs/tabs";
 
-function IngredientsBox({data, showIngredientModal}) {
+function IngredientsBox({data}) {
   const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
   const sauceData = React.useMemo(() =>data.filter((item) => item.type === "sauce"), [data]);
   const mainData = React.useMemo(() => data.filter((item) => item.type === "main"), [data]);
   const bun = React.useMemo(
     () =>
       bunData.map((item) =>
-        <IngredientsItem showIngredientModal={showIngredientModal}
-                         key={item._id}
+        <IngredientsItem key={item._id}
                          id={item._id}
                          image={item.image}
                          name={item.name}
@@ -26,8 +25,7 @@ function IngredientsBox({data, showIngredientModal}) {
   const sauce = React.useMemo(
     () =>
       sauceData.map((item) =>
-        <IngredientsItem showIngredientModal={showIngredientModal}
-                         key={item._id}
+        <IngredientsItem key={item._id}
                          id={item._id}
                          image={item.image}
                          name={item.name}
@@ -39,8 +37,7 @@ function IngredientsBox({data, showIngredientModal}) {
   );
   const main = React.useMemo(
     () => mainData.map((item) =>
-        <IngredientsItem showIngredientModal={showIngredientModal}
-                         key={item._id}
+        <IngredientsItem key={item._id}
                          id={item._id}
                          image={item.image}
                          name={item.name}
@@ -129,8 +126,7 @@ function IngredientsBox({data, showIngredientModal}) {
 }
 
 IngredientsBox.propType = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)),
-  showIngredientModal: PropTypes.func
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType))
 }
 
 export default IngredientsBox;

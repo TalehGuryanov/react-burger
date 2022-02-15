@@ -43,14 +43,11 @@ function App() {
       <Router>
         <Header isLogged={isLogged}/>
         <Switch>
-          <Route path="/" exact >
-            <Main />
-          </Route>
-          <Route path="/ingredients/:id" exact >
-            <Ingredient />
-          </Route>
           <ProtectedRoute path="/profile" isLogged={isLogged} redirectTo={"/login"}>
             <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute path="/reset-password" redirectTo={"/forgot-password"} isLogged={isPasswordCodeSuccess}>
+            <ResetPassword />
           </ProtectedRoute>
           <Route path="/login">
             <Login isLogged={isLogged} redirectTo={"/"}/>
@@ -61,9 +58,12 @@ function App() {
           <Route path="/forgot-password" >
             <ForgotPassword isLogged={isLogged} redirectTo={"/"}/>
           </Route>
-          <ProtectedRoute path="/reset-password" redirectTo={"/forgot-password"} isLogged={isPasswordCodeSuccess}>
-            <ResetPassword />
-          </ProtectedRoute>
+          <Route path="/ingredients/:id" >
+            <Ingredient />
+          </Route>
+          <Route path="/" >
+            <Main />
+          </Route>
         </Switch>
       </Router>
     </main>

@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-function IngredientsItem({ image, id, name, price, type, showIngredientModal }) {
+function IngredientsItem({ image, id, name, price, type }) {
   const { fillingItems, bun } = useSelector((store) => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -26,7 +26,7 @@ function IngredientsItem({ image, id, name, price, type, showIngredientModal }) 
   }, [setCount])
 
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} onClick={showIngredientModal} id={id} ref={dragRef}>
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef}>
       <Link
         to={{
           pathname: `/ingredients/${id}`,
@@ -63,8 +63,7 @@ IngredientsItem.propType = {
   name: PropTypes.string,
   price: PropTypes.number,
   id: PropTypes.string,
-  type: PropTypes.string,
-  showIngredientModal: PropTypes.func
+  type: PropTypes.string
 }
 
 export default IngredientsItem;

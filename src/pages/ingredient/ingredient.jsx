@@ -1,52 +1,44 @@
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
-import {useLocation, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
-import {ingredients} from "../../services/actions/ingredients";
+import React from "react";
 import ErrorMessage from "../../components/error-message/error-message";
 import Preloader from "../../components/preloader/preloader";
-import {ADD_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import style from "./ingredient.module.css";
+import {useHistory, useLocation} from "react-router-dom";
 import Modal from "../../components/modal/modal";
+import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
+import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
 
 function Ingredient() {
-  const { id } = useParams();
-  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
-  const { ingredientData } = useSelector(store => store.currentIngredient);
-  const dispatch = useDispatch();
+  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
+  const history = useHistory();
   const location = useLocation();
-  const isModal = location?.state?.isModal;
+  const dispatch = useDispatch();
+  const isModalSelector = location?.state?.isModal;
 
-  const showCurrentIngredient = () => {
-    const selectedIngredient = ingredientItems.find((burger) => burger._id === id);
+  function onCloseModal() {
+    dispatch({type: DELETE_INGREDIENT_DATA});
+    dispatch({type: CLOSE_INGREDIENT_MODAL});
 
-    dispatch({type: ADD_INGREDIENT_DATA, item: selectedIngredient});
+    history.goBack();
   }
-
-  useEffect(() => {
-    if(!ingredientItems.length) {
-      dispatch(ingredients());
-    } else {
-      showCurrentIngredient();
-    }
-  }, [ingredientItems]);
 
   const renderContent = () => {
     if(ingredientItemsFailed) {
       return <ErrorMessage />
     } else if(ingredientItemsRequest) {
       return <Preloader />
-    } else if(isModal) {
+    } else if (isModalSelector) {
       return (
-        <Modal title="Детали ингредиента">
-          <IngredientDetails ingredientDetails={ingredientData}/>
+        <Modal onCloseModal={onCloseModal} title="Детали ингредиента">
+          <IngredientDetails/>
         </Modal>
       )
-    } else  {
+    } else {
       return (
         <div className={style.wr}>
-        <h1 className={style.title + "text text_type_main-large"}>Детали ингредиента</h1>
-          <IngredientDetails ingredientDetails={ingredientData}/>
+          <h1 className={style.title + "text text_type_main-large"}>Детали ингредиента</h1>
+          <IngredientDetails />
         </div>
       )
     }
