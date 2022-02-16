@@ -20,22 +20,21 @@ function App() {
   const dispatch = useDispatch();
 
   // Constants for authenticator
-  const { isPasswordCodeSuccess, isAuthRequest, isLoggedSelector } = useSelector(store => store.authResponse);
+  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isLoggedSelector } = useSelector(store => store.authResponse);
   const accessToken = getCookie("accessToken");
   const [isLogged, setIsLogged] = useState(!!accessToken);
+  console.log(isLogged)
 
   useEffect(() => {
 
-    if(isLoggedSelector) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
+    if(isAuthSuccess) {
+      setIsLogged(isLoggedSelector)
     }
 
     if(!ingredientItems.length) {
       dispatch(ingredients())
     }
-  }, [ingredientItems, isLoggedSelector]);
+  }, [ingredientItems, isAuthSuccess]);
 
   return (
     isAuthRequest ? <Preloader/> :
