@@ -62,7 +62,7 @@ function App() {
             <Ingredient />
           </Route>
           <Route path="/" >
-            <Main />
+            <Main isLogged={isLogged}/>
           </Route>
         </Switch>
       </Router>

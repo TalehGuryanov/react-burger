@@ -5,8 +5,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
-function OrderButton({selectedIngredientsPrice, showOrderData}) {
-  const { isLogged } = useSelector(store => store.authResponse);
+function OrderButton({selectedIngredientsPrice, showOrderData, isLogged}) {
   const { bun } = useSelector((store) => store.constructorData);
   const [price, setPrice] = React.useState(0);
   const history = useHistory();
@@ -45,7 +44,8 @@ function OrderButton({selectedIngredientsPrice, showOrderData}) {
 
 OrderButton.propsType = {
   selectedIngredientsPrice: PropTypes.arrayOf(PropTypes.number),
-  showOrderData: PropTypes.func
+  showOrderData: PropTypes.func,
+  isLogged: PropTypes.bool.isRequired
 }
 
 export default OrderButton;
