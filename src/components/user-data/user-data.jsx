@@ -100,7 +100,7 @@ function UserData() {
               placeholder={"Имя"}
               onChange={onSetUserName}
               icon={"EditIcon"}
-              value={newName || user?.name}
+              value={newName || user?.name || ""}
               name={"name"}
               error={false}
               errorText={"Ошибка"}
@@ -113,7 +113,7 @@ function UserData() {
               placeholder={"Email"}
               onChange={onSetEmail}
               icon={"EditIcon"}
-              value={newEmail || user?.email}
+              value={newEmail || user?.email || ""}
               name={"email"}
               error={false}
               errorText={"Ошибка"}
@@ -126,7 +126,7 @@ function UserData() {
               placeholder={"Пароль"}
               onChange={onSetPassword}
               icon={"EditIcon"}
-              value={newPassword}
+              value={newPassword || ""}
               name={"password"}
               error={false}
               errorText={"Ошибка"}

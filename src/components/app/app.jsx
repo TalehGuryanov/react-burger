@@ -20,14 +20,13 @@ function App() {
   const dispatch = useDispatch();
 
   // Constants for authenticator
-  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isLoggedSelector } = useSelector(store => store.authResponse);
+  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector(store => store.authResponse);
   const accessToken = getCookie("accessToken");
   const [isLogged, setIsLogged] = useState(!!accessToken);
-  console.log(isLogged)
 
   useEffect(() => {
 
-    if(isAuthSuccess) {
+    if(isAuthSuccess || isAuthError) {
       setIsLogged(isLoggedSelector)
     }
 
