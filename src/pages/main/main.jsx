@@ -1,11 +1,12 @@
 import style from "./main.module.css"
 import React from "react";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import {DndProvider} from "react-dnd";
+import PropTypes from "prop-types";
 
-function Main() {
+function Main({isLogged}) {
 
   return (
     <section className={style.wr}>
@@ -18,12 +19,16 @@ function Main() {
           <div className={style.content}>
             <BurgerIngredients />
 
-            <BurgerConstructor />
+            <BurgerConstructor isLogged={isLogged}/>
           </div>
         </DndProvider>
       </div>
     </section>
   )
+}
+
+Main.propType = {
+  isLogged: PropTypes.bool.isRequired
 }
 
 export default Main;

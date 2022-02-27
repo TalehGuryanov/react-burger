@@ -19,8 +19,9 @@ import burger from "../../images/burger.png";
 import Preloader from "../preloader/preloader";
 import ErrorMessage from "../error-message/error-message";
 import {order} from "../../services/actions/order";
+import PropTypes from "prop-types";
 
-function BurgerConstructor() {
+function BurgerConstructor({isLogged}) {
   const { fillingItems, bun } = useSelector((store) => store.constructorData);
   const { orderData, orderRequest, orderFailed } = useSelector((store) => store.order);
   const { isOrderModalOpen } = useSelector((store) => store.modal);
@@ -163,12 +164,16 @@ function BurgerConstructor() {
               }
             </div>
           </div>
-          <OrderButton selectedIngredientsPrice={[...fillingDataPrices, bunPrice]} showOrderData={showOrderData}/>
+          <OrderButton selectedIngredientsPrice={[...fillingDataPrices, bunPrice]} showOrderData={showOrderData} isLogged={isLogged}/>
         </> : burgerIcon
       }
       {isOrderModalOpen && <Modal onCloseModal={onCloseModal}>{modalContent()}</Modal>}
     </div>
   )
 };
+
+BurgerConstructor.propType = {
+  isLogged: PropTypes.bool.isRequired
+}
 
 export default BurgerConstructor;

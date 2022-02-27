@@ -1,17 +1,31 @@
 import style from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
-import ingredientType from "../../utils/types"
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {ADD_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
+import {useEffect} from "react";
 
-function IngredientDetails({ ingredientDetails }) {
+function IngredientDetails() {
+  const { id } = useParams();
+  const { ingredientItems }  = useSelector(store => store.ingredients);
+  const { ingredientData } = useSelector(store => store.currentIngredient);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(ingredientItems.length) {
+      const selectedIngredient = ingredientItems.find((burger) => burger._id === id);
+
+      dispatch({type: ADD_INGREDIENT_DATA, item: selectedIngredient});
+    }
+  }, [ingredientItems]);
 
   return(
     <div className={style.wr}>
       <div className={style.img}>
-        <img src={ingredientDetails.image_large} alt=""/>
+        <img src={ingredientData.image_large} alt=""/>
       </div>
 
       <div className={`${style.title} ${"text text_type_main-medium"}`}>
-        {ingredientDetails.name}
+        {ingredientData.name}
       </div>
 
       <ul className={style.composition}>
@@ -20,7 +34,7 @@ function IngredientDetails({ ingredientDetails }) {
               Калории,ккал
             </span>
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientDetails.calories}
+              {ingredientData.calories}
             </span>
         </li>
 
@@ -30,7 +44,7 @@ function IngredientDetails({ ingredientDetails }) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientDetails.proteins}
+              {ingredientData.proteins}
             </span>
         </li>
 
@@ -40,7 +54,7 @@ function IngredientDetails({ ingredientDetails }) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientDetails.fat}
+              {ingredientData.fat}
             </span>
         </li>
 
@@ -50,16 +64,12 @@ function IngredientDetails({ ingredientDetails }) {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientDetails.carbohydrates}
+              {ingredientData.carbohydrates}
             </span>
         </li>
       </ul>
     </div>
   )
-}
-
-IngredientDetails.propsType = {
-  ingredientDetails: PropTypes.shape(ingredientType)
 }
 
 export default IngredientDetails;

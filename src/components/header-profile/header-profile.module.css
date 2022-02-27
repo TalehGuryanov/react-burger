@@ -1,15 +1,25 @@
-.wr {
+.profile_link {
     display: flex;
     width: calc(100% / 3);
     justify-content: flex-end;
     text-decoration: none;
     padding: 16px 20px;
+    opacity: .6;
+    transition: opacity .35s;
 }
 
-.icon {
+.profile_link:hover {
+    opacity: 1;
+}
+
+.profile_link__active {
+    opacity: 1;
+}
+
+.profile_link_icon {
     margin-right: 8px;
 }
 
-.text {
+.profile_link_text {
     color: #fff;
 }

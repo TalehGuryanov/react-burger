@@ -1,13 +1,12 @@
 import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
-import IngredientsBox from "../ingredients-box/ingredients-box";
+import style from "./tabs.module.css"
 
-function Tabs ({current, setCurrent, scrollOnClick}) {
+function Tabs ({current, scrollOnClick}) {
   return (
-    <div style={{ display: 'flex' }}>
-      <Tab value="one" active={current === 'one'} onClick={scrollOnClick}>
+    <div className={style.wr}>
+      <Tab value="one" active={current === 'one'} onClick={scrollOnClick} className="rr">
         Булки
       </Tab>
       <Tab value="two" active={current === 'two'} onClick={scrollOnClick}>
@@ -22,7 +21,6 @@ function Tabs ({current, setCurrent, scrollOnClick}) {
 
 Tabs.propType = {
   current: PropTypes.string,
-  setCurrent: PropTypes.func,
   scrollOnClick: PropTypes.func
 }
 
