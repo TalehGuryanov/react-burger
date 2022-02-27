@@ -7,7 +7,7 @@ import {
 import style from "./login.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserThunk} from "../../services/actions/auth";
-import Notification from "../../components/notification/notification";
+import {Notification} from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
 const Login = ({isLogged, redirectTo}) => {

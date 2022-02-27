@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './app.module.css';
-import Header from "../header/header";
+import {Header} from "../header/header";
 import style from "./app.module.css"
 import {
   BrowserRouter as Router,
@@ -12,7 +12,7 @@ import ProtectedRoute from "../protected-route";
 import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
 import {getCookie} from "../../utils/cookie";
-import Preloader from "../preloader/preloader";
+import {Preloader} from "../preloader/preloader";
 
 function App() {
   // Get ingredients

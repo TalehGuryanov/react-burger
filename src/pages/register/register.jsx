@@ -8,7 +8,7 @@ import style from "./register.module.css"
 import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUserThunk} from "../../services/actions/auth";
-import Notification from "../../components/notification/notification";
+import {Notification} from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
 const Register = ({isLogged, redirectTo}) => {

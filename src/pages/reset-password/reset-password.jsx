@@ -7,8 +7,8 @@ import {
 import style from "./reset-password.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordThunk} from "../../services/actions/auth";
-import Preloader from "../../components/preloader/preloader";
-import Notification from "../../components/notification/notification";
+import {Preloader} from "../../components/preloader/preloader";
+import {Notification} from "../../components/notification/notification";
 
 const ResetPassword = () => {
   const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector(store => store.authResponse);

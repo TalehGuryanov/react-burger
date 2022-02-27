@@ -1,6 +1,7 @@
 import style from "./preloader.module.css"
+import React from "react";
 
-function Preloader() {
+export const Preloader: React.FC = () => {
   return(
     <div className={style.wr}>
       <div className={style.loader}>
@@ -15,6 +16,4 @@ function Preloader() {
       </div>
     </div>
   )
-}
-
-export default Preloader;
+};

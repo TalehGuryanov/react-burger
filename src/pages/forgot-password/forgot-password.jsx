@@ -7,8 +7,8 @@ import style from "./forgot-password.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {forgotPasswordThunk} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
-import Preloader from "../../components/preloader/preloader";
-import Notification from "../../components/notification/notification";
+import {Preloader} from "../../components/preloader/preloader";
+import {Notification} from "../../components/notification/notification";
 import PropTypes from "prop-types";
 
 const ForgotPassword = ({isLogged, redirectTo}) => {

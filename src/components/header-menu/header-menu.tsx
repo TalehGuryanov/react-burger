@@ -1,8 +1,9 @@
 import style from "../header-menu/header-menu.module.css";
 import {BurgerIcon, ListIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
+import React from "react";
 
-function HeaderMenu () {
+export const HeaderMenu: React.FC = () => {
   return (
     <ul className={style.wr}>
       <li className={style.item}>
@@ -38,6 +39,4 @@ function HeaderMenu () {
       </li>
     </ul>
   )
-}
-
-export default HeaderMenu;
+};

@@ -1,9 +1,10 @@
 import style from "./header-profile.module.css";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
-import PropTypes from "prop-types";
+import {TIsLogged} from "../../utils/types";
+import React from "react";
 
-function HeaderProfile ({isLogged}) {
+export const HeaderProfile: React.FC<TIsLogged> = ({isLogged}) => {
   return (
     <NavLink to={isLogged ? "/profile" : "/login"}
               className={style.profile_link}
@@ -18,10 +19,4 @@ function HeaderProfile ({isLogged}) {
       </span>
     </NavLink>
   )
-}
-
-HeaderProfile.propsType = {
-  isLogged: PropTypes.bool
-}
-
-export default HeaderProfile;
+};

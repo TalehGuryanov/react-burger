@@ -1,12 +1,11 @@
 import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./header-logo.module.css"
+import React from "react";
 
-function HeaderLogo() {
+export const HeaderLogo: React.FC = () => {
   return (
     <div className={style.wr}>
       <Logo />
     </div>
   )
-}
-
-export  default HeaderLogo;
+};

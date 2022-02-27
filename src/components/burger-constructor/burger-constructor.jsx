@@ -3,7 +3,7 @@ import style from "./burger-constructor.module.css"
 import OrderButton from "../order-button/order-button";
 import React from "react";
 import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
+import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
@@ -16,8 +16,8 @@ import {
 } from "../../services/actions/constuctor";
 import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
 import burger from "../../images/burger.png";
-import Preloader from "../preloader/preloader";
-import ErrorMessage from "../error-message/error-message";
+import {Preloader} from "../preloader/preloader";
+import {ErrorMessage} from "../error-message/error-message";
 import {order} from "../../services/actions/order";
 import PropTypes from "prop-types";
 

@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/cookie";
 import {editUserDataThunk, getUserDataThunk} from "../../services/actions/user-data";
 import {updateTokenThunk} from "../../services/actions/auth";
-import Preloader from "../preloader/preloader";
-import Notification from "../notification/notification";
+import {Preloader} from "../preloader/preloader";
+import {Notification} from "../notification/notification";
 import style from "./user-data.module.css"
 
 function UserData() {

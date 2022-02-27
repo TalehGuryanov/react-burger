@@ -3,7 +3,7 @@ import IngredientsItem from "../ingredients-item/ingredients-item";
 import PropTypes from "prop-types";
 import React, {useRef} from "react";
 import ingredientType from "../../utils/types"
-import Tabs from "../tabs/tabs";
+import {Tabs} from "../tabs/tabs";
 
 function IngredientsBox({data}) {
   const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);

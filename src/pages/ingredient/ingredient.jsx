@@ -1,11 +1,11 @@
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import React from "react";
-import ErrorMessage from "../../components/error-message/error-message";
-import Preloader from "../../components/preloader/preloader";
+import {ErrorMessage} from "../../components/error-message/error-message";
+import {Preloader} from "../../components/preloader/preloader";
 import style from "./ingredient.module.css";
 import {useHistory, useLocation} from "react-router-dom";
-import Modal from "../../components/modal/modal";
+import {Modal} from "../../components/modal/modal";
 import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
 
