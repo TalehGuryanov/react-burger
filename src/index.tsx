@@ -13,6 +13,9 @@ const enhancer = composeWithDevTools(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, enhancer);
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

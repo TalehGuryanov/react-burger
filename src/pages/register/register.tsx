@@ -9,33 +9,39 @@ import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registerUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import PropTypes from "prop-types";
+import {TIsLogged} from "../../utils/types";
+import {AppDispatch, RootState} from "../../index";
 
-const Register = ({isLogged, redirectTo}) => {
-  const { isAuthSuccess, isAuthError } = useSelector(store => store.authResponse);
-  const dispatch = useDispatch();
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+type TRegisterProps = {
+  isLogged: TIsLogged,
+  redirectTo: string
+}
 
-  const onSubmitRegistration = (event) => {
+const Register: React.FC<TRegisterProps> = ({isLogged, redirectTo}) => {
+  const { isAuthSuccess, isAuthError } = useSelector((store: RootState) => store.authResponse);
+  const dispatch: AppDispatch = useDispatch();
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const onSubmitRegistration: (event: React.FormEvent<HTMLFormElement>) => void = (event) => {
     event.preventDefault();
     dispatch(registerUserThunk(userName, email, password));
   };
 
-  const onSetName = ({target}) => {
+  const onSetName: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setUserName(target.value);
   }
 
-  const onSetEmail = ({target}) => {
+  const onSetEmail: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setEmail(target.value);
   }
 
-  const onSetPassword = ({target}) => {
+  const onSetPassword: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setPassword(target.value);
   }
 
-  const renderResult = () => {
+  const renderResult: () => React.ReactNode = () => {
     if (isAuthError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     } else if(isAuthSuccess) {
@@ -103,10 +109,5 @@ const Register = ({isLogged, redirectTo}) => {
       </div>
   );
 };
-
-Register.propsType = {
-  isLogged: PropTypes.bool,
-  redirectTo:  PropTypes.string
-}
 
 export default Register;

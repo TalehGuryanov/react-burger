@@ -8,15 +8,16 @@ import {useHistory, useLocation} from "react-router-dom";
 import {Modal} from "../../components/modal/modal";
 import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
+import {AppDispatch, RootState} from "../../index";
 
-function Ingredient() {
-  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
-  const history = useHistory();
-  const location = useLocation();
-  const dispatch = useDispatch();
+const Ingredient: React.FC = () => {
+  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
+  const history: any = useHistory();
+  const location: any = useLocation();
+  const dispatch: AppDispatch = useDispatch();
   const isModalSelector = location?.state?.isModal;
 
-  function onCloseModal() {
+  const onCloseModal: () => void = () => {
     dispatch({type: DELETE_INGREDIENT_DATA});
     dispatch({type: CLOSE_INGREDIENT_MODAL});
 
