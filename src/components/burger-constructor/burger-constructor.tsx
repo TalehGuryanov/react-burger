@@ -1,12 +1,11 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-constructor.module.css"
 import OrderButton from "../order-button/order-button";
-import React from "react";
+import React, {ReactNode} from "react";
 import OrderDetails from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop} from "react-dnd";
 import {
   ADD_ITEM_TO_CONSTRUCTOR,
   DELETE_ITEM_FROM_CONSTRUCTOR,
@@ -19,37 +18,43 @@ import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
 import {order} from "../../services/actions/order";
-import PropTypes from "prop-types";
+import {IEditedIngredientType, TIsLogged} from "../../utils/types";
+import {AppDispatch, RootState} from "../../index";
+import {useDrop} from "react-dnd";
 
-function BurgerConstructor({isLogged}) {
-  const { fillingItems, bun } = useSelector((store) => store.constructorData);
-  const { orderData, orderRequest, orderFailed } = useSelector((store) => store.order);
-  const { isOrderModalOpen } = useSelector((store) => store.modal);
-  const dispatch = useDispatch();
+type TBurgerConstructorProps = {
+  isLogged: TIsLogged
+}
+
+const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
+  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
+  const { orderData, orderRequest, orderFailed } = useSelector((store: RootState) => store.order);
+  const { isOrderModalOpen } = useSelector((store: RootState) => store.modal);
+  const dispatch: AppDispatch = useDispatch();
 
   // Added bun to constructor
-  const addBun = (bun) => {
-    dispatch({type: ADD_BUN_TO_CONSTRUCTOR, bun: bun})
+  const addBun: (item: IEditedIngredientType) => void = (item) => {
+    dispatch({type: ADD_BUN_TO_CONSTRUCTOR, bun: item})
   }
 
   // Added filling to constructor
-  const addFilling = (item) => {
+  const addFilling: (item: IEditedIngredientType) => void = (item) => {
     item.index = item.id + Math.floor(Math.random() * 100);
     dispatch({type: ADD_ITEM_TO_CONSTRUCTOR, item: item});
   }
 
   // Removed bun from constructor
-  const removeFilling = (item) => {
+  const removeFilling: (item: IEditedIngredientType) => void = (item) => {
     dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index: item.index });
   }
 
-  const cleanConstructor = () => {
+  const cleanConstructor: () => void = () => {
     dispatch({type: CLEAN_CONSTRUCTOR})
   }
 
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: IEditedIngredientType) {
       if(item.type === "bun") {
         addBun(item)
       } else {
@@ -61,22 +66,22 @@ function BurgerConstructor({isLogged}) {
   const isEmpty = fillingItems.length || bun;
 
   // Get burger price
-  const bunPrice = bun ? bun.price * 2 : null;
-  const fillingDataPrices = React.useMemo( () => fillingItems.map((item) => item.price), [fillingItems]);
+  const bunPrice: number | null = bun ? bun.price * 2 : null;
+  const fillingDataPrices = React.useMemo( () => fillingItems.map((item: IEditedIngredientType) => item.price), [fillingItems]);
 
   // Get elements id's
   const bunId = bun ? bun.id : null;
-  const fillingIds = React.useMemo(() => fillingItems.map((item) => item.id), [fillingItems]);
+  const fillingIds = React.useMemo(() => fillingItems.map((item: IEditedIngredientType) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
   // Work with order modal
-  const onCloseModal = () => {
+  const onCloseModal: () => void = () => {
     dispatch({type: CLOSE_ORDER_MODAL})
   }
-  const openModal = () => {
+  const openModal: () => void = () => {
     dispatch({type: OPEN_ORDER_MODAL});
   }
-  const showOrderData = () => {
+  const showOrderData: () => void = () => {
     if(constructorItemsIds) {
       const body = {"ingredients": constructorItemsIds};
       const post = {
@@ -93,25 +98,25 @@ function BurgerConstructor({isLogged}) {
     }
   }
 
-  const modalContent = () => {
+  const modalContent: () => ReactNode = () => {
     if(orderRequest) {
       return <Preloader />
     } else if(orderFailed) {
       return <ErrorMessage />
     } else {
-      return <OrderDetails orderDetails={orderData} onCloseModal={onCloseModal}/>
+      return <OrderDetails orderDetails={orderData} />
     }
   }
 
   // Swapping ingredients
-  const moveIngredients = (dragIndex, hoverIndex) => {
+  const moveIngredients: (dragIndex: number | string, hoverIndex: number | string) => void = (dragIndex, hoverIndex) => {
     if(dragIndex >= 0) {
       dispatch(swapIngredients(fillingItems, dragIndex, hoverIndex));
     }
   }
 
   const fillingItem = React.useMemo(() =>
-      fillingItems.map((item, index) =>
+      fillingItems.map((item: IEditedIngredientType, index: number) =>
         <ConstructorBox name={item.name}
                         price={item.price}
                         image={item.image}
@@ -171,9 +176,5 @@ function BurgerConstructor({isLogged}) {
     </div>
   )
 };
-
-BurgerConstructor.propType = {
-  isLogged: PropTypes.bool.isRequired
-}
 
 export default BurgerConstructor;

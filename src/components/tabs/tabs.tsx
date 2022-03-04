@@ -3,7 +3,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./tabs.module.css"
 
 type TTabsProps = {
-  current: 'one' | 'two' | 'three'
+  current: string
   scrollOnClick: (event: string) => void
 }
 

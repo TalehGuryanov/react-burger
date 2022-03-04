@@ -10,10 +10,14 @@ import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
 import {AppDispatch, RootState} from "../../index";
 
+type TLocation = {
+  isModal?: Location;
+}
+
 const Ingredient: React.FC = () => {
   const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
-  const history: any = useHistory();
-  const location: any = useLocation();
+  const history = useHistory();
+  const location = useLocation<TLocation>();
   const dispatch: AppDispatch = useDispatch();
   const isModalSelector = location?.state?.isModal;
 

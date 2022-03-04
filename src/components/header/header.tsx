@@ -5,7 +5,11 @@ import {HeaderProfile} from "../header-profile/header-profile";
 import React from "react";
 import {TIsLogged} from "../../utils/types";
 
-export const Header: React.FC<TIsLogged> = ({isLogged}) => {
+type THeaderProps = {
+  isLogged: TIsLogged
+}
+
+export const Header: React.FC<THeaderProps> = ({isLogged}) => {
   return (
     <header className={style.wr}>
       <div className={`${"pb-4 pt-4"} ${style.in}`}>

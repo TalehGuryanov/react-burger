@@ -4,13 +4,15 @@ import {logoutThunk} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookie";
 import {Notification} from "../notification/notification";
 import {NavLink, useRouteMatch} from "react-router-dom";
+import React from "react";
+import {AppDispatch, RootState} from "../../index";
 
-function ProfileNav() {
-  const {isAuthError} = useSelector(store => store.authResponse);
-  const dispatch = useDispatch();
+const ProfileNav: React.FC = () => {
+  const {isAuthError} = useSelector((store: RootState) => store.authResponse);
+  const dispatch: AppDispatch = useDispatch();
   const {path} = useRouteMatch();
 
-  const onLogout = () => {
+  const onLogout: () => void = () => {
     const refreshToken = getCookie("refreshToken");
 
     dispatch(logoutThunk(refreshToken));

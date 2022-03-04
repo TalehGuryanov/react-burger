@@ -13,16 +13,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
 import {getCookie} from "../../utils/cookie";
 import {Preloader} from "../preloader/preloader";
+import {AppDispatch, RootState} from "../../index";
 
-function App() {
+const App: React.FC = () => {
   // Get ingredients
-  const { ingredientItems }  = useSelector(store => store.ingredients);
-  const dispatch = useDispatch();
+  const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
+  const dispatch: AppDispatch = useDispatch();
 
   // Constants for authenticator
-  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector(store => store.authResponse);
+  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector((store: RootState) => store.authResponse);
   const accessToken = getCookie("accessToken");
-  const [isLogged, setIsLogged] = useState(!!accessToken);
+  const [isLogged, setIsLogged] = useState<boolean>(!!accessToken);
 
   useEffect(() => {
 

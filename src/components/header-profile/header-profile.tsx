@@ -4,7 +4,11 @@ import {NavLink} from "react-router-dom";
 import {TIsLogged} from "../../utils/types";
 import React from "react";
 
-export const HeaderProfile: React.FC<TIsLogged> = ({isLogged}) => {
+type THeaderProfileProps = {
+  isLogged: TIsLogged
+}
+
+export const HeaderProfile: React.FC<THeaderProfileProps> = ({isLogged}) => {
   return (
     <NavLink to={isLogged ? "/profile" : "/login"}
               className={style.profile_link}

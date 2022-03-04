@@ -6,7 +6,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TOnCLoseModal} from "../../utils/types";
 
 type TModalProps = {
-  title: string
+  title?: string
   children: React.ReactNode
   onCloseModal: TOnCLoseModal
 }

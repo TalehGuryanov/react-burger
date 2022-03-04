@@ -2,17 +2,23 @@ import style from "./ingredient-details.module.css";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ADD_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import {AppDispatch, RootState} from "../../index";
+import {IEditedIngredientType} from "../../utils/types";
 
-function IngredientDetails() {
-  const { id } = useParams();
-  const { ingredientItems }  = useSelector(store => store.ingredients);
-  const { ingredientData } = useSelector(store => store.currentIngredient);
-  const dispatch = useDispatch();
+type TSelectedIngredientId = {
+  id: string
+}
+
+const IngredientDetails: React.FC = () => {
+  const { id }: TSelectedIngredientId = useParams();
+  const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientData } = useSelector((store: RootState) => store.currentIngredient);
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     if(ingredientItems.length) {
-      const selectedIngredient = ingredientItems.find((burger) => burger._id === id);
+      const selectedIngredient = ingredientItems.find((burger: IEditedIngredientType) => burger._id === id);
 
       dispatch({type: ADD_INGREDIENT_DATA, item: selectedIngredient});
     }

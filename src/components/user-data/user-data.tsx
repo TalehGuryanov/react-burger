@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/cookie";
@@ -7,21 +7,22 @@ import {updateTokenThunk} from "../../services/actions/auth";
 import {Preloader} from "../preloader/preloader";
 import {Notification} from "../notification/notification";
 import style from "./user-data.module.css"
+import {AppDispatch, RootState} from "../../index";
 
-function UserData() {
-  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
-  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector(store => store.authResponse);
-  const [newName, setUserNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [isDataChanged, setDataChanged] = useState(false);
-  const dispatch = useDispatch();
-  const formRef = useRef();
-  const refreshToken = getCookie('refreshToken');
+const UserData: React.FC = () => {
+  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector((store: RootState) => store.user);
+  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector((store: RootState) => store.authResponse);
+  const [newName, setUserNewName] = useState<string>("");
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [isDataChanged, setDataChanged] = useState<boolean>(false);
+  const dispatch:AppDispatch = useDispatch();
+  const refreshToken: string | undefined = getCookie('refreshToken');
+  const formRef = useRef<any>(null);
 
-  const onChangeForm = () => {
-    const {elements} = formRef.current;
-    const currentValue = elements.name.value + elements.email.value + elements.password.value
+  const onChangeForm: () => void = () => {
+    const elements = formRef.current?.elements;
+    const currentValue = elements?.name.value + elements?.email.value + elements?.password.value;
     const defaultData = user.name + user.email;
 
     if(defaultData === currentValue) {
@@ -46,7 +47,7 @@ function UserData() {
     }
   }, []);
 
-  const onEditUserData = (event) => {
+  const onEditUserData: (event: FormEvent) => void = (event) => {
     event.preventDefault();
 
     const accessToken = getCookie('accessToken');
@@ -61,19 +62,19 @@ function UserData() {
     }
   }
 
-  const onSetUserName = ({target}) => {
-    setUserNewName(target.value);
+  const onSetUserName: (event: ChangeEvent<HTMLInputElement>) => void = (event) => {
+    setUserNewName(event.target.value);
   }
 
-  const onSetEmail = ({target}) => {
-    setNewEmail(target.value);
+  const onSetEmail: (event: ChangeEvent<HTMLInputElement>) => void = (event) => {
+    setNewEmail(event.target.value);
   }
 
-  const onSetPassword = ({target}) => {
-    setNewPassword(target.value);
+  const onSetPassword: (event: ChangeEvent<HTMLInputElement>) => void = (event) => {
+    setNewPassword(event.target.value);
   }
 
-  const onReset = (event) => {
+  const onReset = (event: FormEvent) => {
     event.preventDefault();
 
     setUserNewName(user.name);

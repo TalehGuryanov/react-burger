@@ -16,12 +16,17 @@ type TLoginProps = {
   redirectTo: string
 }
 
+type THistory = {
+  state?: Location;
+  from?: Location;
+}
+
 const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
   const { isAuthError } = useSelector((store: RootState) => store.authResponse);
   const dispatch: AppDispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const history: any = useHistory();
+  const history = useHistory<THistory>();
 
   const onSubmitLogin: (event: React.FormEvent<HTMLFormElement>) => void = (event) => {
     event.preventDefault();
@@ -42,7 +47,7 @@ const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
     }
   }
 
-  const destination: string = history.location.state?.from || redirectTo;
+  const destination = history.location.state?.from || redirectTo;
 
   if(isLogged) {
     return (

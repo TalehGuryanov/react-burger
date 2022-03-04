@@ -1,8 +1,13 @@
 import style from "./order-details.module.css"
 import PropTypes from "prop-types";
 import doneImg from "../../images/graphics.png"
+import React from "react";
 
-function OrderDetails({ orderDetails }) {
+type TOrderDetailsProps = {
+  orderDetails: {order: {number: number}}
+}
+
+const OrderDetails: React.FC<TOrderDetailsProps> = ({ orderDetails }) => {
   return (
     <div className={style.wr}>
       <div className={`${style.title} ${"text text_type_digits-large"}`}>
@@ -26,10 +31,6 @@ function OrderDetails({ orderDetails }) {
       </div>
     </div>
   )
-}
-
-OrderDetails.propsType = {
-  orderDetails: PropTypes.object
-}
+};
 
 export default OrderDetails;

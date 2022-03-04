@@ -1,14 +1,17 @@
 import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
-import PropTypes from "prop-types";
 import React, {useRef} from "react";
-import ingredientType from "../../utils/types"
 import {Tabs} from "../tabs/tabs";
+import {IEditedIngredientType} from "../../utils/types";
 
-function IngredientsBox({data}) {
-  const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
-  const sauceData = React.useMemo(() =>data.filter((item) => item.type === "sauce"), [data]);
-  const mainData = React.useMemo(() => data.filter((item) => item.type === "main"), [data]);
+type TIngredientsBoxProps = {
+  data: Array<IEditedIngredientType>
+}
+
+const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
+  const bunData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "bun"), [data]);
+  const sauceData = React.useMemo(() =>data.filter((item: IEditedIngredientType) => item.type === "sauce"), [data]);
+  const mainData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "main"), [data]);
   const bun = React.useMemo(
     () =>
       bunData.map((item) =>
@@ -30,7 +33,7 @@ function IngredientsBox({data}) {
                          image={item.image}
                          name={item.name}
                          price={item.price}
-
+                         type={item.type}
         />
       ),
     [sauceData]
@@ -42,43 +45,44 @@ function IngredientsBox({data}) {
                          image={item.image}
                          name={item.name}
                          price={item.price}
+                         type={item.type}
         />
     ),
     [mainData]
   );
 
   const [current, setCurrent] = React.useState('one');
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
-  const onScroll = (event) => {
-    const wrapperClientY = event.target.getBoundingClientRect().y;
-    const bunClientY = bunRef.current.getBoundingClientRect().y;
-    const sauceClientY = sauceRef.current.getBoundingClientRect().y;
-    const mainClientY = mainRef.current.getBoundingClientRect().y;
+  const onScroll = (event: React.UIEvent) => {
+    const wrapperClientY = event.currentTarget.getBoundingClientRect().y;
+    const bunClientY = bunRef.current?.getBoundingClientRect().y;
+    const sauceClientY = sauceRef.current?.getBoundingClientRect().y;
+    const mainClientY = mainRef.current?.getBoundingClientRect().y;
 
-    if(bunClientY <= wrapperClientY) {
+    if(bunClientY && bunClientY <= wrapperClientY) {
       setCurrent('one');
     }
 
-    if(sauceClientY <= wrapperClientY) {
+    if(sauceClientY && sauceClientY <= wrapperClientY) {
       setCurrent('two');
     }
 
-    if(mainClientY <= wrapperClientY) {
+    if(mainClientY && mainClientY <= wrapperClientY) {
       setCurrent('three');
     }
   };
 
-  const scrollOnClick = (event) => {
-    if (event === "one") {
+  const scrollOnClick: (event: string) => void = (event) => {
+    if (event === "one" && bunRef.current) {
       bunRef.current.scrollIntoView({block: "start", behavior: "smooth"});
       setCurrent('one');
-    } else if(event === "two") {
+    } else if(event === "two" && sauceRef.current) {
       sauceRef.current.scrollIntoView({block: "start", behavior: "smooth"});
       setCurrent('two');
-    } else {
+    } else if(event === "three" && mainRef.current) {
       mainRef.current.scrollIntoView({block: "start", behavior: "smooth"});
       setCurrent('three');
     }
@@ -87,7 +91,7 @@ function IngredientsBox({data}) {
   return (
     <>
       <div>
-        <Tabs current={current} setCurrent={setCurrent} scrollOnClick={scrollOnClick}/>
+        <Tabs current={current} scrollOnClick={scrollOnClick}/>
       </div>
 
       <div className={style.content} onScroll={onScroll}>
@@ -123,10 +127,6 @@ function IngredientsBox({data}) {
       </div>
     </>
   )
-}
-
-IngredientsBox.propType = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType))
 }
 
 export default IngredientsBox;

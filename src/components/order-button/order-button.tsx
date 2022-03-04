@@ -4,14 +4,22 @@ import PropTypes from "prop-types";
 import React from "react";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
+import {TIsLogged} from "../../utils/types";
+import {RootState} from "../../index";
 
-function OrderButton({selectedIngredientsPrice, showOrderData, isLogged}) {
-  const { bun } = useSelector((store) => store.constructorData);
-  const [price, setPrice] = React.useState(0);
+type TOrderButtonProps = {
+  selectedIngredientsPrice: Array<number>;
+  showOrderData: () => void;
+  isLogged: TIsLogged
+};
+
+const OrderButton: React.FC<TOrderButtonProps> = ({selectedIngredientsPrice, showOrderData, isLogged}) => {
+  const { bun } = useSelector((store: RootState) => store.constructorData);
+  const [price, setPrice] = React.useState<number>(0);
   const history = useHistory();
 
   React.useEffect(() => {
-    const setTotalPrice = () => selectedIngredientsPrice.reduce((sum, item) => sum + item, 0);
+    const setTotalPrice: () => number = () => selectedIngredientsPrice.reduce((sum, item) => sum + item, 0);
     const totalPrice = setTotalPrice();
 
     setPrice(totalPrice);
@@ -41,11 +49,5 @@ function OrderButton({selectedIngredientsPrice, showOrderData, isLogged}) {
     </div>
   )
 };
-
-OrderButton.propsType = {
-  selectedIngredientsPrice: PropTypes.arrayOf(PropTypes.number),
-  showOrderData: PropTypes.func,
-  isLogged: PropTypes.bool.isRequired
-}
 
 export default OrderButton;

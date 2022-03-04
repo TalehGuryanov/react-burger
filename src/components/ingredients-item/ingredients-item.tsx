@@ -1,26 +1,36 @@
 import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {RootState} from "../../index";
+import {IEditedIngredientType} from "../../utils/types";
 
-function IngredientsItem({ image, id, name, price, type }) {
-  const { fillingItems, bun } = useSelector((store) => store.constructorData);
+type TIngredientsItemProps = {
+  id: string;
+  image: string;
+  name: string;
+  price: number;
+  type: string;
+};
+
+const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type }) => {
+  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: { image, id, name, price, type },
     collect: monitor => ({isDrag: monitor.isDragging()}),
   });
-  const [count, updateCount] = useState(0);
-  const setCount = () => {
+  const [count, updateCount] = useState<number>(0);
+  const setCount: () => number = () => {
     if(bun && bun.id === id) {
       return 2
     } else if (fillingItems.length) {
-      return fillingItems.filter(item => item.id === id).length
+      return fillingItems.filter((item: IEditedIngredientType) => item.id === id).length
     }
   };
+
   useEffect(() => {
     updateCount(setCount());
   }, [setCount])
@@ -56,14 +66,6 @@ function IngredientsItem({ image, id, name, price, type }) {
       </Link>
     </li>
   )
-}
-
-IngredientsItem.propType = {
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  id: PropTypes.string,
-  type: PropTypes.string
 }
 
 export default IngredientsItem;
