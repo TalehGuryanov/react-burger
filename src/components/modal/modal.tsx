@@ -21,9 +21,9 @@ export const Modal: React.FC<TModalProps> = ({title, children, onCloseModal}) =>
       }
     }
 
-    document.addEventListener("keyup", (event) => keyCloseModal(event))
+    document.addEventListener("keyup", keyCloseModal)
 
-    return(() => document.removeEventListener("keyup", (event) => keyCloseModal(event)))
+    return(() => document.removeEventListener("keyup", keyCloseModal));
   }, [onCloseModal]);
 
   const modalTitle = <h3 className={"text text_type_main-large"}>{title}</h3>;
