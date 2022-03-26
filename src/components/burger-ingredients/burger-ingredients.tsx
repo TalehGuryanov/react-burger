@@ -4,12 +4,12 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
-
+import {RootState} from "../../index";
 
 function BurgerIngredients () {
-  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
+  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
 
-  const renderContent = () => {
+  const renderContent: () => React.ReactNode = () => {
     if(ingredientItemsFailed) {
       return <ErrorMessage />
     } else if(ingredientItemsRequest) {
