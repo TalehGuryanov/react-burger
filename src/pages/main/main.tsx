@@ -4,9 +4,12 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import {DndProvider} from "react-dnd";
-import PropTypes from "prop-types";
 
-function Main({isLogged}) {
+type TMainProps = {
+  isLogged: boolean
+}
+
+const Main: React.FC<TMainProps> = ({isLogged}) => {
 
   return (
     <section className={style.wr}>
@@ -25,10 +28,6 @@ function Main({isLogged}) {
       </div>
     </section>
   )
-}
-
-Main.propType = {
-  isLogged: PropTypes.bool.isRequired
 }
 
 export default Main;

@@ -7,30 +7,41 @@ import {
 import style from "./login.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserThunk} from "../../services/actions/auth";
-import Notification from "../../components/notification/notification";
-import PropTypes from "prop-types";
+import {Notification} from "../../components/notification/notification";
+import {TIsLogged} from "../../utils/types";
+import {AppDispatch, RootState} from "../../index";
 
-const Login = ({isLogged, redirectTo}) => {
-  const { isAuthError } = useSelector(store => store.authResponse);
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const history = useHistory();
+type TLoginProps = {
+  isLogged: TIsLogged,
+  redirectTo: string
+}
 
-  const onSubmitLogin = (event) => {
+type THistory = {
+  state?: Location;
+  from?: Location;
+}
+
+const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
+  const { isAuthError } = useSelector((store: RootState) => store.authResponse);
+  const dispatch: AppDispatch = useDispatch();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const history = useHistory<THistory>();
+
+  const onSubmitLogin: (event: React.FormEvent<HTMLFormElement>) => void = (event) => {
     event.preventDefault();
     dispatch(loginUserThunk(email, password));
   }
 
-  const onSetEmail = ({target}) => {
+  const onSetEmail: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setEmail(target.value);
   }
 
-  const onSetPassword = ({target}) => {
+  const onSetPassword: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setPassword(target.value);
   }
 
-  const renderError = () => {
+  const renderError: () => React.ReactNode = () => {
     if (isAuthError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     }
@@ -93,10 +104,5 @@ const Login = ({isLogged, redirectTo}) => {
     </div>
   )
 };
-
-Login.propsType = {
-  isLogged: PropTypes.bool,
-  redirectTo:  PropTypes.string
-}
 
 export default Login;

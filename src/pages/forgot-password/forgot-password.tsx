@@ -7,20 +7,26 @@ import style from "./forgot-password.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {forgotPasswordThunk} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
-import Preloader from "../../components/preloader/preloader";
-import Notification from "../../components/notification/notification";
-import PropTypes from "prop-types";
+import {Preloader} from "../../components/preloader/preloader";
+import {Notification} from "../../components/notification/notification";
+import {TIsLogged} from "../../utils/types";
+import {AppDispatch, RootState} from "../../index";
 
-const ForgotPassword = ({isLogged, redirectTo}) => {
-  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector(store => store.authResponse);
-  const [email, setEmail] = useState("");
-  const dispatch = useDispatch();
+type TForgotPasswordProps = {
+  isLogged: TIsLogged,
+  redirectTo: string
+}
 
-  const onSetEmail = ({target}) => {
+const ForgotPassword: React.FC<TForgotPasswordProps> = ({isLogged, redirectTo}) => {
+  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector((store: RootState) => store.authResponse);
+  const [email, setEmail] = useState<string>("");
+  const dispatch: AppDispatch = useDispatch();
+
+  const onSetEmail = ({target}: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(target.value);
   }
 
-  const onResetPassword = (event) => {
+  const onResetPassword = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(forgotPasswordThunk(email));
   }
@@ -75,10 +81,5 @@ const ForgotPassword = ({isLogged, redirectTo}) => {
     </div>
   );
 };
-
-ForgotPassword.propsType = {
-  isLogged: PropTypes.bool,
-  redirectTo:  PropTypes.string
-}
 
 export default ForgotPassword;

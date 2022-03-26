@@ -7,29 +7,30 @@ import {
 import style from "./reset-password.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordThunk} from "../../services/actions/auth";
-import Preloader from "../../components/preloader/preloader";
-import Notification from "../../components/notification/notification";
+import {Preloader} from "../../components/preloader/preloader";
+import {Notification} from "../../components/notification/notification";
+import {AppDispatch, RootState} from "../../index";
 
 const ResetPassword = () => {
-  const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector(store => store.authResponse);
-  const dispatch = useDispatch();
-  const [code, setCode] = useState("");
-  const [password, setPassword] = useState("");
+  const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector((store: RootState) => store.authResponse);
+  const dispatch: AppDispatch = useDispatch();
+  const [code, setCode] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const onResetPassword = (event) => {
+  const onResetPassword: (event: React.FormEvent<HTMLFormElement>) => void = (event) => {
     event.preventDefault();
     dispatch(resetPasswordThunk(password, code));
   }
 
-  const onSetPassword = ({target}) => {
+  const onSetPassword: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setPassword(target.value);
   }
 
-  const onSetCode = ({target}) => {
+  const onSetCode: ({target}: React.ChangeEvent<HTMLInputElement>) => void = ({target}) => {
     setCode(target.value);
   }
 
-  const renderResponse= () => {
+  const renderResponse: () => React.ReactNode = () => {
     if (resetPasswordError){
       return <Notification text="Что-то пошло не так. Попробуйте еще раз" status={false}/>
     } else if(resetPasswordSuccess) {
@@ -37,8 +38,10 @@ const ResetPassword = () => {
     }
   }
 
-  const redirect = () => {
-    setTimeout(() => <Redirect to={"/"}/>, 1000)
+  if(resetPasswordSuccess) {
+    return (
+      <Redirect to={ '/login' }/>
+    );
   }
 
   return (
@@ -85,7 +88,6 @@ const ResetPassword = () => {
         </div>
       </div>
       {renderResponse()}
-      {redirect()}
     </div>
   );
 };

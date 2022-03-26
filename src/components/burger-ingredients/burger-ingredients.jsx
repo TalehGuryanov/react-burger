@@ -2,8 +2,8 @@ import style from "./burger-ingredients.module.css"
 import IngredientsBox from "../ingredients-box/ingredients-box";
 import React from "react";
 import { useSelector } from 'react-redux';
-import Preloader from "../preloader/preloader";
-import ErrorMessage from "../error-message/error-message";
+import {Preloader} from "../preloader/preloader";
+import {ErrorMessage} from "../error-message/error-message";
 
 
 function BurgerIngredients () {

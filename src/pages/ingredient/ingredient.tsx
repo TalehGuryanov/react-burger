@@ -1,22 +1,27 @@
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import React from "react";
-import ErrorMessage from "../../components/error-message/error-message";
-import Preloader from "../../components/preloader/preloader";
+import {ErrorMessage} from "../../components/error-message/error-message";
+import {Preloader} from "../../components/preloader/preloader";
 import style from "./ingredient.module.css";
 import {useHistory, useLocation} from "react-router-dom";
-import Modal from "../../components/modal/modal";
+import {Modal} from "../../components/modal/modal";
 import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
+import {AppDispatch, RootState} from "../../index";
 
-function Ingredient() {
-  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
+type TLocation = {
+  isModal?: Location;
+}
+
+const Ingredient: React.FC = () => {
+  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
   const history = useHistory();
-  const location = useLocation();
-  const dispatch = useDispatch();
+  const location = useLocation<TLocation>();
+  const dispatch: AppDispatch = useDispatch();
   const isModalSelector = location?.state?.isModal;
 
-  function onCloseModal() {
+  const onCloseModal: () => void = () => {
     dispatch({type: DELETE_INGREDIENT_DATA});
     dispatch({type: CLOSE_INGREDIENT_MODAL});
 
