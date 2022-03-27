@@ -10,10 +10,10 @@ import {
 import {Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient} from "../../pages";
 import ProtectedRoute from "../protected-route";
 import {useDispatch, useSelector} from "react-redux";
-import {ingredients} from "../../services/actions/ingredients";
 import {getCookie} from "../../utils/cookie";
 import {Preloader} from "../preloader/preloader";
 import {AppDispatch, RootState} from "../../services/types";
+import {ingredientsThunk} from "../../services/actions/ingredients";
 
 const App: React.FC = () => {
   // Get ingredients
@@ -32,7 +32,7 @@ const App: React.FC = () => {
     }
 
     if(!ingredientItems.length) {
-      dispatch(ingredients())
+      dispatch(ingredientsThunk())
     }
   }, [ingredientItems, isAuthSuccess]);
 

@@ -19,7 +19,9 @@ const IngredientDetails: React.FC = () => {
     if(ingredientItems.length) {
       const selectedIngredient = ingredientItems.find((burger: TIngredient) => burger._id === id);
 
-      dispatch(addIngredientDataActionCreator(selectedIngredient));
+      if(selectedIngredient) {
+        dispatch(addIngredientDataActionCreator(selectedIngredient));
+      }
     }
   }, [ingredientItems]);
 

@@ -1,14 +1,21 @@
-import { GET_ITEMS, GET_ITEMS_SUCCESS, GET_ITEMS_FAILED } from "../actions/ingredients";
+import { GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "../constants/ingredients";
+import {TIngredient} from "../types";
+import {TIngredientsAction} from "../actions/ingredients";
 
-const initialState = {
+type TIngredientsInitialState = {
+  ingredientItems: TIngredient[];
+  ingredientItemsRequest: boolean;
+  ingredientItemsFailed: boolean;
+}
+const ingredientsInitialState: TIngredientsInitialState = {
   ingredientItems: [],
   ingredientItemsRequest: false,
   ingredientItemsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TIngredientsAction) => {
   switch (action.type) {
-    case GET_ITEMS: {
+    case GET_ITEMS_REQUEST: {
       return {
         ...state,
         ingredientItemsRequest: true,
@@ -23,7 +30,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredientItems: action.items
       };
     }
-    case GET_ITEMS_FAILED: {
+    case GET_ITEMS_ERROR: {
       return {
         ...state,
         ingredientItemsRequest: false,
