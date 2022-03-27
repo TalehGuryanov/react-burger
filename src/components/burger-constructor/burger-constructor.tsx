@@ -12,10 +12,10 @@ import {
 import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
-import {order} from "../../services/actions/order";
 import {AppDispatch, RootState, TIngredient, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
 import {closeIngredientModalActionCreator, openOrderActionCreator} from "../../services/actions/modal";
+import {orderThunk} from "../../services/actions/order";
 
 type TBurgerConstructorProps = {
   isLogged: TIsLogged
@@ -88,7 +88,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
         body: JSON.stringify(body)
       };
 
-      dispatch(order(post));
+      dispatch(orderThunk(post));
       cleanConstructor();
       openModal();
     }
