@@ -6,7 +6,7 @@ import {Preloader} from "../../components/preloader/preloader";
 import style from "./ingredient.module.css";
 import {useHistory, useLocation} from "react-router-dom";
 import {Modal} from "../../components/modal/modal";
-import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
+import {deleteIngredientDataActionCreator} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
 import {AppDispatch, RootState} from "../../services/types";
 
@@ -22,7 +22,7 @@ const Ingredient: React.FC = () => {
   const isModalSelector = location?.state?.isModal;
 
   const onCloseModal: () => void = () => {
-    dispatch({type: DELETE_INGREDIENT_DATA});
+    dispatch(deleteIngredientDataActionCreator());
     dispatch({type: CLOSE_INGREDIENT_MODAL});
 
     history.goBack();
