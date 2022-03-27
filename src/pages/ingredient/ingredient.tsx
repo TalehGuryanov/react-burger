@@ -7,8 +7,8 @@ import style from "./ingredient.module.css";
 import {useHistory, useLocation} from "react-router-dom";
 import {Modal} from "../../components/modal/modal";
 import {deleteIngredientDataActionCreator} from "../../services/actions/ingredient-data";
-import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
 import {AppDispatch, RootState} from "../../services/types";
+import {closeIngredientModalActionCreator} from "../../services/actions/modal";
 
 type TLocation = {
   isModal?: Location;
@@ -23,7 +23,7 @@ const Ingredient: React.FC = () => {
 
   const onCloseModal: () => void = () => {
     dispatch(deleteIngredientDataActionCreator());
-    dispatch({type: CLOSE_INGREDIENT_MODAL});
+    dispatch(closeIngredientModalActionCreator());
 
     history.goBack();
   }

@@ -9,13 +9,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   swapIngredients, addItemCreator, deleteItemCreator, addBunCreator, cleanConstructorCreator
 } from "../../services/actions/constuctor";
-import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
 import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
 import {order} from "../../services/actions/order";
 import {AppDispatch, RootState, TIngredient, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
+import {closeIngredientModalActionCreator, openOrderActionCreator} from "../../services/actions/modal";
 
 type TBurgerConstructorProps = {
   isLogged: TIsLogged
@@ -72,10 +72,10 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
 
   // Work with order modal
   const onCloseModal: () => void = () => {
-    dispatch({type: CLOSE_ORDER_MODAL})
+    dispatch(closeIngredientModalActionCreator())
   }
   const openModal: () => void = () => {
-    dispatch({type: OPEN_ORDER_MODAL});
+    dispatch(openOrderActionCreator());
   }
   const showOrderData: () => void = () => {
     if(constructorItemsIds) {

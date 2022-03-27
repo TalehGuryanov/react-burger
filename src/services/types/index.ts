@@ -5,6 +5,7 @@ import {Action, ActionCreator} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {TIngredientDataActions} from "../actions/ingredient-data";
 import {TIngredientsAction} from "../actions/ingredients";
+import {TModalActions} from "../actions/modal";
 
 export type RootState = ReturnType<typeof store.getState>
 
@@ -15,6 +16,7 @@ export type TAppActions =
     | TAuthActions
     | TIngredientDataActions
     | TIngredientsAction
+    | TModalActions
 
 export type AppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState, TAppActions>

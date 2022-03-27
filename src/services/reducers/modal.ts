@@ -1,11 +1,16 @@
-import { OPEN_INGREDIENT_MODAL, CLOSE_INGREDIENT_MODAL, OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from "../actions/modal";
+import { OPEN_INGREDIENT_MODAL, CLOSE_INGREDIENT_MODAL, OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from "../constants/modal";
+import {TModalActions} from "../actions/modal";
 
-const initialState = {
+type TModalState = {
+  isIngredientModalOpen: boolean;
+  isOrderModalOpen: boolean
+}
+const modalInitialState: TModalState = {
   isIngredientModalOpen: false,
   isOrderModalOpen: false
 };
 
-export function showHideModal(state = initialState, action) {
+export function showHideModal(state = modalInitialState, action: TModalActions) {
   switch (action.type) {
     case OPEN_INGREDIENT_MODAL: {
       return {
