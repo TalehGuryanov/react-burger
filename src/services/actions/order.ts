@@ -1,12 +1,13 @@
 import {URL} from "../constants";
 import {GET_ORDER_DATA_REQUEST, GET_ORDER_DATA_SUCCESS, GET_ORDER_DATA_ERROR} from "../constants/order";
-import {AppDispatch, AppThunk, TOrderData} from "../types";
+import {AppDispatch, AppThunk} from "../types";
+import {TOrderData} from "../types/orderType";
 
 interface IGetOrderDataRequest {
   readonly type: typeof GET_ORDER_DATA_REQUEST
 }
 
-export const getOrderDataRequestActionCreator: () => IGetOrderDataRequest = () => ({
+const getOrderDataRequestActionCreator: () => IGetOrderDataRequest = () => ({
   type: GET_ORDER_DATA_REQUEST
 })
 
@@ -15,7 +16,7 @@ interface IGetOrderDataSuccess {
   readonly data: TOrderData
 }
 
-export const getOrderDataSuccessActionCreator: (data: TOrderData) => IGetOrderDataSuccess = (data) => ({
+const getOrderDataSuccessActionCreator: (data: TOrderData) => IGetOrderDataSuccess = (data) => ({
   type: GET_ORDER_DATA_SUCCESS,
   data
 })
@@ -24,7 +25,7 @@ interface IGetOrderDataError {
   readonly type: typeof GET_ORDER_DATA_ERROR
 }
 
-export const getOrderDataErrorActionCreator: () => IGetOrderDataError = () => ({
+const getOrderDataErrorActionCreator: () => IGetOrderDataError = () => ({
   type: GET_ORDER_DATA_ERROR
 })
 
@@ -33,7 +34,7 @@ export type TOrderActions =
   | IGetOrderDataSuccess
   | IGetOrderDataError
 
-export const orderThunk: AppThunk = (post) => {
+export const orderThunk: AppThunk = (post: RequestInit) => {
   return function (dispatch: AppDispatch) {
     dispatch(getOrderDataRequestActionCreator())
     

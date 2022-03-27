@@ -2,7 +2,7 @@ import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import React, {useRef} from "react";
 import {Tabs} from "../tabs/tabs";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TIngredientsBoxProps = {
   data: Array<TIngredient>

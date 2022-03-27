@@ -4,7 +4,8 @@ import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {RootState, TIngredient} from "../../services/types";
+import {RootState} from "../../services/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TIngredientsItemProps = {
   id: string;

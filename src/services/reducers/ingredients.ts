@@ -1,13 +1,13 @@
 import { GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "../constants/ingredients";
-import {TIngredient} from "../types";
+import {TIngredient} from "../types/ingredientsTypes";
 import {TIngredientsAction} from "../actions/ingredients";
 
-type TIngredientsInitialState = {
+type TIngredientsState = {
   ingredientItems: TIngredient[];
   ingredientItemsRequest: boolean;
   ingredientItemsFailed: boolean;
 }
-const ingredientsInitialState: TIngredientsInitialState = {
+const ingredientsInitialState: TIngredientsState = {
   ingredientItems: [],
   ingredientItemsRequest: false,
   ingredientItemsFailed: false,

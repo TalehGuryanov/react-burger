@@ -29,29 +29,3 @@ export type AppThunk<TReturn = void> = ActionCreator<
 export type TIsLogged = boolean;
 
 export type TOnCLoseModal = () => void;
-
-export type TIngredientType = 'bun' | 'main' | 'sauce';
-
-export type TIngredient = {
-  _id: string;
-  id?: string;
-  index?: number | string;
-  name: string;
-  type: TIngredientType;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-  count?: number;
-};
-
-export type TOrderData = {
-  success: boolean;
-  name: string;
-  order: { number: number }
-}

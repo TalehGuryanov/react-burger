@@ -5,7 +5,7 @@ import {
   ADD_BUN_TO_CONSTRUCTOR,
   SWAMP_INGREDIENTS
 } from "../constants/constructor";
-import {TIngredient} from "../types";
+import {TIngredient} from "../types/ingredientsTypes";
 import {TConstructorActions} from "../actions/constuctor";
 
 type TConstructorState= {

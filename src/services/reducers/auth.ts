@@ -35,7 +35,8 @@ type TAuthState = {
   updateTokenSuccess: boolean,
   updateTokenError: boolean
 }
-const initialState: TAuthState = {
+
+const authInitialState: TAuthState = {
   isAuthRequest: false,
   isAuthSuccess: false,
   isAuthError: false,
@@ -51,7 +52,7 @@ const initialState: TAuthState = {
   updateTokenError: false
 }
 
-export const authReducer = (state = initialState, action: TAuthActions) => {
+export const authReducer = (state = authInitialState, action: TAuthActions) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {

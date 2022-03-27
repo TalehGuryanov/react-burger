@@ -4,7 +4,8 @@ import {
   GET_ITEMS_ERROR
 } from "../constants/ingredients";
 import {URL} from "../constants";
-import {AppDispatch, AppThunk, TIngredient} from "../types";
+import {AppDispatch, AppThunk} from "../types";
+import {TIngredient} from "../types/ingredientsTypes";
 
 interface IGetIngredientsRequest {
   readonly type: typeof GET_ITEMS_REQUEST

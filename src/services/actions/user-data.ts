@@ -8,6 +8,8 @@ import {
   EDIT_USER_DATA_ERROR
 } from "../constants/user-data";
 import {AppDispatch, AppThunk} from "../types";
+import {TUser} from "../types/userType";
+
 
 interface IGetUserDataRequest {
   readonly type: typeof GET_USER_DATA_REQUEST
@@ -19,10 +21,10 @@ const getUserDataRequestActionCreator: () => IGetUserDataRequest = () => ({
 
 interface IGetUserDataSuccess {
   readonly type: typeof GET_USER_DATA_SUCCESS
-  readonly user: any
+  readonly user: TUser
 }
 
-const getUserDataSuccessActionCreator: (user: any) => IGetUserDataSuccess = (user) => ({
+const getUserDataSuccessActionCreator: (user: TUser) => IGetUserDataSuccess = (user) => ({
   type: GET_USER_DATA_SUCCESS,
   user
 })

@@ -3,7 +3,8 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addIngredientDataActionCreator} from "../../services/actions/ingredient-data";
 import React, {useEffect} from "react";
-import {AppDispatch, RootState, TIngredient} from "../../services/types";
+import {AppDispatch, RootState} from "../../services/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TSelectedIngredientId = {
   id: string

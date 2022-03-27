@@ -7,15 +7,16 @@ import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  swapIngredients, addItemCreator, deleteItemCreator, addBunCreator, cleanConstructorCreator
+  swapIngredients, addItemActionCreator, deleteItemActionCreator, addBunActionCreator, cleanConstructorActionCreator
 } from "../../services/actions/constuctor";
 import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
-import {AppDispatch, RootState, TIngredient, TIsLogged} from "../../services/types";
+import {RootState, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
-import {closeIngredientModalActionCreator, openOrderActionCreator} from "../../services/actions/modal";
+import {closeIngredientModalActionCreator, openOrderModalActionCreator} from "../../services/actions/modal";
 import {orderThunk} from "../../services/actions/order";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TBurgerConstructorProps = {
   isLogged: TIsLogged
@@ -29,23 +30,22 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
 
   // Added bun to constructor
   const addBun: (item: TIngredient) => void = (item) => {
-    dispatch(addBunCreator(item))
+    dispatch(addBunActionCreator(item))
   }
 
   // Added filling to constructor
   const addFilling: (item: TIngredient) => void = (item) => {
-    console.log(item)
-    item.index = item.id ? item.id + Math.floor(Math.random() * 100) : 0 ;
-    dispatch(addItemCreator(item));
+    item.index = item.id ? Number(item.id + Math.floor(Math.random() * 100)) : 0 ;
+    dispatch(addItemActionCreator(item));
   }
 
   // Removed bun from constructor
   const removeFilling: (item: TIngredient) => void = (item) => {
-    dispatch(deleteItemCreator(item.index));
+    dispatch(deleteItemActionCreator(item.index));
   }
 
   const cleanConstructor: () => void = () => {
-    dispatch(cleanConstructorCreator())
+    dispatch(cleanConstructorActionCreator())
   }
 
   const [{isHover}, dropTarget] = useDrop({
@@ -75,12 +75,12 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
     dispatch(closeIngredientModalActionCreator())
   }
   const openModal: () => void = () => {
-    dispatch(openOrderActionCreator());
+    dispatch(openOrderModalActionCreator());
   }
   const showOrderData: () => void = () => {
     if(constructorItemsIds) {
       const body = {"ingredients": constructorItemsIds};
-      const post = {
+      const post: RequestInit = {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   }
 
   // Swapping ingredients
-  const moveIngredients: (dragIndex: number | string | undefined, hoverIndex: number | string | undefined) => void = (dragIndex, hoverIndex) => {
+  const moveIngredients: (dragIndex: number | undefined, hoverIndex: number | undefined) => void = (dragIndex, hoverIndex) => {
     if(dragIndex && dragIndex >= 0) {
       dispatch(swapIngredients(fillingItems, dragIndex, hoverIndex));
     }

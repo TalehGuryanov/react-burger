@@ -1,5 +1,5 @@
 import { ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA } from "../constants/ingredient-data";
-import {TIngredient} from "../types";
+import {TIngredient} from "../types/ingredientsTypes";
 
 interface TAddIngredientData {
   readonly type: typeof ADD_INGREDIENT_DATA;

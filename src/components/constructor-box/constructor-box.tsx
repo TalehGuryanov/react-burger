@@ -2,15 +2,15 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import style from "./constructor-box.module.css"
 import {useDrag, useDrop} from "react-dnd";
 import React, {useRef} from "react";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TConstructorBoxProps = {
   name: string;
   price: number,
   image: string,
   removeItem: () => void;
-  index: number | string,
-  moveIngredients: (dragIndex: number | string | undefined, hoverIndex: number | string | undefined) => void
+  index: number,
+  moveIngredients: (dragIndex: number | undefined, hoverIndex: number | undefined) => void
 }
 
 const ConstructorBox: React.FC<TConstructorBoxProps> = ({name, price, image, removeItem, index, moveIngredients}) => {

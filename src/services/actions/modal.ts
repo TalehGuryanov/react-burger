@@ -9,7 +9,7 @@ interface IOpenIngredientModal {
   readonly type: typeof OPEN_INGREDIENT_MODAL
 }
 
-export const openIngredientModalActionCreator: () => IOpenIngredientModal = () => (
+const openIngredientModalActionCreator: () => IOpenIngredientModal = () => (
     {type: OPEN_INGREDIENT_MODAL}
 );
 
@@ -25,7 +25,7 @@ interface IOpenOrderModal {
   readonly type: typeof OPEN_ORDER_MODAL
 }
 
-export const openOrderActionCreator: () => IOpenOrderModal = () => (
+export const openOrderModalActionCreator: () => IOpenOrderModal = () => (
     {type: OPEN_ORDER_MODAL}
 );
 
@@ -33,7 +33,7 @@ interface ICLoseOrderModal {
   readonly type: typeof CLOSE_ORDER_MODAL
 }
 
-export const closeOrderActionCreator: () => ICLoseOrderModal = () => (
+const closeOrderModalActionCreator: () => ICLoseOrderModal = () => (
     {type: CLOSE_ORDER_MODAL}
 );
 

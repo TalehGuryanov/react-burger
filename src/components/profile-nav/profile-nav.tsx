@@ -13,7 +13,7 @@ const ProfileNav: React.FC = () => {
   const {path} = useRouteMatch();
 
   const onLogout: () => void = () => {
-    const refreshToken = getCookie("refreshToken");
+    const refreshToken: string = getCookie("refreshToken");
 
     dispatch(logoutThunk(refreshToken));
   }

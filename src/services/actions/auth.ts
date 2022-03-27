@@ -27,73 +27,73 @@ export interface IUpdateTokenRequest {
   readonly type: typeof UPDATE_TOKEN_REQUEST
 }
 
-export const updateTokenRequestActionCreator: () => IUpdateTokenRequest = () => ({type: UPDATE_TOKEN_REQUEST});
+const updateTokenRequestActionCreator: () => IUpdateTokenRequest = () => ({type: UPDATE_TOKEN_REQUEST});
     
 export interface IUpdateTokenSuccess {
   readonly type: typeof UPDATE_TOKEN_SUCCESS
 }
 
-export const updateTokenSuccessActionCreator: () => IUpdateTokenSuccess = () => ({type: UPDATE_TOKEN_SUCCESS});
+const updateTokenSuccessActionCreator: () => IUpdateTokenSuccess = () => ({type: UPDATE_TOKEN_SUCCESS});
 
 export interface IUpdateTokenError {
   readonly type: typeof UPDATE_TOKEN_ERROR
 }
 
-export const updateTokenErrorActionCreator: () => IUpdateTokenError = () => ({type: UPDATE_TOKEN_ERROR});
+const updateTokenErrorActionCreator: () => IUpdateTokenError = () => ({type: UPDATE_TOKEN_ERROR});
 
 export interface IResetPasswordRequest {
   readonly type: typeof RESET_PASSWORD_REQUEST
 }
 
-export const resetPasswordRequestActionCreator: () => IResetPasswordRequest = () => ({type: RESET_PASSWORD_REQUEST});
+const resetPasswordRequestActionCreator: () => IResetPasswordRequest = () => ({type: RESET_PASSWORD_REQUEST});
 
 export interface IResetPasswordSuccess {
   readonly type: typeof RESET_PASSWORD_SUCCESS
 }
 
-export const resetPasswordSuccessActionCreator: () => IResetPasswordSuccess = () => ({type: RESET_PASSWORD_SUCCESS});
+const resetPasswordSuccessActionCreator: () => IResetPasswordSuccess = () => ({type: RESET_PASSWORD_SUCCESS});
 
 export interface IResetPasswordError {
   readonly type: typeof RESET_PASSWORD_ERROR
 }
 
-export const resetPasswordErrorActionCreator: () => IResetPasswordError = () => ({type: RESET_PASSWORD_ERROR});
+const resetPasswordErrorActionCreator: () => IResetPasswordError = () => ({type: RESET_PASSWORD_ERROR});
 
 export interface IRegisterRequest {
   readonly type: typeof REGISTER_REQUEST
 }
 
-export const registerRequestActionCreator: () => IRegisterRequest = () => ({type: REGISTER_REQUEST});
+const registerRequestActionCreator: () => IRegisterRequest = () => ({type: REGISTER_REQUEST});
 
 export interface IRegisterSuccess {
   readonly type: typeof REGISTER_SUCCESS
 }
 
-export const registerSuccessActionCreator: () => IRegisterSuccess = () => ({type: REGISTER_SUCCESS});
+const registerSuccessActionCreator: () => IRegisterSuccess = () => ({type: REGISTER_SUCCESS});
 
 export interface IRegisterError {
   readonly type: typeof REGISTER_ERROR
 }
 
-export const registerErrorActionCreator: () => IRegisterError = () => ({type: REGISTER_ERROR});
+const registerErrorActionCreator: () => IRegisterError = () => ({type: REGISTER_ERROR});
 
 export interface IGetPasscodeRequest {
   readonly type: typeof GET_PASSCODE_REQUEST
 }
 
-export const getPasscodeRequestActionCreator: () => IGetPasscodeRequest = () => ({type: GET_PASSCODE_REQUEST});
+const getPasscodeRequestActionCreator: () => IGetPasscodeRequest = () => ({type: GET_PASSCODE_REQUEST});
 
 export interface IGetPasscodeSuccess {
   readonly type: typeof GET_PASSCODE_SUCCESS
 }
 
-export const getPasscodeSuccessActionCreator: () => IGetPasscodeSuccess = () => ({type: GET_PASSCODE_SUCCESS});
+const getPasscodeSuccessActionCreator: () => IGetPasscodeSuccess = () => ({type: GET_PASSCODE_SUCCESS});
 
 export interface IGetPasscodeError {
   readonly type: typeof GET_PASSCODE_ERROR
 }
 
-export const getPasscodeErrorActionCreator: () => IGetPasscodeError = () => ({type: GET_PASSCODE_ERROR});
+const getPasscodeErrorActionCreator: () => IGetPasscodeError = () => ({type: GET_PASSCODE_ERROR});
 
 export interface ILoginRequest {
   readonly type: typeof LOGIN_REQUEST
@@ -105,31 +105,31 @@ export interface ILoginSuccess {
   readonly type: typeof LOGIN_SUCCESS
 }
 
-export const loginSuccessActionCreator: () => ILoginSuccess = () => ({type: LOGIN_SUCCESS});
+const loginSuccessActionCreator: () => ILoginSuccess = () => ({type: LOGIN_SUCCESS});
 
 export interface ILoginError {
   readonly type: typeof LOGIN_ERROR
 }
 
-export const loginErrorActionCreator: () => ILoginError = () => ({type: LOGIN_ERROR});
+const loginErrorActionCreator: () => ILoginError = () => ({type: LOGIN_ERROR});
 
 export interface ILogoutRequest {
   readonly type: typeof LOGOUT_REQUEST
 }
 
-export const logoutRequestActionCreator: () => ILogoutRequest = () => ({type: LOGOUT_REQUEST});
+const logoutRequestActionCreator: () => ILogoutRequest = () => ({type: LOGOUT_REQUEST});
 
 export interface ILogoutSuccess {
   readonly type: typeof LOGOUT_SUCCESS
 }
 
-export const logoutSuccessActionCreator: () => ILogoutSuccess = () => ({type: LOGOUT_SUCCESS});
+const logoutSuccessActionCreator: () => ILogoutSuccess = () => ({type: LOGOUT_SUCCESS});
 
 export interface ILogoutError {
   readonly type: typeof LOGOUT_ERROR
 }
 
-export const logoutErrorActionCreator: () => ILogoutError = () => ({type: LOGOUT_ERROR});
+const logoutErrorActionCreator: () => ILogoutError = () => ({type: LOGOUT_ERROR});
 
 export type TAuthActions =
   | IUpdateTokenRequest
@@ -151,7 +151,7 @@ export type TAuthActions =
   | ILogoutSuccess
   | ILogoutError
 
-export const registerUserThunk: AppThunk = (user, email, password) => {
+export const registerUserThunk: AppThunk = (user: string, email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(registerRequestActionCreator());
 
@@ -184,7 +184,7 @@ export const registerUserThunk: AppThunk = (user, email, password) => {
   }
 }
 
-export const loginUserThunk: AppThunk = (email, password) => {
+export const loginUserThunk: AppThunk = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(loginRequestActionCreator());
 
@@ -216,7 +216,7 @@ export const loginUserThunk: AppThunk = (email, password) => {
   }
 }
 
-export const forgotPasswordThunk: AppThunk = (email) => {
+export const forgotPasswordThunk: AppThunk = (email: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(getPasscodeRequestActionCreator());
 
@@ -243,7 +243,7 @@ export const forgotPasswordThunk: AppThunk = (email) => {
   }
 }
 
-export const resetPasswordThunk: AppThunk = (password, code) => {
+export const resetPasswordThunk: AppThunk = (password: string, code: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(resetPasswordRequestActionCreator());
 
@@ -271,7 +271,7 @@ export const resetPasswordThunk: AppThunk = (password, code) => {
   }
 }
 
-export const logoutThunk: AppThunk = (refreshToken) => {
+export const logoutThunk: AppThunk = (refreshToken: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(logoutRequestActionCreator())
 
@@ -302,7 +302,7 @@ export const logoutThunk: AppThunk = (refreshToken) => {
   }
 }
 
-export const updateTokenThunk: AppThunk = (refreshToken) => {
+export const updateTokenThunk: AppThunk = (refreshToken: string) => {
 
   return async function (dispatch: AppDispatch) {
     dispatch(updateTokenRequestActionCreator());

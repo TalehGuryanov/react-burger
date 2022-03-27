@@ -7,9 +7,10 @@ import {
   EDIT_USER_DATA_SUCCESS,
   EDIT_USER_DATA_ERROR
 } from "../constants/user-data";
+import {TUser} from "../types/userType";
 
 type TUserData = {
-  user: any;
+  user: TUser | null;
   userDataRequest: boolean;
   userDataSuccess: boolean
   userDataError: boolean,
