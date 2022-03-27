@@ -7,7 +7,7 @@ import {updateTokenThunk} from "../../services/actions/auth";
 import {Preloader} from "../preloader/preloader";
 import {Notification} from "../notification/notification";
 import style from "./user-data.module.css"
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState} from "../../services/types";
 
 const UserData: React.FC = () => {
   const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector((store: RootState) => store.user);

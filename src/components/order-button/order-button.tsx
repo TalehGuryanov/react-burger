@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {TIsLogged} from "../../utils/types";
-import {RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TOrderButtonProps = {
   selectedIngredientsPrice: Array<number>;

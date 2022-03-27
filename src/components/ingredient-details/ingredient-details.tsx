@@ -3,8 +3,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ADD_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import React, {useEffect} from "react";
-import {AppDispatch, RootState} from "../../index";
-import {IEditedIngredientType} from "../../utils/types";
+import {AppDispatch, RootState, TIngredient} from "../../services/types";
 
 type TSelectedIngredientId = {
   id: string
@@ -18,7 +17,7 @@ const IngredientDetails: React.FC = () => {
 
   useEffect(() => {
     if(ingredientItems.length) {
-      const selectedIngredient = ingredientItems.find((burger: IEditedIngredientType) => burger._id === id);
+      const selectedIngredient = ingredientItems.find((burger: TIngredient) => burger._id === id);
 
       dispatch({type: ADD_INGREDIENT_DATA, item: selectedIngredient});
     }

@@ -9,8 +9,7 @@ import {forgotPasswordThunk} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {Preloader} from "../../components/preloader/preloader";
 import {Notification} from "../../components/notification/notification";
-import {TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState, TIsLogged} from "../../services/types";
 
 type TForgotPasswordProps = {
   isLogged: TIsLogged,

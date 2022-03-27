@@ -1,4 +1,4 @@
-import {URL} from "../../utils/constants";
+import {URL} from "../constants";
 
 export const GET_ORDER = "GET_ORDER";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";

@@ -5,7 +5,7 @@ import {getCookie} from "../../utils/cookie";
 import {Notification} from "../notification/notification";
 import {NavLink, useRouteMatch} from "react-router-dom";
 import React from "react";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState} from "../../services/types";
 
 const ProfileNav: React.FC = () => {
   const {isAuthError} = useSelector((store: RootState) => store.authResponse);

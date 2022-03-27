@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {ModalOverlay} from "../modal-overlay/modal-overlay";
 import React from "react";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {TOnCLoseModal} from "../../utils/types";
+import {TOnCLoseModal} from "../../services/types";
 
 type TModalProps = {
   title?: string

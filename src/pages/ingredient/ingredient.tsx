@@ -8,7 +8,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import {Modal} from "../../components/modal/modal";
 import {DELETE_INGREDIENT_DATA} from "../../services/actions/ingredient-data";
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/modal";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState} from "../../services/types";
 
 type TLocation = {
   isModal?: Location;

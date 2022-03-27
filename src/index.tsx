@@ -3,18 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { rootReducer } from "./services/reducres/root-reducer";
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-const enhancer = composeWithDevTools(applyMiddleware(thunk));
-
-const store = createStore(rootReducer, enhancer);
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+import {store} from "./services/store";
 
 ReactDOM.render(
   <React.StrictMode>

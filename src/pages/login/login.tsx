@@ -8,8 +8,7 @@ import style from "./login.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState, TIsLogged} from "../../services/types";
 
 type TLoginProps = {
   isLogged: TIsLogged,

@@ -1,4 +1,4 @@
-import {apiRequest} from "../../utils/constants";
+import {apiRequest} from "../constants";
 
 export const GET_USER_DATA_REQUEST = "GET_USER_DATA_REQUEST";
 export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";

@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ingredients} from "../../services/actions/ingredients";
 import {getCookie} from "../../utils/cookie";
 import {Preloader} from "../preloader/preloader";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState} from "../../services/types";
 
 const App: React.FC = () => {
   // Get ingredients

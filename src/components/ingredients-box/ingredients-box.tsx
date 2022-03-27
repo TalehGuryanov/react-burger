@@ -2,16 +2,16 @@ import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import React, {useRef} from "react";
 import {Tabs} from "../tabs/tabs";
-import {IEditedIngredientType} from "../../utils/types";
+import {TIngredient} from "../../services/types";
 
 type TIngredientsBoxProps = {
-  data: Array<IEditedIngredientType>
+  data: Array<TIngredient>
 }
 
 const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
-  const bunData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "bun"), [data]);
-  const sauceData = React.useMemo(() =>data.filter((item: IEditedIngredientType) => item.type === "sauce"), [data]);
-  const mainData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "main"), [data]);
+  const bunData = React.useMemo(() => data.filter((item: TIngredient) => item.type === "bun"), [data]);
+  const sauceData = React.useMemo(() =>data.filter((item: TIngredient) => item.type === "sauce"), [data]);
+  const mainData = React.useMemo(() => data.filter((item: TIngredient) => item.type === "main"), [data]);
   const bun = React.useMemo(
     () =>
       bunData.map((item) =>

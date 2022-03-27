@@ -5,9 +5,9 @@ import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGIN_REQUEST,
-  GET_RESET_PASSWORD_CODE_ERROR,
-  GET_RESET_PASSWORD_CODE_REQUEST,
-  GET_RESET_PASSWORD_CODE_SUCCESS,
+  GET_PASSCODE_ERROR,
+  GET_PASSCODE_REQUEST,
+  GET_PASSCODE_SUCCESS,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_ERROR,
@@ -17,9 +17,25 @@ import {
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_ERROR,
   UPDATE_TOKEN_REQUEST,
-} from "../actions/auth";
+} from "../constants/auth";
+import {TAuthActions} from "../actions/auth";
 
-const initialState = {
+type TAuthState = {
+  isAuthRequest: boolean,
+  isAuthSuccess: boolean,
+  isAuthError: boolean,
+  isLoggedSelector: boolean,
+  isPasswordCodeRequest: boolean,
+  isPasswordCodeError: boolean,
+  isPasswordCodeSuccess: boolean,
+  resetPasswordRequest: boolean,
+  resetPasswordSuccess: boolean,
+  resetPasswordError: boolean,
+  updateTokenRequest: boolean,
+  updateTokenSuccess: boolean,
+  updateTokenError: boolean
+}
+const initialState: TAuthState = {
   isAuthRequest: false,
   isAuthSuccess: false,
   isAuthError: false,
@@ -35,7 +51,7 @@ const initialState = {
   updateTokenError: false
 }
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {
@@ -118,7 +134,7 @@ export const authReducer = (state = initialState, action) => {
         isLoggedSelector: false,
       }
     }
-    case GET_RESET_PASSWORD_CODE_REQUEST: {
+    case GET_PASSCODE_REQUEST: {
       return {
         ...state,
         isPasswordCodeRequest: true,
@@ -126,7 +142,7 @@ export const authReducer = (state = initialState, action) => {
         isPasswordCodeSuccess: false
       }
     }
-    case GET_RESET_PASSWORD_CODE_SUCCESS: {
+    case GET_PASSCODE_SUCCESS: {
       return {
         ...state,
         isPasswordCodeRequest: false,
@@ -134,7 +150,7 @@ export const authReducer = (state = initialState, action) => {
         isPasswordCodeSuccess: true
       }
     }
-    case GET_RESET_PASSWORD_CODE_ERROR: {
+    case GET_PASSCODE_ERROR: {
       return {
         ...state,
         isPasswordCodeRequest: false,

@@ -7,19 +7,14 @@ import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  ADD_ITEM_TO_CONSTRUCTOR,
-  DELETE_ITEM_FROM_CONSTRUCTOR,
-  ADD_BUN_TO_CONSTRUCTOR,
-  CLEAN_CONSTRUCTOR,
-  swapIngredients
+  swapIngredients, addItemCreator, deleteItemCreator, addBunCreator, cleanConstructorCreator
 } from "../../services/actions/constuctor";
 import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
 import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
 import {order} from "../../services/actions/order";
-import {IEditedIngredientType, TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState, TIngredient, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
 
 type TBurgerConstructorProps = {
@@ -33,28 +28,29 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   const dispatch: AppDispatch = useDispatch();
 
   // Added bun to constructor
-  const addBun: (item: IEditedIngredientType) => void = (item) => {
-    dispatch({type: ADD_BUN_TO_CONSTRUCTOR, bun: item})
+  const addBun: (item: TIngredient) => void = (item) => {
+    dispatch(addBunCreator(item))
   }
 
   // Added filling to constructor
-  const addFilling: (item: IEditedIngredientType) => void = (item) => {
-    item.index = item.id + Math.floor(Math.random() * 100);
-    dispatch({type: ADD_ITEM_TO_CONSTRUCTOR, item: item});
+  const addFilling: (item: TIngredient) => void = (item) => {
+    console.log(item)
+    item.index = item.id ? item.id + Math.floor(Math.random() * 100) : 0 ;
+    dispatch(addItemCreator(item));
   }
 
   // Removed bun from constructor
-  const removeFilling: (item: IEditedIngredientType) => void = (item) => {
-    dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index: item.index });
+  const removeFilling: (item: TIngredient) => void = (item) => {
+    dispatch(deleteItemCreator(item.index));
   }
 
   const cleanConstructor: () => void = () => {
-    dispatch({type: CLEAN_CONSTRUCTOR})
+    dispatch(cleanConstructorCreator())
   }
 
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item: IEditedIngredientType) {
+    drop(item: TIngredient) {
       if(item.type === "bun") {
         addBun(item)
       } else {
@@ -66,12 +62,12 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   const isEmpty = fillingItems.length || bun;
 
   // Get burger price
-  const bunPrice: number | null = bun ? bun.price * 2 : null;
-  const fillingDataPrices = React.useMemo( () => fillingItems.map((item: IEditedIngredientType) => item.price), [fillingItems]);
+  const bunPrice: number = bun ? bun.price * 2 : 0;
+  const fillingDataPrices = React.useMemo( () => fillingItems.map((item: TIngredient) => item.price), [fillingItems]);
 
   // Get elements id's
   const bunId = bun ? bun.id : null;
-  const fillingIds = React.useMemo(() => fillingItems.map((item: IEditedIngredientType) => item.id), [fillingItems]);
+  const fillingIds = React.useMemo(() => fillingItems.map((item: TIngredient) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
   // Work with order modal
@@ -109,19 +105,18 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   }
 
   // Swapping ingredients
-  const moveIngredients: (dragIndex: number | string, hoverIndex: number | string) => void = (dragIndex, hoverIndex) => {
-    if(dragIndex >= 0) {
+  const moveIngredients: (dragIndex: number | string | undefined, hoverIndex: number | string | undefined) => void = (dragIndex, hoverIndex) => {
+    if(dragIndex && dragIndex >= 0) {
       dispatch(swapIngredients(fillingItems, dragIndex, hoverIndex));
     }
   }
 
   const fillingItem = React.useMemo(() =>
-      fillingItems.map((item: IEditedIngredientType, index: number) =>
+      fillingItems.map((item: TIngredient, index: number) =>
         <ConstructorBox name={item.name}
                         price={item.price}
                         image={item.image}
                         key={item.index}
-                        id={item.id}
                         index={index}
                         removeItem={() => removeFilling(item)}
                         moveIngredients={moveIngredients}

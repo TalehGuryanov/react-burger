@@ -2,7 +2,7 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import style from "./constructor-box.module.css"
 import {useDrag, useDrop} from "react-dnd";
 import React, {useRef} from "react";
-import {IEditedIngredientType} from "../../utils/types";
+import {TIngredient} from "../../services/types";
 
 type TConstructorBoxProps = {
   name: string;
@@ -10,11 +10,10 @@ type TConstructorBoxProps = {
   image: string,
   removeItem: () => void;
   index: number | string,
-  moveIngredients: (dragIndex: number | string, hoverIndex: number | string) => void
-  id: string
+  moveIngredients: (dragIndex: number | string | undefined, hoverIndex: number | string | undefined) => void
 }
 
-const ConstructorBox: React.FC<TConstructorBoxProps> = ({name, price, image, removeItem, index, moveIngredients, id}) => {
+const ConstructorBox: React.FC<TConstructorBoxProps> = ({name, price, image, removeItem, index, moveIngredients}) => {
   //DnD elements
   const ref = useRef<HTMLDivElement>(null);
 
@@ -25,7 +24,7 @@ const ConstructorBox: React.FC<TConstructorBoxProps> = ({name, price, image, rem
         handlerId: monitor.getHandlerId()
       };
     },
-    hover: function (item: IEditedIngredientType, monitor) {
+    hover: function (item: TIngredient, monitor) {
       if (!ref.current) {
         return;
       }
@@ -40,10 +39,10 @@ const ConstructorBox: React.FC<TConstructorBoxProps> = ({name, price, image, rem
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : 0;
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      if (dragIndex && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      if (dragIndex && dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
 

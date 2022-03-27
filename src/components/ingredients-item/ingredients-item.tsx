@@ -4,8 +4,7 @@ import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {RootState} from "../../index";
-import {IEditedIngredientType} from "../../utils/types";
+import {RootState, TIngredient} from "../../services/types";
 
 type TIngredientsItemProps = {
   id: string;
@@ -27,8 +26,8 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
     if(bun && bun.id === id) {
       return 2
     } else if (fillingItems.length) {
-      return fillingItems.filter((item: IEditedIngredientType) => item.id === id).length
-    }
+      return fillingItems.filter((item: TIngredient) => item.id === id).length
+    } else return 0
   };
 
   useEffect(() => {

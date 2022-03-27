@@ -4,7 +4,7 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
-import {RootState} from "../../index";
+import {RootState} from "../../services/types";
 
 function BurgerIngredients () {
   const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);

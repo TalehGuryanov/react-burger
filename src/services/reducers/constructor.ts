@@ -1,11 +1,23 @@
-import { ADD_ITEM_TO_CONSTRUCTOR, DELETE_ITEM_FROM_CONSTRUCTOR, CLEAN_CONSTRUCTOR, ADD_BUN_TO_CONSTRUCTOR, SWAMP_INGREDIENTS } from "../actions/constuctor";
+import {
+  ADD_ITEM_TO_CONSTRUCTOR,
+  DELETE_ITEM_FROM_CONSTRUCTOR,
+  CLEAN_CONSTRUCTOR,
+  ADD_BUN_TO_CONSTRUCTOR,
+  SWAMP_INGREDIENTS
+} from "../constants/constructor";
+import {TIngredient} from "../types";
+import {TConstructorActions} from "../actions/constuctor";
 
-const initialState = {
+type TConstructorState= {
+  bun: TIngredient | null;
+  fillingItems: TIngredient[];
+}
+const constructorInitialState: TConstructorState = {
   bun: null,
   fillingItems: []
 }
 
-export function constructorReducer(state = initialState, action) {
+export function constructorReducer(state = constructorInitialState, action: TConstructorActions): TConstructorState {
   switch (action.type) {
     case ADD_ITEM_TO_CONSTRUCTOR: {
       return {
@@ -16,7 +28,7 @@ export function constructorReducer(state = initialState, action) {
     case DELETE_ITEM_FROM_CONSTRUCTOR: {
       return {
         ...state,
-        fillingItems: state.fillingItems.filter((item) => item.index !== action.index)
+        fillingItems: state.fillingItems.filter((item: TIngredient) => item.index !== action.index)
       }
     }
     case CLEAN_CONSTRUCTOR: {
