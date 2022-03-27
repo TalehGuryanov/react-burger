@@ -12,13 +12,13 @@ import ProtectedRoute from "../protected-route";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/cookie";
 import {Preloader} from "../preloader/preloader";
-import {AppDispatch, RootState} from "../../services/types";
+import {RootState} from "../../services/types";
 import {ingredientsThunk} from "../../services/actions/ingredients";
 
 const App: React.FC = () => {
   // Get ingredients
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Constants for authenticator
   const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector((store: RootState) => store.authResponse);

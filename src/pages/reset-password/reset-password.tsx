@@ -13,7 +13,7 @@ import {AppDispatch, RootState} from "../../services/types";
 
 const ResetPassword = () => {
   const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const [code, setCode] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 

@@ -9,7 +9,7 @@ import {AppDispatch, RootState} from "../../services/types";
 
 const ProfileNav: React.FC = () => {
   const {isAuthError} = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const {path} = useRouteMatch();
 
   const onLogout: () => void = () => {

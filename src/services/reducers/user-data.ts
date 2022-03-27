@@ -1,3 +1,4 @@
+import {TUserDataActions} from "../actions/user-data";
 import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_SUCCESS,
@@ -5,9 +6,19 @@ import {
   EDIT_USER_DATA_REQUEST,
   EDIT_USER_DATA_SUCCESS,
   EDIT_USER_DATA_ERROR
-} from "../actions/user-data";
+} from "../constants/user-data";
 
-const initialState = {
+type TUserData = {
+  user: any;
+  userDataRequest: boolean;
+  userDataSuccess: boolean
+  userDataError: boolean,
+  editUserDataRequest: boolean,
+  editUserDataSuccess: boolean,
+  editUserDataError: boolean
+}
+
+const userDataInitialState: TUserData = {
   user: null,
   userDataRequest: false,
   userDataSuccess: false,
@@ -17,7 +28,7 @@ const initialState = {
   editUserDataError: false
 }
 
-export const userDataReducer = (state=initialState, action) => {
+export const userDataReducer = (state=userDataInitialState, action: TUserDataActions) => {
   switch(action.type) {
     case GET_USER_DATA_REQUEST: {
       return {

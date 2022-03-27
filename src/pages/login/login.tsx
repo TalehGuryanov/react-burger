@@ -22,7 +22,7 @@ type THistory = {
 
 const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
   const { isAuthError } = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory<THistory>();

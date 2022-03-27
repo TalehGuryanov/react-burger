@@ -16,8 +16,8 @@ const UserData: React.FC = () => {
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [isDataChanged, setDataChanged] = useState<boolean>(false);
-  const dispatch:AppDispatch = useDispatch();
-  const refreshToken: string | undefined = getCookie('refreshToken');
+  const dispatch = useDispatch();
+  const refreshToken: string = getCookie('refreshToken');
   const formRef = useRef<any>(null);
 
   const onChangeForm: () => void = () => {
@@ -33,14 +33,14 @@ const UserData: React.FC = () => {
   }
 
   useEffect(() => {
-    const oldAccessToken = getCookie('accessToken');
+    const oldAccessToken: string = getCookie('accessToken');
 
     if(!oldAccessToken) {
       dispatch(updateTokenThunk(refreshToken));
     }
 
     const newAccessToken = updateTokenSuccess ? getCookie('accessToken') : null;
-    const currentAccessToken = newAccessToken || oldAccessToken;
+    const currentAccessToken: string = newAccessToken || oldAccessToken;
 
     if(!user && currentAccessToken) {
       dispatch(getUserDataThunk(currentAccessToken));
@@ -50,10 +50,10 @@ const UserData: React.FC = () => {
   const onEditUserData: (event: FormEvent) => void = (event) => {
     event.preventDefault();
 
-    const accessToken = getCookie('accessToken');
-    const name = newName || user.name;
-    const email = newEmail || user.email;
-    const password = newPassword || user.password;
+    const accessToken: string = getCookie('accessToken');
+    const name: string = newName || user.name;
+    const email: string = newEmail || user.email;
+    const password: string = newPassword || user.password;
 
     dispatch(editUserDataThunk(accessToken, email, password, name));
 

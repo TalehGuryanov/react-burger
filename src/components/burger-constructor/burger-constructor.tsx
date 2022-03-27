@@ -25,7 +25,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
   const { orderData, orderRequest, orderFailed } = useSelector((store: RootState) => store.order);
   const { isOrderModalOpen } = useSelector((store: RootState) => store.modal);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Added bun to constructor
   const addBun: (item: TIngredient) => void = (item) => {
