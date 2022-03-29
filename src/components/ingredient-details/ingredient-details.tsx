@@ -1,6 +1,6 @@
 import style from "./ingredient-details.module.css";
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import React, {useMemo} from "react";
 import {RootState} from "../../services/types";
 import {TIngredient} from "../../services/types/ingredientsTypes";

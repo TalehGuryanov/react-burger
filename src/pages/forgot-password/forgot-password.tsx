@@ -6,10 +6,10 @@ import {
 import style from "./forgot-password.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {forgotPasswordThunk} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {Preloader} from "../../components/preloader/preloader";
 import {Notification} from "../../components/notification/notification";
-import {AppDispatch, RootState, TIsLogged} from "../../services/types";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TForgotPasswordProps = {
   isLogged: TIsLogged,

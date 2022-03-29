@@ -5,11 +5,11 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./reset-password.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {resetPasswordThunk} from "../../services/actions/auth";
 import {Preloader} from "../../components/preloader/preloader";
 import {Notification} from "../../components/notification/notification";
-import {AppDispatch, RootState} from "../../services/types";
+import {RootState} from "../../services/types";
 
 const ResetPassword = () => {
   const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector((store: RootState) => store.authResponse);

@@ -4,7 +4,7 @@ import ProtectedRoute from "../protected-route";
 import IngredientModal from "../ingredient-modal/ingredient-modal";
 import React, {useEffect, useState} from "react";
 import {TLocation} from "../../services/types/location";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {RootState} from "../../services/types";
 import {getCookie} from "../../utils/cookie";
 import {ingredientsThunk} from "../../services/actions/ingredients";

@@ -1,7 +1,7 @@
 import style from "./burger-ingredients.module.css"
 import IngredientsBox from "../ingredients-box/ingredients-box";
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
 import {RootState} from "../../services/types";

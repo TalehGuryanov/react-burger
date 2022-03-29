@@ -5,7 +5,7 @@ import React, {ReactNode} from "react";
 import OrderDetails from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {
   swapIngredients, addItemActionCreator, deleteItemActionCreator, addBunActionCreator, cleanConstructorActionCreator
 } from "../../services/actions/constuctor";

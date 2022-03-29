@@ -5,10 +5,10 @@ import {
   Button, Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./login.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {loginUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {AppDispatch, RootState, TIsLogged} from "../../services/types";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TLoginProps = {
   isLogged: TIsLogged,

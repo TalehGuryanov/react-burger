@@ -6,10 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./register.module.css"
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {registerUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {AppDispatch, RootState, TIsLogged} from "../../services/types";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TRegisterProps = {
   isLogged: TIsLogged,

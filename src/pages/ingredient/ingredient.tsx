@@ -1,5 +1,5 @@
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import React from "react";
 import {ErrorMessage} from "../../components/error-message/error-message";
 import {Preloader} from "../../components/preloader/preloader";

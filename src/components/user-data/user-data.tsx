@@ -1,13 +1,13 @@
 import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {getCookie} from "../../utils/cookie";
 import {editUserDataThunk, getUserDataThunk} from "../../services/actions/user-data";
 import {updateTokenThunk} from "../../services/actions/auth";
 import {Preloader} from "../preloader/preloader";
 import {Notification} from "../notification/notification";
 import style from "./user-data.module.css"
-import {AppDispatch, RootState} from "../../services/types";
+import {RootState} from "../../services/types";
 
 const UserData: React.FC = () => {
   const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector((store: RootState) => store.user);
