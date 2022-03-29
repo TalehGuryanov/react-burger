@@ -1,9 +1,8 @@
 import style from "./ingredient-details.module.css";
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {addIngredientDataActionCreator} from "../../services/actions/ingredient-data";
-import React, {useEffect} from "react";
-import {AppDispatch, RootState} from "../../services/types";
+import {useSelector} from "react-redux";
+import React, {useMemo} from "react";
+import {RootState} from "../../services/types";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TSelectedIngredientId = {
@@ -13,27 +12,20 @@ type TSelectedIngredientId = {
 const IngredientDetails: React.FC = () => {
   const { id }: TSelectedIngredientId = useParams();
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
-  const { ingredientData } = useSelector((store: RootState) => store.currentIngredient);
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    if(ingredientItems.length) {
-      const selectedIngredient = ingredientItems.find((burger: TIngredient) => burger._id === id);
-
-      if(selectedIngredient) {
-        dispatch(addIngredientDataActionCreator(selectedIngredient));
-      }
-    }
-  }, [ingredientItems]);
+  
+  const selectedIngredient: TIngredient | undefined = useMemo(
+      () => ingredientItems.find((item: TIngredient) => item._id === id),
+      [id, ingredientItems]
+  );
 
   return(
     <div className={style.wr}>
       <div className={style.img}>
-        <img src={ingredientData.image_large} alt=""/>
+        <img src={selectedIngredient?.image_large} alt=""/>
       </div>
 
       <div className={`${style.title} ${"text text_type_main-medium"}`}>
-        {ingredientData.name}
+        {selectedIngredient?.name}
       </div>
 
       <ul className={style.composition}>
@@ -42,7 +34,7 @@ const IngredientDetails: React.FC = () => {
               Калории,ккал
             </span>
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientData.calories}
+              {selectedIngredient?.calories}
             </span>
         </li>
 
@@ -52,7 +44,7 @@ const IngredientDetails: React.FC = () => {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientData.proteins}
+              {selectedIngredient?.proteins}
             </span>
         </li>
 
@@ -62,7 +54,7 @@ const IngredientDetails: React.FC = () => {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientData.fat}
+              {selectedIngredient?.fat}
             </span>
         </li>
 
@@ -72,7 +64,7 @@ const IngredientDetails: React.FC = () => {
             </span>
 
           <span className={`${"text text_type_digits-default"}`}>
-              {ingredientData.carbohydrates}
+              {selectedIngredient?.carbohydrates}
             </span>
         </li>
       </ul>

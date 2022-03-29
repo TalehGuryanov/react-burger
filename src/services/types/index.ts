@@ -3,7 +3,6 @@ import {TConstructorActions} from "../actions/constuctor";
 import {TAuthActions} from "../actions/auth";
 import {Action, ActionCreator} from "redux";
 import {ThunkAction} from "redux-thunk";
-import {TIngredientDataActions} from "../actions/ingredient-data";
 import {TIngredientsAction} from "../actions/ingredients";
 import {TModalActions} from "../actions/modal";
 import {TOrderActions} from "../actions/order";
@@ -16,7 +15,6 @@ export type AppDispatch = typeof store.dispatch
 export type TAppActions =
     | TConstructorActions
     | TAuthActions
-    | TIngredientDataActions
     | TIngredientsAction
     | TModalActions
     | TOrderActions
