@@ -1,44 +1,19 @@
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import React from "react";
 import {ErrorMessage} from "../../components/error-message/error-message";
 import {Preloader} from "../../components/preloader/preloader";
 import style from "./ingredient.module.css";
-import {useHistory, useLocation} from "react-router-dom";
-import {Modal} from "../../components/modal/modal";
-import {deleteIngredientDataActionCreator} from "../../services/actions/ingredient-data";
-import {AppDispatch, RootState} from "../../services/types";
-import {closeIngredientModalActionCreator} from "../../services/actions/modal";
-
-type TLocation = {
-  isModal?: Location;
-}
+import {RootState} from "../../services/types";
 
 const Ingredient: React.FC = () => {
   const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
-  const history = useHistory();
-  const location = useLocation<TLocation>();
-  const dispatch: AppDispatch = useDispatch();
-  const isModalSelector = location?.state?.isModal;
-
-  const onCloseModal: () => void = () => {
-    dispatch(deleteIngredientDataActionCreator());
-    dispatch(closeIngredientModalActionCreator());
-
-    history.goBack();
-  }
 
   const renderContent = () => {
     if(ingredientItemsFailed) {
       return <ErrorMessage />
     } else if(ingredientItemsRequest) {
       return <Preloader />
-    } else if (isModalSelector) {
-      return (
-        <Modal onCloseModal={onCloseModal} title="Детали ингредиента">
-          <IngredientDetails/>
-        </Modal>
-      )
     } else {
       return (
         <div className={style.wr}>

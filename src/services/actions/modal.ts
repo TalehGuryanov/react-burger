@@ -9,7 +9,7 @@ interface IOpenIngredientModal {
   readonly type: typeof OPEN_INGREDIENT_MODAL
 }
 
-const openIngredientModalActionCreator: () => IOpenIngredientModal = () => (
+export const openIngredientModalActionCreator: () => IOpenIngredientModal = () => (
     {type: OPEN_INGREDIENT_MODAL}
 );
 

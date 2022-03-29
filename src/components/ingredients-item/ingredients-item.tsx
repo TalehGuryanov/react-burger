@@ -3,7 +3,6 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import {RootState} from "../../services/types";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 
@@ -13,9 +12,10 @@ type TIngredientsItemProps = {
   name: string;
   price: number;
   type: string;
+  onClick: () => void;
 };
 
-const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type }) => {
+const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type, onClick}) => {
   const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -33,17 +33,11 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
 
   useEffect(() => {
     updateCount(setCount());
-  }, [setCount])
-
+  }, [setCount]);
+  
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef}>
-      <Link
-        to={{
-          pathname: `/ingredients/${id}`,
-          state: { isModal: true },
-        }}
-        style={{ textDecoration: 'none' }}
-      >
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick}>
+      <div>
         {count > 0 && <Counter count={count} size="default"/>}
         <div className={style.img}>
           <img src={image}
@@ -63,7 +57,7 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
         <div className={`${"text text_type_main-default"} ${style.title}`}>
           {name}
         </div>
-      </Link>
+      </div>
     </li>
   )
 }
