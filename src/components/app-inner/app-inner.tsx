@@ -12,7 +12,7 @@ import {Preloader} from "../preloader/preloader";
 import {ForgotPassword, Ingredient, Login, Main, Profile, Register, ResetPassword} from "../../pages";
 
 export const AppInner: React.FC = () => {
-  const location = useLocation<any>();
+  const location = useLocation<TLocation>();
   const background = location.state && location.state.background;
   // Get ingredients
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
