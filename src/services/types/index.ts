@@ -7,6 +7,7 @@ import {TIngredientsAction} from "../actions/ingredients";
 import {TModalActions} from "../actions/modal";
 import {TOrderActions} from "../actions/order";
 import {TUserDataActions} from "../actions/user-data";
+import {TFeedActions} from "../actions/feed";
 
 export type RootState = ReturnType<typeof store.getState>
 
@@ -19,6 +20,7 @@ export type TAppActions =
     | TModalActions
     | TOrderActions
     | TUserDataActions
+    | TFeedActions
 
 export type AppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState, TAppActions>

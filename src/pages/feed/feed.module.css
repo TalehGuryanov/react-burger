@@ -1,0 +1,18 @@
+.feed {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 30px;
+}
+
+.feed__title {
+  margin-bottom: 20px;
+}
+
+.feed__content {
+  display: flex;
+}
+
+.feed__content-orders {
+  max-height: 870px;
+  overflow-y: auto;
+}

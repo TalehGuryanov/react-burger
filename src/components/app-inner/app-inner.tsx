@@ -9,7 +9,7 @@ import {RootState} from "../../services/types";
 import {getCookie} from "../../utils/cookie";
 import {ingredientsThunk} from "../../services/actions/ingredients";
 import {Preloader} from "../preloader/preloader";
-import {ForgotPassword, Ingredient, Login, Main, Profile, Register, ResetPassword} from "../../pages";
+import {Feed, ForgotPassword, Ingredient, Login, Main, Profile, Register, ResetPassword} from "../../pages";
 
 export const AppInner: React.FC = () => {
   const location = useLocation<TLocation>();
@@ -56,6 +56,9 @@ export const AppInner: React.FC = () => {
               </Route>
               <Route path="/ingredients/:id" >
                 <Ingredient />
+              </Route>
+              <Route path="/feed" >
+                <Feed />
               </Route>
               <Route path="/" >
                 <Main isLogged={isLogged}/>
