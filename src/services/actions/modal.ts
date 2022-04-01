@@ -33,7 +33,7 @@ interface ICLoseOrderModal {
   readonly type: typeof CLOSE_ORDER_MODAL
 }
 
-const closeOrderModalActionCreator: () => ICLoseOrderModal = () => (
+export const closeOrderModalActionCreator: () => ICLoseOrderModal = () => (
     {type: CLOSE_ORDER_MODAL}
 );
 

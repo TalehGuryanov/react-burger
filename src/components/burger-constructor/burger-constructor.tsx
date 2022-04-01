@@ -14,7 +14,7 @@ import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
 import {RootState, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
-import {closeIngredientModalActionCreator, openOrderModalActionCreator} from "../../services/actions/modal";
+import {closeOrderModalActionCreator, openOrderModalActionCreator} from "../../services/actions/modal";
 import {orderThunk} from "../../services/actions/order";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 
@@ -72,7 +72,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
 
   // Work with order modal
   const onCloseModal: () => void = () => {
-    dispatch(closeIngredientModalActionCreator())
+    dispatch(closeOrderModalActionCreator())
   }
   const openModal: () => void = () => {
     dispatch(openOrderModalActionCreator());
