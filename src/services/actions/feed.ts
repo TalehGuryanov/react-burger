@@ -1,29 +1,42 @@
 import {
   FEED_WS_CONNECTION_START,
+  FEED_WS_CONNECTION_CLOSE,
   FEED_WS_CONNECTION_SUCCESS,
   FEED_WS_CONNECTION_ERROR,
   FEED_WS_CONNECTION_GET_MESSAGE,
   FEED_WS_CONNECTION_SEND_MESSAGE,
   FEED_WS_CONNECTION_CLOSED,
 } from "../constants/feed";
-import {TAllOrders, TWebSocketEvent} from "../types/web-socket";
+import {TOrderData} from "../types/web-socket";
 
 interface IFeedWsConnectionStart {
   readonly type: typeof FEED_WS_CONNECTION_START
+  readonly wsRequest: boolean
 }
 
-export const FeedWsConnectionStartActionCreator: () => IFeedWsConnectionStart = () => (
+export const feedWsConnectionStartActionCreator: (wsRequest: boolean) => IFeedWsConnectionStart = (wsRequest) => (
     {
-      type: FEED_WS_CONNECTION_START
+      type: FEED_WS_CONNECTION_START,
+      wsRequest
+    }
+)
+
+interface IFeedWsConnectionClose {
+  readonly type: typeof FEED_WS_CONNECTION_CLOSE
+}
+
+export const feedWsConnectionCloseActionCreator: () => IFeedWsConnectionClose = () => (
+    {
+      type: FEED_WS_CONNECTION_CLOSE
     }
 )
 
 interface IFeedWsConnectionSuccess {
   readonly type: typeof FEED_WS_CONNECTION_SUCCESS
-  readonly event: TWebSocketEvent
+  readonly event: Event
 }
 
-export const FeedWsConnectionSuccessActionCreator: (event: TWebSocketEvent) => IFeedWsConnectionSuccess = (event) => (
+export const feedWsConnectionSuccessActionCreator: (event: Event) => IFeedWsConnectionSuccess = (event) => (
     {
       type: FEED_WS_CONNECTION_SUCCESS,
       event
@@ -32,10 +45,10 @@ export const FeedWsConnectionSuccessActionCreator: (event: TWebSocketEvent) => I
 
 interface IFeedWsConnectionError {
   readonly type: typeof FEED_WS_CONNECTION_ERROR
-  readonly event: TWebSocketEvent
+  readonly event: Event
 }
 
-export const FeedWsConnectionErrorActionCreator: (event: TWebSocketEvent) => IFeedWsConnectionError = (event) => (
+export const feedWsConnectionErrorActionCreator: (event: Event) => IFeedWsConnectionError = (event) => (
     {
       type: FEED_WS_CONNECTION_ERROR,
       event
@@ -44,10 +57,10 @@ export const FeedWsConnectionErrorActionCreator: (event: TWebSocketEvent) => IFe
 
 interface IFeedWsConnectionGetMessage {
   readonly type: typeof FEED_WS_CONNECTION_GET_MESSAGE
-  readonly data: TAllOrders
+  readonly data: TOrderData
 }
 
-export const FeedWsConnectionGetMessageActionCreator: (data: TAllOrders) => IFeedWsConnectionGetMessage = (data) => (
+export const feedWsConnectionGetMessageActionCreator: (data: TOrderData) => IFeedWsConnectionGetMessage = (data) => (
     {
       type: FEED_WS_CONNECTION_GET_MESSAGE,
       data
@@ -58,7 +71,7 @@ interface IFeedWsConnectionSendMessage {
   readonly type: typeof FEED_WS_CONNECTION_SEND_MESSAGE
 }
 
-export const IFeedWsConnectionSendMessageActionCreator: () => IFeedWsConnectionSendMessage = () => (
+export const feedWsConnectionSendMessageActionCreator: () => IFeedWsConnectionSendMessage = () => (
     {
       type: FEED_WS_CONNECTION_SEND_MESSAGE
     }
@@ -66,10 +79,10 @@ export const IFeedWsConnectionSendMessageActionCreator: () => IFeedWsConnectionS
 
 interface IFeedWsConnectionSClosed {
   readonly type: typeof FEED_WS_CONNECTION_CLOSED
-  readonly event: any
+  readonly event: CloseEvent
 }
 
-export const IFeedWsConnectionClosedActionCreator: (event: any) => IFeedWsConnectionSClosed = (event) => (
+export const feedWsConnectionClosedActionCreator: (event: CloseEvent) => IFeedWsConnectionSClosed = (event) => (
     {
       type: FEED_WS_CONNECTION_CLOSED,
       event
@@ -83,3 +96,4 @@ export type TFeedActions =
   | IFeedWsConnectionSendMessage
   | IFeedWsConnectionGetMessage
   | IFeedWsConnectionSClosed
+  | IFeedWsConnectionClose

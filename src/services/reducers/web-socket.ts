@@ -5,18 +5,23 @@ import {
   FEED_WS_CONNECTION_GET_MESSAGE,
   FEED_WS_CONNECTION_CLOSED,
 } from "../constants/feed";
+import {TOrderData} from "../types/web-socket";
 
-type TWSState = {
+type TWSState = TOrderData & {
   wsConnected: boolean;
-  data: any,
-  event: any,
+  event: Event | CloseEvent | any,
   error?: Event;
+  wsRequest: boolean
 }
 
 const initialState: TWSState = {
+  wsRequest: true,
   wsConnected: false,
+  success: false,
   event: {},
-  data: []
+  orders: [],
+  total: 0,
+  totalToday: 0,
 }
 
 export const wsReducer = (state = initialState, action: TFeedActions) => {
@@ -26,14 +31,17 @@ export const wsReducer = (state = initialState, action: TFeedActions) => {
         ...state,
         error: undefined,
         wsConnected: true,
-        event: action.event
+        success: true,
+        event: action.event,
+        wsRequest: false
       };
   
     case FEED_WS_CONNECTION_ERROR:
       return {
         ...state,
         error: action.event,
-        wsConnected: false
+        wsConnected: false,
+        wsRequest: false
       };
   
     case FEED_WS_CONNECTION_CLOSED:
@@ -41,14 +49,15 @@ export const wsReducer = (state = initialState, action: TFeedActions) => {
         ...state,
         error: undefined,
         event: action.event,
-        wsConnected: false
+        wsConnected: false,
+        wsRequest: false,
       };
   
     case FEED_WS_CONNECTION_GET_MESSAGE:
       return {
         ...state,
-        error: undefined,
-        data: [...state.data, action.data]
+        wsRequest: false,
+        ...action.data
       };
       
     default: return {

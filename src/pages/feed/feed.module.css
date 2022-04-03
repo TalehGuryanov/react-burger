@@ -12,7 +12,10 @@
   display: flex;
 }
 
-.feed__content-orders {
-  max-height: 870px;
-  overflow-y: auto;
+.feed__content_orders {
+  width: 50%;
+}
+
+.feed__content_info {
+  width: 50%;
 }

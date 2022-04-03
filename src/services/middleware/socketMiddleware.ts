@@ -1,13 +1,14 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import type { TAppActions, AppDispatch, RootState } from '../types';
 import {
+  FEED_WS_CONNECTION_CLOSE,
   FEED_WS_CONNECTION_START,
 } from "../constants/feed";
 import {
-  FeedWsConnectionErrorActionCreator,
-  FeedWsConnectionGetMessageActionCreator,
-  FeedWsConnectionSuccessActionCreator,
-  IFeedWsConnectionClosedActionCreator
+  feedWsConnectionErrorActionCreator,
+  feedWsConnectionGetMessageActionCreator,
+  feedWsConnectionSuccessActionCreator,
+  feedWsConnectionClosedActionCreator
 } from "../actions/feed";
 
 export const socketMiddleware = (wsUrl: string): Middleware => {
@@ -24,21 +25,25 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
       
       if(socket) {
         socket.onopen = event => {
-          dispatch(FeedWsConnectionSuccessActionCreator(event));
+          dispatch(feedWsConnectionSuccessActionCreator(event));
         };
   
         socket.onerror = event => {
-          dispatch(FeedWsConnectionErrorActionCreator(event));
+          dispatch(feedWsConnectionErrorActionCreator(event));
         };
   
         socket.onmessage = event => {
           const { data } = event;
-          dispatch(FeedWsConnectionGetMessageActionCreator(data));
+          dispatch(feedWsConnectionGetMessageActionCreator(JSON.parse(data)));
         };
   
         socket.onclose = event => {
-          dispatch(IFeedWsConnectionClosedActionCreator(event));
+          dispatch(feedWsConnectionClosedActionCreator(event));
         };
+      }
+      
+      if(type === FEED_WS_CONNECTION_CLOSE) {
+        socket?.close()
       }
   
       next(action);

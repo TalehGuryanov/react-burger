@@ -1,5 +1,3 @@
-export type TWebSocketEvent = { isTrusted: boolean }
-
 export type TOrder = {
   _id: string,
   ingredients: string[],
@@ -10,9 +8,9 @@ export type TOrder = {
   updatedAt: string
 };
 
-export type TAllOrders = {
-  "success": boolean,
-  "orders": TOrder
-  "total": number,
-  "totalToday": number
+export type TOrderData = {
+  success: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number
 }
