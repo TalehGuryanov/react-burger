@@ -1,7 +1,7 @@
 import {Header} from "../header/header";
 import {Route, Switch, useLocation} from "react-router-dom";
 import ProtectedRoute from "../protected-route";
-import IngredientModal from "../ingredient-modal/ingredient-modal";
+import PreviewModal from "../preview-modal/preview-modal";
 import React, {useEffect, useState} from "react";
 import {TLocation} from "../../services/types/location";
 import {useDispatch, useSelector} from "../../services/hooks";
@@ -10,6 +10,8 @@ import {getCookie} from "../../utils/cookie";
 import {ingredientsThunk} from "../../services/actions/ingredients";
 import {Preloader} from "../preloader/preloader";
 import {Feed, ForgotPassword, Ingredient, Login, Main, Profile, Register, ResetPassword} from "../../pages";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderPreview from "../order-preview/order-preview";
 
 export const AppInner: React.FC = () => {
   const location = useLocation<TLocation>();
@@ -67,7 +69,14 @@ export const AppInner: React.FC = () => {
         {
           background && (
             <Route path="/ingredients/:id" exact>
-              <IngredientModal />
+              <PreviewModal children={<IngredientDetails/>} title={"Детали ингредиента"}/>
+            </Route>
+          )
+        }
+        {
+          background && (
+            <Route path="/feed/:id" exact>
+              <PreviewModal children={<OrderPreview/>}/>
             </Route>
           )
         }

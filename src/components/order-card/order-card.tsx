@@ -3,6 +3,7 @@ import style from "./order-card.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TOrder} from "../../services/types/web-socket";
 import formatTime from "../../utils/format-time";
+import {useHistory, useLocation} from "react-router-dom";
 
 type TOrderCartProps = {
   order: TOrder
@@ -11,6 +12,15 @@ type TOrderCartProps = {
 }
 
 const OrderCart: React.FC<TOrderCartProps> = ({order, ingredientsImages, price}) => {
+  const history = useHistory();
+  const location = useLocation();
+  const changeLocationState = () => () => {
+    history.push({
+      pathname: `/feed/${order.number}`,
+      state: { background: location }
+    });
+  };
+  
   const date = formatTime(order.createdAt);
   
   const reducedImages = ingredientsImages.slice(0,6);
@@ -31,7 +41,7 @@ const OrderCart: React.FC<TOrderCartProps> = ({order, ingredientsImages, price})
       ), [ingredientsImages])
   
   return (
-      <div className={style.order_card}>
+      <button className={style.order_card} type="button" onClick={changeLocationState()}>
         <div className={style.order_card__top}>
           <span className={style.order_card__top_id + " text text_type_digits-default"}>
             #{order.number}
@@ -59,7 +69,7 @@ const OrderCart: React.FC<TOrderCartProps> = ({order, ingredientsImages, price})
             </div>
           </div>
         </div>
-      </div>
+      </button>
   )
 }
 

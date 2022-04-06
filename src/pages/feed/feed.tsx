@@ -1,10 +1,7 @@
 import React, {useEffect} from "react";
 import style from "./feed.module.css"
 import {useDispatch, useSelector} from "../../services/hooks";
-import {
-  feedWsConnectionCloseActionCreator,
-  feedWsConnectionStartActionCreator
-} from "../../services/actions/feed";
+import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 import OrderCardList from "../../components/order-card-list/order-card-list";
 import {RootState} from "../../services/types";
 

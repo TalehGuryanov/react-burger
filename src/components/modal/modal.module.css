@@ -10,22 +10,25 @@
     height: 100%;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.header__icon_close {
-    cursor: pointer;
-    margin-left: auto;
-}
-
 .content {
     background: #1C1C21;
     border-radius: 40px;
     width: 720px;
     padding: 40px;
+    position: relative;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    right: 40px;
+}
+
+
+.header__icon_close {
+    cursor: pointer;
+    margin-left: auto;
+}
