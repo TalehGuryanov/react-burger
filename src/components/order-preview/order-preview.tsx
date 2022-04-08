@@ -1,19 +1,28 @@
 import React, {useEffect, useMemo, useState} from "react";
 import style from "./order-preview.module.css";
-import {useSelector} from "../../services/hooks";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {RootState} from "../../services/types";
 import {useParams} from "react-router-dom";
 import {ErrorMessage} from "../error-message/error-message";
 import {Preloader} from "../preloader/preloader";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 
 
 const OrderPreview: React.FC = () => {
   const [ingredientCount, setIngredientCount] = useState(null);
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
   const { orders, wsConnected, wsRequest } = useSelector((store: RootState) => store.ws);
+  const dispatch = useDispatch();
   const {id} : {id: string} = useParams();
+  
+  useEffect(() => {
+    if(!wsConnected || !orders.length) {
+      dispatch(feedWsConnectionStartActionCreator(true));
+    }
+  }, []);
+  
   const selectedOrder = useMemo(() => orders.find(order => order.number === Number(id)), [orders]);
   const orderIngredients: (TIngredient | undefined)[] | undefined = selectedOrder?.ingredients.map((id) =>
       ingredientItems.find((ingredient) => ingredient._id === id))

@@ -17,11 +17,6 @@ const Feed: React.FC = () => {
     dispatch(feedWsConnectionStartActionCreator(true));
   }, []);
   
-  const renderContent: () => React.ReactNode = () => {
-    if(!wsConnected) {
-      return <ErrorMessage />
-    }
-  }
   
   return (
       wsRequest ? <Preloader /> :
@@ -29,9 +24,7 @@ const Feed: React.FC = () => {
         <h1 className={style.feed__title + " text text_type_main-large"}>Лента заказов</h1>
         
         <div className={style.feed__content}>
-          <div className={style.feed__content_error}>
-            {renderContent()}
-          </div>
+          {!wsConnected && <ErrorMessage />}
           
           <div className={style.feed__content_orders}>
             <OrderCardList orders={orders} />
