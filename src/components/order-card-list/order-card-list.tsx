@@ -10,11 +10,9 @@ import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TOrderCardList = {
   orders: TOrder[]
-  wsConnected: boolean
-  wsRequest: boolean
 }
 
-const OrderCardList: React.FC<TOrderCardList> = ({orders, wsConnected, wsRequest}) => {
+const OrderCardList: React.FC<TOrderCardList> = ({orders}) => {
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
   
   const orderCard = useMemo(() =>
@@ -30,18 +28,11 @@ const OrderCardList: React.FC<TOrderCardList> = ({orders, wsConnected, wsRequest
   
           return <OrderCart order={order} key={index} ingredientsImages={ingredientsImages} price={orderPrice}/>
       }), [orders, ingredientItems])
-
-const renderContent: () => React.ReactNode = () => {
-    if(!wsConnected) {
-      return <ErrorMessage />
-    } else {
-      return orderCard
-    }
-}
+  
 
   return (
     <div className={style.order_list}>
-      {wsRequest ? <Preloader /> : renderContent()}
+      {orderCard}
     </div>
   )
 }

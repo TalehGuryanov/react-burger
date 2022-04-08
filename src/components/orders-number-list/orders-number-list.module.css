@@ -1,0 +1,23 @@
+.orders_number_list {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.orders_number_list::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+
+.orders_number_list::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+  border-radius: 0;
+}
+
+.orders_number_item {
+  flex: 1 0 50%;
+}
+
+.orders_number_item__number + .orders_number_item__number {
+  margin-top: 8px;
+}

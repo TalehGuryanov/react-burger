@@ -10,6 +10,11 @@
 
 .feed__content {
   display: flex;
+  justify-content: center;
+}
+
+.feed__content_error {
+  width: 100%;
 }
 
 .feed__content_orders {

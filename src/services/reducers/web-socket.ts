@@ -49,7 +49,6 @@ export const wsReducer = (state = initialState, action: TFeedActions) => {
         ...state,
         error: undefined,
         event: action.event,
-        wsConnected: false,
         wsRequest: false,
       };
   
