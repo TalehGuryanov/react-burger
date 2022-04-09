@@ -19,7 +19,7 @@ const OrderPreview: React.FC = () => {
   
   useEffect(() => {
     if(!wsConnected || !orders.length) {
-      dispatch(feedWsConnectionStartActionCreator(true));
+      dispatch(feedWsConnectionStartActionCreator());
     }
   }, []);
   
@@ -55,7 +55,7 @@ const OrderPreview: React.FC = () => {
             {selectedOrder.name}
           </div>
   
-          <div className={style.order_preview__status + " text text_color_success"}>
+          <div className={style.order_preview__status + " text text_color_success text_type_main-default"}>
             {selectedOrder.status}
           </div>
   

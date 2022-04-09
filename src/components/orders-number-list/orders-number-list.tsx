@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {TOrder} from "../../services/types/web-socket";
+import {TOrder} from "../../services/types/orders";
 import style from "./orders-number-list.module.css"
 
 type TOrdersNumberListProps = {

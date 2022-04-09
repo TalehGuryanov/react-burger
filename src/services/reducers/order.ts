@@ -1,8 +1,8 @@
 import {GET_ORDER_DATA_REQUEST, GET_ORDER_DATA_SUCCESS, GET_ORDER_DATA_ERROR} from "../constants/order";
 import {TOrderActions} from "../actions/order";
-import {TOrderData} from "../types/orderType";
+import {TSingleOrderData} from "../types/orders";
 type TOrderState = {
-  orderData: TOrderData | null,
+  orderData: TSingleOrderData | null,
   orderRequest: boolean,
   orderFailed: false
 }

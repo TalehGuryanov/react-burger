@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import style from "./order-card.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {TOrder} from "../../services/types/web-socket";
+import {TOrder} from "../../services/types/orders";
 import formatTime from "../../utils/format-time";
 import {useHistory, useLocation} from "react-router-dom";
 

@@ -1,49 +1,37 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import type { TAppActions, AppDispatch, RootState } from '../types';
-import {
-  FEED_WS_CONNECTION_CLOSE,
-  FEED_WS_CONNECTION_START,
-} from "../constants/feed";
-import {
-  feedWsConnectionErrorActionCreator,
-  feedWsConnectionGetMessageActionCreator,
-  feedWsConnectionSuccessActionCreator,
-  feedWsConnectionClosedActionCreator
-} from "../actions/feed";
+import {TWsActions} from "../types/wsActions";
 
-export const socketMiddleware = (wsUrl: string): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
     
     return next => (action: TAppActions) => {
       const { dispatch } = store;
       const { type } = action;
+      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
       
-      if( type === FEED_WS_CONNECTION_START) {
+      if( type === wsInit) {
         socket = new WebSocket(wsUrl);
       }
       
       if(socket) {
-        socket.onopen = event => {
-          dispatch(feedWsConnectionSuccessActionCreator(event));
+        socket.onopen = () => {
+          dispatch({type: onOpen});
         };
   
-        socket.onerror = event => {
-          dispatch(feedWsConnectionErrorActionCreator(event));
+        socket.onerror = () => {
+          dispatch({type: onError});
         };
   
         socket.onmessage = event => {
           const { data } = event;
-          dispatch(feedWsConnectionGetMessageActionCreator(JSON.parse(data)));
+          dispatch({type: onMessage, data: JSON.parse(data)});
         };
   
-        socket.onclose = event => {
-          dispatch(feedWsConnectionClosedActionCreator(event));
+        socket.onclose = () => {
+          dispatch({type: onClose});
         };
-      }
-      
-      if(type === FEED_WS_CONNECTION_CLOSE) {
-        socket?.close()
       }
   
       next(action);

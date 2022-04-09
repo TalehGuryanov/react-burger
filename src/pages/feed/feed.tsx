@@ -14,7 +14,7 @@ const Feed: React.FC = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(feedWsConnectionStartActionCreator(true));
+    dispatch(feedWsConnectionStartActionCreator());
   }, []);
   
   

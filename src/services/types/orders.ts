@@ -1,3 +1,9 @@
+export type TSingleOrderData = {
+  success: boolean;
+  name: string;
+  order: { number: number }
+}
+
 export type TOrder = {
   _id: string,
   ingredients: string[],

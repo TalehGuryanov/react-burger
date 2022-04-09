@@ -1,5 +1,5 @@
 import React from "react";
-import {TOrder} from "../../services/types/web-socket";
+import {TOrder} from "../../services/types/orders";
 import style from "./feed-info.module.css";
 import OrdersNumberList from "../orders-number-list/orders-number-list";
 
