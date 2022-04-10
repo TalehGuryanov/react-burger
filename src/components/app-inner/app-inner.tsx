@@ -9,9 +9,10 @@ import {RootState} from "../../services/types";
 import {getCookie} from "../../utils/cookie";
 import {ingredientsThunk} from "../../services/actions/ingredients";
 import {Preloader} from "../preloader/preloader";
-import {Feed, ForgotPassword, Ingredient, Login, Main, Order, Profile, Register, ResetPassword} from "../../pages";
+import {Feed, ForgotPassword, Ingredient, Login, Main, FeedOrder, Profile, Register, ResetPassword} from "../../pages";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderPreview from "../order-preview/order-preview";
+import UserOrder from "../../pages/user-order/user-order";
 
 export const AppInner: React.FC = () => {
   const location = useLocation<TLocation>();
@@ -41,34 +42,37 @@ export const AppInner: React.FC = () => {
       <>
         <Header isLogged={isLogged}/>
         <Switch location={background || location}>
-              <ProtectedRoute path="/profile" isLogged={isLogged} redirectTo={"/login"}>
-                <Profile />
-              </ProtectedRoute>
-              <ProtectedRoute path="/reset-password" redirectTo={"/forgot-password"} isLogged={isPasswordCodeSuccess}>
-                <ResetPassword />
-              </ProtectedRoute>
-              <Route path="/login">
-                <Login isLogged={isLogged} redirectTo={"/"}/>
-              </Route>
-              <Route path="/register" >
-                <Register isLogged={isLogged} redirectTo={"/"}/>
-              </Route>
-              <Route path="/forgot-password" >
-                <ForgotPassword isLogged={isLogged} redirectTo={"/"}/>
-              </Route>
-              <Route path="/feed" exact>
-                <Feed />
-              </Route>
-              <Route path="/feed/:id" exact >
-                <Order />
-              </Route>
-              <Route path="/ingredients/:id" >
-                <Ingredient />
-              </Route>
-              <Route path="/" >
-                <Main isLogged={isLogged}/>
-              </Route>
-            </Switch>
+          <ProtectedRoute path="/reset-password" redirectTo={"/forgot-password"} isLogged={isPasswordCodeSuccess}>
+            <ResetPassword />
+          </ProtectedRoute>
+          <ProtectedRoute path='/profile/orders/:id' exact isLogged={isLogged} redirectTo={"/login"}>
+            <UserOrder />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile" isLogged={isLogged} redirectTo={"/login"}>
+            <Profile />
+          </ProtectedRoute>
+          <Route path="/login">
+            <Login isLogged={isLogged} redirectTo={"/"}/>
+          </Route>
+          <Route path="/register" >
+            <Register isLogged={isLogged} redirectTo={"/"}/>
+          </Route>
+          <Route path="/forgot-password" >
+            <ForgotPassword isLogged={isLogged} redirectTo={"/"}/>
+          </Route>
+          <Route path="/feed" exact>
+            <Feed />
+          </Route>
+          <Route path="/feed/:id" exact >
+            <FeedOrder />
+          </Route>
+          <Route path="/ingredients/:id" >
+            <Ingredient />
+          </Route>
+          <Route path="/" >
+            <Main isLogged={isLogged}/>
+          </Route>
+        </Switch>
         {
           background && (
             <Route path="/ingredients/:id" exact>
@@ -79,7 +83,14 @@ export const AppInner: React.FC = () => {
         {
           background && (
             <Route path="/feed/:id" exact>
-              <PreviewModal children={<OrderPreview/>}/>
+              <PreviewModal children={<FeedOrder/>}/>
+            </Route>
+          )
+        }
+        {
+          background && (
+            <Route path="/profile/orders/:id" exact>
+              <PreviewModal children={<UserOrder />}/>
             </Route>
           )
         }

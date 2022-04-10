@@ -23,12 +23,11 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: absolute;
-    right: 40px;
 }
 
 
 .header__icon_close {
     cursor: pointer;
-    margin-left: auto;
+    position: absolute;
+    right: 40px;
 }

@@ -8,22 +8,29 @@ import {Preloader} from "../preloader/preloader";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
+import {TOrder} from "../../services/types/orders";
+
+type OrderPreviewProps = {
+  allOrders: TOrder[],
+  wsRequest: boolean,
+  wsConnected: boolean,
+  wsError: boolean
+}
 
 
-const OrderPreview: React.FC = () => {
+const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders, wsConnected, wsRequest, wsError}) => {
   const [ingredientCount, setIngredientCount] = useState(null);
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
-  const { feedOrders, feedWsConnected, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
   const dispatch = useDispatch();
   const {id} : {id: string} = useParams();
   
   useEffect(() => {
-    if(!feedWsConnected || !feedOrders.length) {
+    if(!wsConnected || !allOrders.length) {
       dispatch(feedWsConnectionStartActionCreator());
     }
   }, []);
   
-  const selectedOrder = useMemo(() => feedOrders.find(order => order.number === Number(id)), [feedOrders]);
+  const selectedOrder = useMemo(() => allOrders.find(order => order.number === Number(id)), [allOrders]);
   const orderIngredients: (TIngredient | undefined)[] | undefined = selectedOrder?.ingredients.map((id) =>
       ingredientItems.find((ingredient) => ingredient._id === id))
   const calcIngredientCount = () => {
@@ -98,16 +105,16 @@ const OrderPreview: React.FC = () => {
   }
   
   const renderContent: () => React.ReactNode = () => {
-    if(feedWsError) {
+    if(wsError) {
       return <ErrorMessage />
-    } else if (feedWsConnected) {
+    } else if (wsConnected) {
       return content()
     }
   }
   
   return (
       <>
-        {feedWsRequest ? <Preloader /> : renderContent()}
+        {wsRequest ? <Preloader /> : renderContent()}
       </>
   )
 }

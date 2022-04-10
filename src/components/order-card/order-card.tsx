@@ -14,9 +14,10 @@ type TOrderCartProps = {
 const OrderCart: React.FC<TOrderCartProps> = ({order, ingredientsImages, price}) => {
   const history = useHistory();
   const location = useLocation();
+  const path = location.pathname;
   const changeLocationState = () => () => {
     history.push({
-      pathname: `/feed/${order.number}`,
+      pathname: `${path}/${order.number}`,
       state: { background: location }
     });
   };

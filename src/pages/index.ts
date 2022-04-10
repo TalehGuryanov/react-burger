@@ -6,6 +6,6 @@ import ResetPassword from "./reset-password/reset-password";
 import Profile from "./profile/profile"
 import Ingredient from "./ingredient/ingredient";
 import Feed from "./feed/feed"
-import Order from "./order/order"
+import FeedOrder from "./feed-order/feed-order"
 
-export { Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed, Order };
+export { Login, Main, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed, FeedOrder };

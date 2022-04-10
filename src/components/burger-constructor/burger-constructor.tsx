@@ -70,7 +70,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   const fillingIds = React.useMemo(() => fillingItems.map((item: TIngredient) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
-  // Work with order modal
+  // Work with feed-order modal
   const onCloseModal: () => void = () => {
     dispatch(closeOrderModalActionCreator())
   }
