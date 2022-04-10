@@ -13,7 +13,7 @@ type TUSerOrdersState = {
   userOrdersClosed: boolean;
   userOrdersError: boolean;
   userOrdersRequest: boolean;
-  feedOrders: TOrder[];
+  userOrders: TOrder[];
   total: number,
   totalToday: number,
 }
@@ -23,7 +23,7 @@ const initialState: TUSerOrdersState = {
   userOrdersClosed: false,
   userOrdersError: false,
   userOrdersRequest: true,
-  feedOrders: [],
+  userOrders: [],
   total: 0,
   totalToday: 0,
 }
