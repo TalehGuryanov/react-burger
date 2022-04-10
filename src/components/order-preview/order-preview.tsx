@@ -13,17 +13,17 @@ import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 const OrderPreview: React.FC = () => {
   const [ingredientCount, setIngredientCount] = useState(null);
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
-  const { orders, wsConnected, wsRequest } = useSelector((store: RootState) => store.ws);
+  const { feedOrders, feedWsConnected, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
   const dispatch = useDispatch();
   const {id} : {id: string} = useParams();
   
   useEffect(() => {
-    if(!wsConnected || !orders.length) {
+    if(!feedWsConnected || !feedOrders.length) {
       dispatch(feedWsConnectionStartActionCreator());
     }
   }, []);
   
-  const selectedOrder = useMemo(() => orders.find(order => order.number === Number(id)), [orders]);
+  const selectedOrder = useMemo(() => feedOrders.find(order => order.number === Number(id)), [feedOrders]);
   const orderIngredients: (TIngredient | undefined)[] | undefined = selectedOrder?.ingredients.map((id) =>
       ingredientItems.find((ingredient) => ingredient._id === id))
   const calcIngredientCount = () => {
@@ -98,16 +98,16 @@ const OrderPreview: React.FC = () => {
   }
   
   const renderContent: () => React.ReactNode = () => {
-    if(!wsConnected) {
+    if(feedWsError) {
       return <ErrorMessage />
-    } else {
+    } else if (feedWsConnected) {
       return content()
     }
   }
   
   return (
       <>
-        {wsRequest ? <Preloader /> : renderContent()}
+        {feedWsRequest ? <Preloader /> : renderContent()}
       </>
   )
 }

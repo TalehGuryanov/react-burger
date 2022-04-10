@@ -8,7 +8,6 @@ import {
   FEED_WS_CONNECTION_CLOSED,
 } from "../constants/feed";
 import {TOrderData} from "../types/orders";
-import {TWsActions} from "../types/wsActions";
 
 interface IFeedWsConnectionStart {
   readonly type: typeof FEED_WS_CONNECTION_START
@@ -23,6 +22,12 @@ export const feedWsConnectionStartActionCreator: () => IFeedWsConnectionStart = 
 interface IFeedWsConnectionClose {
   readonly type: typeof FEED_WS_CONNECTION_CLOSE
 }
+
+export const feedWsConnectionCloseActionCreator: () => IFeedWsConnectionClose = () => (
+    {
+      type: FEED_WS_CONNECTION_CLOSE,
+    }
+)
 
 interface IFeedWsConnectionSuccess {
   readonly type: typeof FEED_WS_CONNECTION_SUCCESS
@@ -43,11 +48,13 @@ interface IFeedWsConnectionSendMessage {
 
 interface IFeedWsConnectionSClosed {
   readonly type: typeof FEED_WS_CONNECTION_CLOSED
+  wasClear: boolean
 }
 
-export const feedWsActions: TWsActions = {
+export const feedWsActions = {
   wsInit: FEED_WS_CONNECTION_START,
   wsSendMessage: FEED_WS_CONNECTION_SEND_MESSAGE,
+  wsClose: FEED_WS_CONNECTION_CLOSE,
   onOpen: FEED_WS_CONNECTION_SUCCESS,
   onClose: FEED_WS_CONNECTION_CLOSED,
   onError: FEED_WS_CONNECTION_ERROR,

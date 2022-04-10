@@ -5,7 +5,8 @@ import { orderReducer } from "./order";
 import { showHideModal } from "./modal";
 import {authReducer} from "./auth";
 import {userDataReducer} from "./user-data";
-import {wsReducer} from "./web-socket";
+import {feedWsReducer} from "./feed";
+import {userOrdersReducer} from "./user-orders";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   modal: showHideModal,
   authResponse: authReducer,
   user: userDataReducer,
-  ws: wsReducer
+  feedOrdersData: feedWsReducer,
+  userOrdersData: userOrdersReducer
 });
