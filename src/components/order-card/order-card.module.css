@@ -20,14 +20,15 @@
   margin-bottom: 24px;
 }
 
-.order_card__title {
-  margin-bottom: 24px;
+.order_card__status {
+  margin-top: 8px;
 }
 
 .order_card__bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 24px;
 }
 
 .order_card__bottom_images {

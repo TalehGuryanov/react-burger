@@ -1,39 +1,33 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import style from "./order-preview.module.css";
-import {useDispatch, useSelector} from "../../services/hooks";
+import {useSelector} from "../../services/hooks";
 import {RootState} from "../../services/types";
 import {useParams} from "react-router-dom";
-import {ErrorMessage} from "../error-message/error-message";
-import {Preloader} from "../preloader/preloader";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 import {TOrder} from "../../services/types/orders";
+import formatTime from "../../utils/format-time";
+import {ErrorMessage} from "../error-message/error-message";
 
 type OrderPreviewProps = {
-  allOrders: TOrder[],
-  wsRequest: boolean,
-  wsConnected: boolean,
-  wsError: boolean
+  allOrders: TOrder[]
 }
 
-
-const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders, wsConnected, wsRequest, wsError}) => {
-  const [ingredientCount, setIngredientCount] = useState(null);
+const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders}) => {
   const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
-  const dispatch = useDispatch();
   const {id} : {id: string} = useParams();
-  
-  useEffect(() => {
-    if(!wsConnected || !allOrders.length) {
-      dispatch(feedWsConnectionStartActionCreator());
+  const status: () => string = () => {
+    switch (selectedOrder?.status) {
+      case "done": return "Выполнен";
+      case "pending": return "Готовится";
+      case "created": return "Создан";
+      default: return ''
     }
-  }, []);
-  
+  }
   const selectedOrder = useMemo(() => allOrders.find(order => order.number === Number(id)), [allOrders]);
   const orderIngredients: (TIngredient | undefined)[] | undefined = selectedOrder?.ingredients.map((id) =>
       ingredientItems.find((ingredient) => ingredient._id === id))
-  const calcIngredientCount = () => {
+  const calcIngredientCount = (id: string) => {
     let names: any | {string: number} = {};
     
     orderIngredients?.forEach((item) => {
@@ -41,54 +35,54 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders, wsConnected, wsRe
         names[item._id] = (names[item._id] || 0) + 1;
       }
     });
-  
-    setIngredientCount(names)
+    
+    return names[id]
   }
   const uniqueOrderIngredients = Array.from(new Set(orderIngredients));
+  const date = formatTime(selectedOrder?.createdAt || '');
+  const orderPrice: number | undefined = orderIngredients?.reduce((acc: number, ingredient) => {
+    return ingredient ? acc + ingredient.price : acc
+  }, 0)
   
-  useEffect(() => {
-      calcIngredientCount();
-  }, [])
+  const isOrderDone = selectedOrder?.status === "done";
   
-  const content = () => {
-    return (
-        selectedOrder &&
-        <div className={style.order_preview_wr}>
-          <div className={style.order_preview__number + " text text_type_digits-default"}>
-            #{selectedOrder.number}
-          </div>
-          
-          <div className={style.order_preview__title + " text text_type_main-medium"}>
-            {selectedOrder.name}
-          </div>
-  
-          <div className={style.order_preview__status + " text text_color_success text_type_main-default"}>
-            {selectedOrder.status}
-          </div>
-  
-          <div className={style.order_preview__ingredients_title + " text text_type_main-medium"}>
-            Состав
-          </div>
-          
-          <ul className={style.order_preview__ingredients_list}>
-            {uniqueOrderIngredients?.map((orderIngredient, index) => {
-              if(orderIngredient) {
-                return (
+  return (
+      selectedOrder ? <div className={style.order_preview_wr}>
+        <div className={style.order_preview__number + " text text_type_digits-default"}>
+          #{selectedOrder.number}
+        </div>
+        
+        <div className={style.order_preview__title + " text text_type_main-medium"}>
+          {selectedOrder.name}
+        </div>
+        
+        <div className={style.order_preview__status + " text text_type_main-default" + `${isOrderDone ? " text_color_success" : ""}`}>
+          {status()}
+        </div>
+        
+        <div className={style.order_preview__ingredients_title + " text text_type_main-medium"}>
+          Состав
+        </div>
+        
+        <ul className={style.order_preview__ingredients_list}>
+          {uniqueOrderIngredients?.map((orderIngredient, index) => {
+            if(orderIngredient) {
+              return (
                   <li className={style.order_preview__ingredients_item} key={index}>
                     <div className={style.order_preview__ingredients_item__info}>
                       <div className={style.order_preview__ingredients_item__info_img}>
                         <img src={orderIngredient?.image_mobile} alt={orderIngredient?.name} />
                       </div>
-          
+                      
                       <div className={style.order_preview__ingredients_item__info_name + " text text_type_main-default"}>
                         {orderIngredient?.name}
                       </div>
                     </div>
-        
+                    
                     <div className={style.order_preview__ingredients_item__price}>
                       
                       <span className="text text_type_digits-default">
-                        {ingredientCount && ingredientCount[orderIngredient._id]} x {orderIngredient.price}
+                        {calcIngredientCount(orderIngredient._id)} x {orderIngredient.price}
                       </span>
                       
                       <div>
@@ -96,27 +90,27 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders, wsConnected, wsRe
                       </div>
                     </div>
                   </li>
-                )
-              }
-            })}
-          </ul>
+              )
+            }
+          })}
+        </ul>
+        
+        <div className={style.order_preview__ingredients_bottom}>
+          <div className={"text text_type_main-default text_color_inactive"}>{date}</div>
+          
+          <div className={style.order_preview__ingredients_bottom__price}>
+              <span className="text text_type_digits-default">
+                {orderPrice}
+              </span>
+            
+            <div className={style.order_preview__ingredients_bottom__price_icon}>
+              <CurrencyIcon type="primary" />
+            </div>
+          </div>
         </div>
-    )
-  }
-  
-  const renderContent: () => React.ReactNode = () => {
-    if(wsError) {
-      return <ErrorMessage />
-    } else if (wsConnected) {
-      return content()
-    }
-  }
-  
-  return (
-      <>
-        {wsRequest ? <Preloader /> : renderContent()}
-      </>
+      </div>
+      : <ErrorMessage/>
   )
 }
 
-export default OrderPreview
+export default OrderPreview;

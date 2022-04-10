@@ -19,7 +19,7 @@
 .order_preview__ingredients_list {
   list-style: none;
   padding: 0 8px 0 0;
-  margin: 0;
+  margin: 0 0 40px;
   width: 100%;
   max-height: 320px;
   overflow-y: auto;
@@ -89,4 +89,18 @@
 
 .order_preview__ingredients_item__price span {
   padding-right: 8px;
+}
+
+.order_preview__ingredients_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order_preview__ingredients_bottom__price {
+  display: flex;
+}
+
+.order_preview__ingredients_bottom__price_icon {
+  margin-left: 8px;
 }

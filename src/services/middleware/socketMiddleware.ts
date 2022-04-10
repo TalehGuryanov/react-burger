@@ -10,14 +10,15 @@ export const socketMiddleware = (wsUrl: string, wsActions: any, isUserOrders=fal
       const { dispatch } = store;
       const { type } = action;
       const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
+      let queryParam = '';
       
       if(isUserOrders) {
         const accessToken = getCookie("accessToken").replace("Bearer ", "");
-        wsUrl+=`?token=${accessToken}`
+        queryParam = `?token=${accessToken}`
       }
       
       if( type === wsInit) {
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(wsUrl + queryParam);
       }
       
       if(socket) {
@@ -31,6 +32,11 @@ export const socketMiddleware = (wsUrl: string, wsActions: any, isUserOrders=fal
   
         socket.onmessage = event => {
           const { data } = event;
+          
+          if(event.data === 'ping'){
+            socket?.send('pong');
+          }
+          
           dispatch({type: onMessage, data: JSON.parse(data)});
         };
   

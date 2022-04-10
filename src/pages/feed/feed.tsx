@@ -9,12 +9,14 @@ import {ErrorMessage} from "../../components/error-message/error-message";
 import {Preloader} from "../../components/preloader/preloader";
 
 const Feed: React.FC = () => {
-  const { feedOrders, total, totalToday, feedWsConnected, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
+  const { feedOrders, total, totalToday, feedWsClosed, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(feedWsConnectionStartActionCreator());
+    if(feedWsClosed || !feedOrders.length) {
+      dispatch(feedWsConnectionStartActionCreator());
+    }
     
     return(() => {
       dispatch(feedWsConnectionCloseActionCreator());

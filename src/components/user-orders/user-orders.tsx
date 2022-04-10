@@ -11,14 +11,16 @@ import OrderCardList from "../order-card-list/order-card-list";
 import style from "./user-orders.module.css"
 
 const UserOrders: React.FC = () => {
-  const { userOrdersError, userOrdersRequest, userOrders } = useSelector((store: RootState) => store.userOrdersData)
+  const { userOrdersClosed, userOrdersError, userOrdersRequest, userOrders } = useSelector((store: RootState) => store.userOrdersData)
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(userOrdersWsConnectionStartActionCreator());
+    if(userOrdersClosed || !userOrders.length) {
+      dispatch(userOrdersWsConnectionStartActionCreator());
+    }
     
-    return(() => {
-      dispatch(userOrdersWsConnectionClosetActionCreator());
+    return (() => {
+      dispatch(userOrdersWsConnectionClosetActionCreator())
     })
   }, []);
   

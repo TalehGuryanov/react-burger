@@ -5,7 +5,6 @@ import thunk from "redux-thunk";
 import {WS_ALL_ORDERS} from "./constants";
 import {socketMiddleware} from "./middleware/socketMiddleware";
 import {feedWsActions} from "./actions/feed";
-import {getCookie} from "../utils/cookie";
 import {userOrdersWsActions} from "./actions/user-orders";
 
 const enhancer = composeWithDevTools(applyMiddleware(

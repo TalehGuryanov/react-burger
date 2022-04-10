@@ -4,19 +4,23 @@ import style from "./feed-order.module.css"
 import {feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {RootState} from "../../services/types";
+import {Preloader} from "../../components/preloader/preloader";
+import {ErrorMessage} from "../../components/error-message/error-message";
 
 const FeedOrder: React.FC = () => {
-  const { feedOrders, feedWsConnected, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
+  const { feedOrders, feedWsClosed, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
   const dispatch = useDispatch();
   
   useEffect(() => {
-    if(!feedWsConnected || !feedOrders.length) {
+    if(feedWsClosed || !feedOrders.length) {
       dispatch(feedWsConnectionStartActionCreator());
     }
   }, []);
   return (
+      feedWsRequest ? <Preloader />:
+      feedWsError ? <ErrorMessage /> :
       <div className={style.feed_order_wr}>
-        <OrderPreview allOrders={feedOrders} wsConnected={feedWsConnected} wsRequest={feedWsRequest} wsError={feedWsError}/>
+        <OrderPreview allOrders={feedOrders} />
       </div>
   )
 }
