@@ -17,15 +17,16 @@ import {useDrop} from "react-dnd";
 import {closeOrderModalActionCreator, openOrderModalActionCreator} from "../../services/actions/modal";
 import {orderThunk} from "../../services/actions/order";
 import {TIngredient} from "../../services/types/ingredientsTypes";
+import {getCookie} from "../../utils/cookie";
 
 type TBurgerConstructorProps = {
   isLogged: TIsLogged
 }
 
 const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
-  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
-  const { orderData, orderRequest, orderFailed } = useSelector((store: RootState) => store.order);
-  const { isOrderModalOpen } = useSelector((store: RootState) => store.modal);
+  const { fillingItems, bun } = useSelector(store => store.constructorData);
+  const { orderData, orderRequest, orderFailed } = useSelector(store => store.order);
+  const { isOrderModalOpen } = useSelector(store => store.modal);
   const dispatch = useDispatch();
 
   // Added bun to constructor
@@ -63,11 +64,11 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
 
   // Get burger price
   const bunPrice: number = bun ? bun.price * 2 : 0;
-  const fillingDataPrices = React.useMemo( () => fillingItems.map((item: TIngredient) => item.price), [fillingItems]);
+  const fillingDataPrices = React.useMemo( () => fillingItems.map((item) => item.price), [fillingItems]);
 
   // Get elements id's
   const bunId = bun ? bun.id : null;
-  const fillingIds = React.useMemo(() => fillingItems.map((item: TIngredient) => item.id), [fillingItems]);
+  const fillingIds = React.useMemo(() => fillingItems.map((item) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
   // Work with feed-order modal
@@ -78,12 +79,15 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
     dispatch(openOrderModalActionCreator());
   }
   const showOrderData: () => void = () => {
+    const accessToken = getCookie("accessToken");
+    
     if(constructorItemsIds) {
       const body = {"ingredients": constructorItemsIds};
       const post: RequestInit = {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: accessToken
         },
         body: JSON.stringify(body)
       };
@@ -112,11 +116,11 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   }
 
   const fillingItem = React.useMemo(() =>
-      fillingItems.map((item: TIngredient, index: number) =>
+      fillingItems.map((item, index) =>
         <ConstructorBox name={item.name}
                         price={item.price}
                         image={item.image}
-                        key={item.index}
+                        key={index}
                         index={index}
                         removeItem={() => removeFilling(item)}
                         moveIngredients={moveIngredients}

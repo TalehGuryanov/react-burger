@@ -17,7 +17,7 @@ type TForgotPasswordProps = {
 }
 
 const ForgotPassword: React.FC<TForgotPasswordProps> = ({isLogged, redirectTo}) => {
-  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector((store: RootState) => store.authResponse);
+  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector(store => store.authResponse);
   const [email, setEmail] = useState<string>("");
   const dispatch = useDispatch();
 

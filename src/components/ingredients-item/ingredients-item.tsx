@@ -16,7 +16,7 @@ type TIngredientsItemProps = {
 };
 
 const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type, onClick}) => {
-  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
+  const { fillingItems, bun } = useSelector(store => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: { image, id, name, price, type },
@@ -27,7 +27,7 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
     if(bun && bun.id === id) {
       return 2
     } else if (fillingItems.length) {
-      return fillingItems.filter((item: TIngredient) => item.id === id).length
+      return fillingItems.filter((item) => item.id === id).length
     } else return 0
   };
 

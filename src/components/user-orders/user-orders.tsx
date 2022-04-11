@@ -11,7 +11,7 @@ import OrderCardList from "../order-card-list/order-card-list";
 import style from "./user-orders.module.css"
 
 const UserOrders: React.FC = () => {
-  const { userOrdersClosed, userOrdersError, userOrdersRequest, userOrders } = useSelector((store: RootState) => store.userOrdersData)
+  const { userOrdersClosed, userOrdersError, userOrdersRequest, userOrders } = useSelector(store => store.userOrdersData)
   const dispatch = useDispatch();
   
   useEffect(() => {

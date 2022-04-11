@@ -2,7 +2,7 @@ import type { Middleware, MiddlewareAPI } from 'redux';
 import type { TAppActions, AppDispatch, RootState } from '../types';
 import {getCookie} from "../../utils/cookie";
 
-export const socketMiddleware = (wsUrl: string, wsActions: any, isUserOrders=false): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: any, withToken=false): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
     
@@ -12,7 +12,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: any, isUserOrders=fal
       const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
       let queryParam = '';
       
-      if(isUserOrders) {
+      if(withToken) {
         const accessToken = getCookie("accessToken").replace("Bearer ", "");
         queryParam = `?token=${accessToken}`
       }

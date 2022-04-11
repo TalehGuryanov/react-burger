@@ -12,9 +12,9 @@ type TIngredientsBoxProps = {
 const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
   const history = useHistory();
   const location = useLocation();
-  const bunData = React.useMemo(() => data.filter((item: TIngredient) => item.type === "bun"), [data]);
-  const sauceData = React.useMemo(() =>data.filter((item: TIngredient) => item.type === "sauce"), [data]);
-  const mainData = React.useMemo(() => data.filter((item: TIngredient) => item.type === "main"), [data]);
+  const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
+  const sauceData = React.useMemo(() =>data.filter((item) => item.type === "sauce"), [data]);
+  const mainData = React.useMemo(() => data.filter((item) => item.type === "main"), [data]);
   const changeLocationState = (item: TIngredient) => () => {
     history.push({
       pathname: `/ingredients/${item._id}`,
@@ -103,7 +103,7 @@ const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
 
   return (
     <>
-      <div>
+      <div className={style.tabs}>
         <Tabs current={current} scrollOnClick={scrollOnClick}/>
       </div>
 

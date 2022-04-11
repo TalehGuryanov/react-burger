@@ -12,7 +12,7 @@ import {Notification} from "../../components/notification/notification";
 import {RootState} from "../../services/types";
 
 const ResetPassword = () => {
-  const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector((store: RootState) => store.authResponse);
+  const { resetPasswordRequest, resetPasswordSuccess, resetPasswordError } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const [code, setCode] = useState<string>("");
   const [password, setPassword] = useState<string>("");

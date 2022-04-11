@@ -14,7 +14,7 @@ const OrdersNumberList: React.FC<TOrdersNumberListProps> = ({ orders, isDone }) 
   
   const pendingOrdersNumber = useMemo(() =>
           orders.filter(order => order.status === 'pending')
-              .map((order, index) => order.number), [orders]);
+              .map((order) => order.number), [orders]);
   const resultOrdersNumber = isDone ? doneOrdersNumber : pendingOrdersNumber;
   
   const colsToRender = useMemo(() => resultOrdersNumber.reduce((acc: number[][], current, index) => {

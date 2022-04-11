@@ -10,8 +10,8 @@ import style from "./user-data.module.css"
 import {RootState} from "../../services/types";
 
 const UserData: React.FC = () => {
-  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector((store: RootState) => store.user);
-  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector((store: RootState) => store.authResponse);
+  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
+  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector(store => store.authResponse);
   const [newName, setUserNewName] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");

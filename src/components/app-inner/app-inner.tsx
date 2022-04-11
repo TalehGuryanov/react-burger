@@ -18,11 +18,11 @@ export const AppInner: React.FC = () => {
   const location = useLocation<TLocation>();
   const background = location.state && location.state.background;
   // Get ingredients
-  const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientItems }  = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
   
   // Constants for authenticator
-  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector((store: RootState) => store.authResponse);
+  const { isPasswordCodeSuccess, isAuthRequest, isAuthSuccess, isAuthError, isLoggedSelector } = useSelector(store => store.authResponse);
   const accessToken = getCookie("accessToken");
   const [isLogged, setIsLogged] = useState<boolean>(!!accessToken);
   

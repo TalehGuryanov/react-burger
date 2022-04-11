@@ -8,7 +8,7 @@ import {Preloader} from "../../components/preloader/preloader";
 import {ErrorMessage} from "../../components/error-message/error-message";
 
 const FeedOrder: React.FC = () => {
-  const { feedOrders, feedWsClosed, feedWsRequest, feedWsError } = useSelector((store: RootState) => store.feedOrdersData);
+  const { feedOrders, feedWsClosed, feedWsRequest, feedWsError } = useSelector(store => store.feedOrdersData);
   const dispatch = useDispatch();
   
   useEffect(() => {

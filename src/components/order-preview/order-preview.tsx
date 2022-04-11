@@ -14,7 +14,7 @@ type OrderPreviewProps = {
 }
 
 const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders}) => {
-  const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientItems }  = useSelector(store => store.ingredients);
   const {id} : {id: string} = useParams();
   const status: () => string = () => {
     switch (selectedOrder?.status) {
@@ -40,7 +40,7 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders}) => {
   }
   const uniqueOrderIngredients = Array.from(new Set(orderIngredients));
   const date = formatTime(selectedOrder?.createdAt || '');
-  const orderPrice: number | undefined = orderIngredients?.reduce((acc: number, ingredient) => {
+  const orderPrice: number | undefined = orderIngredients?.reduce((acc, ingredient) => {
     return ingredient ? acc + ingredient.price : acc
   }, 0)
   

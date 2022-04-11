@@ -28,7 +28,7 @@ export function constructorReducer(state = constructorInitialState, action: TCon
     case DELETE_ITEM_FROM_CONSTRUCTOR: {
       return {
         ...state,
-        fillingItems: state.fillingItems.filter((item: TIngredient) => item.index !== action.index)
+        fillingItems: state.fillingItems.filter((item) => item.index !== action.index)
       }
     }
     case CLEAN_CONSTRUCTOR: {

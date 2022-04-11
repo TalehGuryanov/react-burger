@@ -7,7 +7,7 @@ import {ErrorMessage} from "../error-message/error-message";
 import {RootState} from "../../services/types";
 
 function BurgerIngredients () {
-  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientItems, ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
 
   const renderContent: () => React.ReactNode = () => {
     if(ingredientItemsFailed) {

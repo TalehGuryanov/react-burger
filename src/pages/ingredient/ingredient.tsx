@@ -7,7 +7,7 @@ import style from "./ingredient.module.css";
 import {RootState} from "../../services/types";
 
 const Ingredient: React.FC = () => {
-  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientItemsRequest, ingredientItemsFailed }  = useSelector(store => store.ingredients);
 
   const renderContent = () => {
     if(ingredientItemsFailed) {

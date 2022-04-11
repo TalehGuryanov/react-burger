@@ -11,10 +11,10 @@ type TSelectedIngredientId = {
 
 const IngredientDetails: React.FC = () => {
   const { id }: TSelectedIngredientId = useParams();
-  const { ingredientItems }  = useSelector((store: RootState) => store.ingredients);
+  const { ingredientItems }  = useSelector(store => store.ingredients);
   
   const selectedIngredient: TIngredient | undefined = useMemo(
-      () => ingredientItems.find((item: TIngredient) => item._id === id),
+      () => ingredientItems.find((item) => item._id === id),
       [id, ingredientItems]
   );
 

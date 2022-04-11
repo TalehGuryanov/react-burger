@@ -12,7 +12,7 @@ type TOrderButtonProps = {
 };
 
 const OrderButton: React.FC<TOrderButtonProps> = ({selectedIngredientsPrice, showOrderData, isLogged}) => {
-  const { bun } = useSelector((store: RootState) => store.constructorData);
+  const { bun } = useSelector(store => store.constructorData);
   const [price, setPrice] = React.useState<number>(0);
   const history = useHistory();
 

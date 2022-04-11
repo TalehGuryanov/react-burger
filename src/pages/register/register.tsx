@@ -17,7 +17,7 @@ type TRegisterProps = {
 }
 
 const Register: React.FC<TRegisterProps> = ({isLogged, redirectTo}) => {
-  const { isAuthSuccess, isAuthError } = useSelector((store: RootState) => store.authResponse);
+  const { isAuthSuccess, isAuthError } = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");

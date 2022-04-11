@@ -8,7 +8,7 @@ import {Preloader} from "../../components/preloader/preloader";
 import {ErrorMessage} from "../../components/error-message/error-message";
 
 const UserOrder: React.FC = () => {
-  const { userOrdersClosed, userOrdersError, userOrdersRequest, userOrders } = useSelector((store: RootState) => store.userOrdersData)
+  const { userOrdersClosed, userOrdersError, userOrdersRequest, userOrders } = useSelector(store => store.userOrdersData)
   const dispatch = useDispatch();
   
   useEffect(() => {

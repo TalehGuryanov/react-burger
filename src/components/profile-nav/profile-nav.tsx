@@ -8,7 +8,7 @@ import React from "react";
 import {RootState} from "../../services/types";
 
 const ProfileNav: React.FC = () => {
-  const {isAuthError} = useSelector((store: RootState) => store.authResponse);
+  const {isAuthError} = useSelector(store => store.authResponse);
   const dispatch = useDispatch();
   const {path} = useRouteMatch();
 
