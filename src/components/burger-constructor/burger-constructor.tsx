@@ -5,56 +5,53 @@ import React, {ReactNode} from "react";
 import OrderDetails from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import ConstructorBox from "../constructor-box/constructor-box";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {
-  ADD_ITEM_TO_CONSTRUCTOR,
-  DELETE_ITEM_FROM_CONSTRUCTOR,
-  ADD_BUN_TO_CONSTRUCTOR,
-  CLEAN_CONSTRUCTOR,
-  swapIngredients
+  swapIngredients, addItemActionCreator, deleteItemActionCreator, addBunActionCreator, cleanConstructorActionCreator
 } from "../../services/actions/constuctor";
-import {CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from "../../services/actions/modal";
 import burger from "../../images/burger.png";
 import {Preloader} from "../preloader/preloader";
 import {ErrorMessage} from "../error-message/error-message";
-import {order} from "../../services/actions/order";
-import {IEditedIngredientType, TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 import {useDrop} from "react-dnd";
+import {closeOrderModalActionCreator, openOrderModalActionCreator} from "../../services/actions/modal";
+import {orderThunk} from "../../services/actions/order";
+import {TIngredient} from "../../services/types/ingredientsTypes";
+import {getCookie} from "../../utils/cookie";
 
 type TBurgerConstructorProps = {
   isLogged: TIsLogged
 }
 
 const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
-  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
-  const { orderData, orderRequest, orderFailed } = useSelector((store: RootState) => store.order);
-  const { isOrderModalOpen } = useSelector((store: RootState) => store.modal);
-  const dispatch: AppDispatch = useDispatch();
+  const { fillingItems, bun } = useSelector(store => store.constructorData);
+  const { orderData, orderRequest, orderFailed } = useSelector(store => store.order);
+  const { isOrderModalOpen } = useSelector(store => store.modal);
+  const dispatch = useDispatch();
 
   // Added bun to constructor
-  const addBun: (item: IEditedIngredientType) => void = (item) => {
-    dispatch({type: ADD_BUN_TO_CONSTRUCTOR, bun: item})
+  const addBun: (item: TIngredient) => void = (item) => {
+    dispatch(addBunActionCreator(item))
   }
 
   // Added filling to constructor
-  const addFilling: (item: IEditedIngredientType) => void = (item) => {
-    item.index = item.id + Math.floor(Math.random() * 100);
-    dispatch({type: ADD_ITEM_TO_CONSTRUCTOR, item: item});
+  const addFilling: (item: TIngredient) => void = (item) => {
+    item.index = item.id ? Number(item.id + Math.floor(Math.random() * 100)) : 0 ;
+    dispatch(addItemActionCreator(item));
   }
 
   // Removed bun from constructor
-  const removeFilling: (item: IEditedIngredientType) => void = (item) => {
-    dispatch({type: DELETE_ITEM_FROM_CONSTRUCTOR, index: item.index });
+  const removeFilling: (item: TIngredient) => void = (item) => {
+    dispatch(deleteItemActionCreator(item.index));
   }
 
   const cleanConstructor: () => void = () => {
-    dispatch({type: CLEAN_CONSTRUCTOR})
+    dispatch(cleanConstructorActionCreator())
   }
 
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item: IEditedIngredientType) {
+    drop(item: TIngredient) {
       if(item.type === "bun") {
         addBun(item)
       } else {
@@ -66,33 +63,36 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   const isEmpty = fillingItems.length || bun;
 
   // Get burger price
-  const bunPrice: number | null = bun ? bun.price * 2 : null;
-  const fillingDataPrices = React.useMemo( () => fillingItems.map((item: IEditedIngredientType) => item.price), [fillingItems]);
+  const bunPrice: number = bun ? bun.price * 2 : 0;
+  const fillingDataPrices = React.useMemo( () => fillingItems.map((item) => item.price), [fillingItems]);
 
   // Get elements id's
   const bunId = bun ? bun.id : null;
-  const fillingIds = React.useMemo(() => fillingItems.map((item: IEditedIngredientType) => item.id), [fillingItems]);
+  const fillingIds = React.useMemo(() => fillingItems.map((item) => item.id), [fillingItems]);
   const constructorItemsIds =[...fillingIds, bunId];
 
-  // Work with order modal
+  // Work with feed-order modal
   const onCloseModal: () => void = () => {
-    dispatch({type: CLOSE_ORDER_MODAL})
+    dispatch(closeOrderModalActionCreator())
   }
   const openModal: () => void = () => {
-    dispatch({type: OPEN_ORDER_MODAL});
+    dispatch(openOrderModalActionCreator());
   }
   const showOrderData: () => void = () => {
+    const accessToken = getCookie("accessToken");
+    
     if(constructorItemsIds) {
       const body = {"ingredients": constructorItemsIds};
-      const post = {
+      const post: RequestInit = {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: accessToken
         },
         body: JSON.stringify(body)
       };
 
-      dispatch(order(post));
+      dispatch(orderThunk(post));
       cleanConstructor();
       openModal();
     }
@@ -109,19 +109,18 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
   }
 
   // Swapping ingredients
-  const moveIngredients: (dragIndex: number | string, hoverIndex: number | string) => void = (dragIndex, hoverIndex) => {
-    if(dragIndex >= 0) {
+  const moveIngredients: (dragIndex: number | undefined, hoverIndex: number | undefined) => void = (dragIndex, hoverIndex) => {
+    if(dragIndex && dragIndex >= 0) {
       dispatch(swapIngredients(fillingItems, dragIndex, hoverIndex));
     }
   }
 
   const fillingItem = React.useMemo(() =>
-      fillingItems.map((item: IEditedIngredientType, index: number) =>
+      fillingItems.map((item, index) =>
         <ConstructorBox name={item.name}
                         price={item.price}
                         image={item.image}
-                        key={item.index}
-                        id={item.id}
+                        key={index}
                         index={index}
                         removeItem={() => removeFilling(item)}
                         moveIngredients={moveIngredients}

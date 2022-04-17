@@ -1,6 +1,6 @@
 import style from "./modal-overlay.module.css";
 import React from "react";
-import {TOnCLoseModal} from "../../utils/types";
+import {TOnCLoseModal} from "../../services/types";
 
 type TModalOverlayProps = {
   onCloseModal: TOnCLoseModal

@@ -23,7 +23,7 @@ export const HeaderMenu: React.FC = () => {
       </li>
 
       <li className={style.item}>
-        <NavLink to="/profile/orders"
+        <NavLink to="/feed"
                  exact
                  className={style.item_link}
                  activeClassName={style.item_link__active}

@@ -6,11 +6,10 @@ import {
 import style from "./forgot-password.module.css";
 import {Link, Redirect} from "react-router-dom";
 import {forgotPasswordThunk} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {Preloader} from "../../components/preloader/preloader";
 import {Notification} from "../../components/notification/notification";
-import {TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TForgotPasswordProps = {
   isLogged: TIsLogged,
@@ -18,9 +17,9 @@ type TForgotPasswordProps = {
 }
 
 const ForgotPassword: React.FC<TForgotPasswordProps> = ({isLogged, redirectTo}) => {
-  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector((store: RootState) => store.authResponse);
+  const { isPasswordCodeRequest, isPasswordCodeError, isPasswordCodeSuccess } = useSelector(store => store.authResponse);
   const [email, setEmail] = useState<string>("");
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSetEmail = ({target}: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(target.value);

@@ -25,3 +25,7 @@
     list-style: none;
     padding: 0 16px;
 }
+
+.tabs {
+    width: 100%;
+}

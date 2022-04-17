@@ -10,6 +10,14 @@
     height: 100%;
 }
 
+.content {
+    background: #1C1C21;
+    border-radius: 40px;
+    width: 720px;
+    padding: 40px;
+    position: relative;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -17,15 +25,9 @@
     width: 100%;
 }
 
+
 .header__icon_close {
     cursor: pointer;
-    margin-left: auto;
+    position: absolute;
+    right: 40px;
 }
-
-.content {
-    background: #1C1C21;
-    border-radius: 40px;
-    width: 720px;
-    padding: 40px;
-}
-

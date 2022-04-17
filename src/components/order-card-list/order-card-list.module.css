@@ -1,0 +1,16 @@
+.order_list {
+  width: 100%;
+  max-height: 700px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.order_list::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+
+.order_list::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+  border-radius: 0;
+}

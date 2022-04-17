@@ -1,19 +1,19 @@
 import style from "./profile-nav.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {logoutThunk} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookie";
 import {Notification} from "../notification/notification";
 import {NavLink, useRouteMatch} from "react-router-dom";
 import React from "react";
-import {AppDispatch, RootState} from "../../index";
+import {RootState} from "../../services/types";
 
 const ProfileNav: React.FC = () => {
-  const {isAuthError} = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const {isAuthError} = useSelector(store => store.authResponse);
+  const dispatch = useDispatch();
   const {path} = useRouteMatch();
 
   const onLogout: () => void = () => {
-    const refreshToken = getCookie("refreshToken");
+    const refreshToken: string = getCookie("refreshToken");
 
     dispatch(logoutThunk(refreshToken));
   }

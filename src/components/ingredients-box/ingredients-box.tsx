@@ -2,16 +2,26 @@ import style from "./ingredients-box.module.css"
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import React, {useRef} from "react";
 import {Tabs} from "../tabs/tabs";
-import {IEditedIngredientType} from "../../utils/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
+import {useHistory, useLocation} from "react-router-dom";
 
 type TIngredientsBoxProps = {
-  data: Array<IEditedIngredientType>
+  data: Array<TIngredient>
 }
 
 const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
-  const bunData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "bun"), [data]);
-  const sauceData = React.useMemo(() =>data.filter((item: IEditedIngredientType) => item.type === "sauce"), [data]);
-  const mainData = React.useMemo(() => data.filter((item: IEditedIngredientType) => item.type === "main"), [data]);
+  const history = useHistory();
+  const location = useLocation();
+  const bunData = React.useMemo(() => data.filter((item) => item.type === "bun"), [data]);
+  const sauceData = React.useMemo(() =>data.filter((item) => item.type === "sauce"), [data]);
+  const mainData = React.useMemo(() => data.filter((item) => item.type === "main"), [data]);
+  const changeLocationState = (item: TIngredient) => () => {
+    history.push({
+      pathname: `/ingredients/${item._id}`,
+      state: { background: location }
+    });
+  };
+  
   const bun = React.useMemo(
     () =>
       bunData.map((item) =>
@@ -21,6 +31,7 @@ const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
                          name={item.name}
                          price={item.price}
                          type={item.type}
+                         onClick={changeLocationState(item)}
         />
       ),
     [bunData]
@@ -34,6 +45,7 @@ const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
                          name={item.name}
                          price={item.price}
                          type={item.type}
+                         onClick={changeLocationState(item)}
         />
       ),
     [sauceData]
@@ -46,6 +58,7 @@ const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
                          name={item.name}
                          price={item.price}
                          type={item.type}
+                         onClick={changeLocationState(item)}
         />
     ),
     [mainData]
@@ -90,7 +103,7 @@ const IngredientsBox: React.FC<TIngredientsBoxProps> = ({data}) => {
 
   return (
     <>
-      <div>
+      <div className={style.tabs}>
         <Tabs current={current} scrollOnClick={scrollOnClick}/>
       </div>
 

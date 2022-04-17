@@ -1,0 +1,22 @@
+.feed {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 30px;
+}
+
+.feed__title {
+  margin-bottom: 20px;
+}
+
+.feed__content {
+  display: flex;
+  justify-content: center;
+}
+
+.feed__content_orders {
+  width: 50%;
+}
+
+.feed__content_info {
+  width: 50%;
+}

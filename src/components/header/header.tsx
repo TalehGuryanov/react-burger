@@ -3,7 +3,7 @@ import {HeaderMenu} from "../header-menu/header-menu";
 import {HeaderLogo} from "../header-logo/header-logo"
 import {HeaderProfile} from "../header-profile/header-profile";
 import React from "react";
-import {TIsLogged} from "../../utils/types";
+import {TIsLogged} from "../../services/types";
 
 type THeaderProps = {
   isLogged: TIsLogged

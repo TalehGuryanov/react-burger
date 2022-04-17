@@ -1,7 +1,7 @@
 import {Redirect, Route, useLocation} from "react-router-dom";
 import PropTypes from "prop-types";
 import React, {ReactNode} from "react";
-import {TIsLogged} from "../utils/types";
+import {TIsLogged} from "../services/types";
 
 type TProtectedRouteProps = {
   children: ReactNode,

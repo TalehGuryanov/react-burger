@@ -6,11 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./register.module.css"
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {registerUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TRegisterProps = {
   isLogged: TIsLogged,
@@ -18,8 +17,8 @@ type TRegisterProps = {
 }
 
 const Register: React.FC<TRegisterProps> = ({isLogged, redirectTo}) => {
-  const { isAuthSuccess, isAuthError } = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const { isAuthSuccess, isAuthError } = useSelector(store => store.authResponse);
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

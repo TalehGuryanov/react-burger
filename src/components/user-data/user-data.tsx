@@ -1,23 +1,23 @@
 import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {getCookie} from "../../utils/cookie";
 import {editUserDataThunk, getUserDataThunk} from "../../services/actions/user-data";
 import {updateTokenThunk} from "../../services/actions/auth";
 import {Preloader} from "../preloader/preloader";
 import {Notification} from "../notification/notification";
 import style from "./user-data.module.css"
-import {AppDispatch, RootState} from "../../index";
+import {RootState} from "../../services/types";
 
 const UserData: React.FC = () => {
-  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector((store: RootState) => store.user);
-  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector((store: RootState) => store.authResponse);
+  const { user, userDataRequest, userDataError, editUserDataRequest, editUserDataSuccess, editUserDataError } = useSelector(store => store.user);
+  const { updateTokenRequest, updateTokenSuccess, updateTokenError } = useSelector(store => store.authResponse);
   const [newName, setUserNewName] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [isDataChanged, setDataChanged] = useState<boolean>(false);
-  const dispatch:AppDispatch = useDispatch();
-  const refreshToken: string | undefined = getCookie('refreshToken');
+  const dispatch = useDispatch();
+  const refreshToken: string = getCookie('refreshToken');
   const formRef = useRef<any>(null);
 
   const onChangeForm: () => void = () => {
@@ -33,14 +33,14 @@ const UserData: React.FC = () => {
   }
 
   useEffect(() => {
-    const oldAccessToken = getCookie('accessToken');
+    const oldAccessToken: string = getCookie('accessToken');
 
     if(!oldAccessToken) {
       dispatch(updateTokenThunk(refreshToken));
     }
 
     const newAccessToken = updateTokenSuccess ? getCookie('accessToken') : null;
-    const currentAccessToken = newAccessToken || oldAccessToken;
+    const currentAccessToken: string = newAccessToken || oldAccessToken;
 
     if(!user && currentAccessToken) {
       dispatch(getUserDataThunk(currentAccessToken));
@@ -50,10 +50,10 @@ const UserData: React.FC = () => {
   const onEditUserData: (event: FormEvent) => void = (event) => {
     event.preventDefault();
 
-    const accessToken = getCookie('accessToken');
-    const name = newName || user.name;
-    const email = newEmail || user.email;
-    const password = newPassword || user.password;
+    const accessToken: string = getCookie('accessToken');
+    const name: string = newName || user.name;
+    const email: string = newEmail || user.email;
+    const password: string = newPassword || user.password;
 
     dispatch(editUserDataThunk(accessToken, email, password, name));
 

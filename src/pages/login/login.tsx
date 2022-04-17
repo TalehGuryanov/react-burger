@@ -5,11 +5,10 @@ import {
   Button, Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./login.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {loginUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {TIsLogged} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TLoginProps = {
   isLogged: TIsLogged,
@@ -22,8 +21,8 @@ type THistory = {
 }
 
 const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
-  const { isAuthError } = useSelector((store: RootState) => store.authResponse);
-  const dispatch: AppDispatch = useDispatch();
+  const { isAuthError } = useSelector(store => store.authResponse);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory<THistory>();

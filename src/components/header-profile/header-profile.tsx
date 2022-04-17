@@ -1,7 +1,7 @@
 import style from "./header-profile.module.css";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
-import {TIsLogged} from "../../utils/types";
+import {TIsLogged} from "../../services/types";
 import React from "react";
 
 type THeaderProfileProps = {

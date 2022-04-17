@@ -1,11 +1,9 @@
 import style from "./order-button.module.css"
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import React from "react";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import {useHistory} from "react-router-dom";
-import {TIsLogged} from "../../utils/types";
-import {RootState} from "../../index";
+import {RootState, TIsLogged} from "../../services/types";
 
 type TOrderButtonProps = {
   selectedIngredientsPrice: Array<number>;
@@ -14,7 +12,7 @@ type TOrderButtonProps = {
 };
 
 const OrderButton: React.FC<TOrderButtonProps> = ({selectedIngredientsPrice, showOrderData, isLogged}) => {
-  const { bun } = useSelector((store: RootState) => store.constructorData);
+  const { bun } = useSelector(store => store.constructorData);
   const [price, setPrice] = React.useState<number>(0);
   const history = useHistory();
 

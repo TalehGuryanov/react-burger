@@ -1,11 +1,10 @@
 import style from "./ingredients-item.module.css"
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {RootState} from "../../index";
-import {IEditedIngredientType} from "../../utils/types";
+import {RootState} from "../../services/types";
+import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TIngredientsItemProps = {
   id: string;
@@ -13,10 +12,11 @@ type TIngredientsItemProps = {
   name: string;
   price: number;
   type: string;
+  onClick: () => void;
 };
 
-const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type }) => {
-  const { fillingItems, bun } = useSelector((store: RootState) => store.constructorData);
+const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, price, type, onClick}) => {
+  const { fillingItems, bun } = useSelector(store => store.constructorData);
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: { image, id, name, price, type },
@@ -27,23 +27,17 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
     if(bun && bun.id === id) {
       return 2
     } else if (fillingItems.length) {
-      return fillingItems.filter((item: IEditedIngredientType) => item.id === id).length
-    }
+      return fillingItems.filter((item) => item.id === id).length
+    } else return 0
   };
 
   useEffect(() => {
     updateCount(setCount());
-  }, [setCount])
-
+  }, [setCount]);
+  
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef}>
-      <Link
-        to={{
-          pathname: `/ingredients/${id}`,
-          state: { isModal: true },
-        }}
-        style={{ textDecoration: 'none' }}
-      >
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick}>
+      <div>
         {count > 0 && <Counter count={count} size="default"/>}
         <div className={style.img}>
           <img src={image}
@@ -63,7 +57,7 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
         <div className={`${"text text_type_main-default"} ${style.title}`}>
           {name}
         </div>
-      </Link>
+      </div>
     </li>
   )
 }
