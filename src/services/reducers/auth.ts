@@ -36,7 +36,7 @@ type TAuthState = {
   updateTokenError: boolean
 }
 
-const authInitialState: TAuthState = {
+export const authInitialState: TAuthState = {
   isAuthRequest: false,
   isAuthSuccess: false,
   isAuthError: false,
@@ -114,7 +114,6 @@ export const authReducer = (state = authInitialState, action: TAuthActions) => {
         isAuthRequest: true,
         isAuthSuccess: false,
         isAuthError: false,
-        isLoggedSelector: false,
       }
     }
     case LOGOUT_SUCCESS: {
