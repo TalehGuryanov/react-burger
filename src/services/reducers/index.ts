@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { ingredientsReducer } from "./ingredients";
 import { constructorReducer } from "./constructor";
 import { orderReducer } from "./order";
-import { showHideModal } from "./modal";
+import { modalReducer } from "./modal";
 import {authReducer} from "./auth";
 import {userDataReducer} from "./user-data";
 import {feedWsReducer} from "./feed";
@@ -12,7 +12,7 @@ export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   constructorData: constructorReducer,
   order: orderReducer,
-  modal: showHideModal,
+  modal: modalReducer,
   authResponse: authReducer,
   user: userDataReducer,
   feedOrdersData: feedWsReducer,
