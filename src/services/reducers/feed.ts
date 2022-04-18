@@ -1,5 +1,6 @@
 import {TFeedActions} from "../actions/feed";
 import {
+  FEED_WS_CONNECTION_START,
   FEED_WS_CONNECTION_SUCCESS,
   FEED_WS_CONNECTION_ERROR,
   FEED_WS_CONNECTION_GET_MESSAGE,
@@ -7,7 +8,7 @@ import {
 } from "../constants/feed";
 import {TOrder} from "../types/orders";
 
-type TWSState = {
+type TFeedInitialState = {
   feedWsConnected: boolean;
   feedWsClosed: boolean;
   feedWsError: boolean;
@@ -17,18 +18,27 @@ type TWSState = {
   totalToday: number,
 }
 
-const initialState: TWSState = {
+export const feedInitialState: TFeedInitialState = {
   feedWsConnected: false,
   feedWsClosed: false,
   feedWsError: false,
-  feedWsRequest: true,
+  feedWsRequest: false,
   feedOrders: [],
   total: 0,
   totalToday: 0,
 }
 
-export const feedWsReducer = (state = initialState, action: TFeedActions) => {
+export const feedWsReducer = (state = feedInitialState, action: TFeedActions) => {
   switch (action.type) {
+    case FEED_WS_CONNECTION_START: {
+      return {
+        ...state,
+        feedWsConnected: false,
+        feedWsError: false,
+        feedWsRequest: true,
+        feedWsClosed: false,
+      };
+    }
     case FEED_WS_CONNECTION_SUCCESS:
       return {
         ...state,
@@ -45,6 +55,9 @@ export const feedWsReducer = (state = initialState, action: TFeedActions) => {
         feedWsRequest: false,
         feedWsError: true,
         feedWsClosed: true,
+        feedOrders: [],
+        total: 0,
+        totalToday: 0,
       };
   
     case FEED_WS_CONNECTION_CLOSED:
