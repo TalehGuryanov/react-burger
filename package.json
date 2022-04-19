@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress:open": "./node_modules/.bin/cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +51,8 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
+    "cypress": "^9.5.4",
+    "eslint-plugin-cypress": "^2.12.1",
     "fetch-mock": "^9.11.0",
     "immutability-helper": "^3.1.1",
     "jest": "^27.5.1",

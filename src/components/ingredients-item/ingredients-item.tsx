@@ -36,7 +36,7 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
   }, [setCount]);
   
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick}>
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick} data-test="ingredient-item">
       <div>
         {count > 0 && <Counter count={count} size="default"/>}
         <div className={style.img}>
