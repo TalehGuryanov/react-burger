@@ -41,6 +41,8 @@ const OrderButton: React.FC<TOrderButtonProps> = ({selectedIngredientsPrice, sho
               size="large"
               onClick={isLogged ? showOrderData : redirectToLogin}
               disabled={!bun}
+              htmlType="submit"
+              name="order-button"
       >
         Оформить заказ
       </Button>
