@@ -9,7 +9,7 @@ import {AppInner} from "../app-inner/app-inner";
 const App: React.FC = () => {
   return (
     <main className={style.app}>
-      <Router>
+      <Router basename="/react-burger">
         <AppInner />
       </Router>
     </main>

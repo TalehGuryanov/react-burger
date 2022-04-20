@@ -3,8 +3,6 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {useDrag} from "react-dnd";
 import {useSelector} from "../../services/hooks";
 import React, {useEffect, useState} from "react";
-import {RootState} from "../../services/types";
-import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TIngredientsItemProps = {
   id: string;
