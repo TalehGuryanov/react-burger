@@ -1,13 +1,13 @@
 import React, {useMemo} from "react";
 import style from "./order-preview.module.css";
 import {useSelector} from "../../services/hooks";
-import {RootState} from "../../services/types";
 import {useParams} from "react-router-dom";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TOrder} from "../../services/types/orders";
 import formatTime from "../../utils/format-time";
 import {ErrorMessage} from "../error-message/error-message";
+import {Preloader} from "../preloader/preloader";
 
 type OrderPreviewProps = {
   allOrders: TOrder[]
@@ -109,7 +109,7 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({allOrders}) => {
           </div>
         </div>
       </div>
-      : <ErrorMessage/>
+      : <Preloader/>
   )
 }
 
