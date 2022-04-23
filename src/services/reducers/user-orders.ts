@@ -1,5 +1,6 @@
 import {TUserOrdersActions} from "../actions/user-orders";
 import {
+  USER_ORDERS_WS_CONNECTION_START,
   USER_ORDERS_WS_CONNECTION_CLOSED,
   USER_ORDERS_WS_CONNECTION_ERROR,
   USER_ORDERS_WS_CONNECTION_GET_MESSAGE,
@@ -18,18 +19,26 @@ type TUSerOrdersState = {
   totalToday: number,
 }
 
-const initialState: TUSerOrdersState = {
+export const userOrdersInitialState: TUSerOrdersState = {
   userOrdersConnected: false,
   userOrdersClosed: false,
   userOrdersError: false,
-  userOrdersRequest: true,
+  userOrdersRequest: false,
   userOrders: [],
   total: 0,
   totalToday: 0,
 }
 
-export const userOrdersReducer = (state = initialState, action: TUserOrdersActions) => {
+export const userOrdersReducer = (state = userOrdersInitialState, action: TUserOrdersActions) => {
   switch (action.type) {
+    case USER_ORDERS_WS_CONNECTION_START:
+      return {
+        ...state,
+        userOrdersConnected: false,
+        userOrdersError: false,
+        userOrdersRequest: true,
+        userOrdersClosed: false,
+      };
     case USER_ORDERS_WS_CONNECTION_SUCCESS:
       return {
         ...state,
@@ -46,6 +55,9 @@ export const userOrdersReducer = (state = initialState, action: TUserOrdersActio
         userOrdersRequest: false,
         userOrdersError: true,
         userOrdersClosed: true,
+        userOrders: [],
+        total: 0,
+        totalToday: 0,
       };
     
     case USER_ORDERS_WS_CONNECTION_CLOSED:

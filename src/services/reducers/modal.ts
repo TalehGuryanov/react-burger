@@ -5,12 +5,12 @@ type TModalState = {
   isIngredientModalOpen: boolean;
   isOrderModalOpen: boolean
 }
-const modalInitialState: TModalState = {
+export const modalInitialState: TModalState = {
   isIngredientModalOpen: false,
   isOrderModalOpen: false
 };
 
-export function showHideModal(state = modalInitialState, action: TModalActions) {
+export function modalReducer(state = modalInitialState, action: TModalActions) {
   switch (action.type) {
     case OPEN_INGREDIENT_MODAL: {
       return {

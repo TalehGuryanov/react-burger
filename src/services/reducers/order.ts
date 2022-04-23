@@ -1,12 +1,13 @@
 import {GET_ORDER_DATA_REQUEST, GET_ORDER_DATA_SUCCESS, GET_ORDER_DATA_ERROR} from "../constants/order";
 import {TOrderActions} from "../actions/order";
 import {TSingleOrderData} from "../types/orders";
+
 type TOrderState = {
   orderData: TSingleOrderData | null,
   orderRequest: boolean,
   orderFailed: false
 }
-const orderInitialState: TOrderState =  {
+export const orderInitialState: TOrderState =  {
   orderData: null,
   orderRequest: false,
   orderFailed: false

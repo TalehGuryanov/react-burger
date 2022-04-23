@@ -8,7 +8,7 @@ import style from "./login.module.css";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {loginUserThunk} from "../../services/actions/auth";
 import {Notification} from "../../components/notification/notification";
-import {RootState, TIsLogged} from "../../services/types";
+import {TIsLogged} from "../../services/types";
 
 type TLoginProps = {
   isLogged: TIsLogged,
@@ -81,7 +81,7 @@ const Login: React.FC<TLoginProps> = ({isLogged, redirectTo}) => {
         </div>
 
         <div className={style.form_submit__wr}>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" htmlType="submit">
             Войти
           </Button>
         </div>

@@ -22,4 +22,4 @@ https://talehguryanov.github.io/react-burger
 Собирает приложение готовое для продакшна в build диркеторию .\
 
 # `npm run deploy`
- Делоит приложение на gh-pages
+Делоит приложение на gh-pages

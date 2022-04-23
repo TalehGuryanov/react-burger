@@ -3,8 +3,6 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {useDrag} from "react-dnd";
 import {useSelector} from "../../services/hooks";
 import React, {useEffect, useState} from "react";
-import {RootState} from "../../services/types";
-import {TIngredient} from "../../services/types/ingredientsTypes";
 
 type TIngredientsItemProps = {
   id: string;
@@ -36,7 +34,7 @@ const IngredientsItem: React.FC<TIngredientsItemProps> = ({ image, id, name, pri
   }, [setCount]);
   
   return(
-    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick}>
+    <li className={`${style.wr} ${isDrag ? style.dragging : ""}`} id={id} ref={dragRef} onClick={onClick} data-test="ingredient-item">
       <div>
         {count > 0 && <Counter count={count} size="default"/>}
         <div className={style.img}>

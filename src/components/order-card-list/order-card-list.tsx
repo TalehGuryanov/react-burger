@@ -1,10 +1,7 @@
 import React, {useMemo, useState} from "react";
 import style from './order-card-list.module.css'
 import {useSelector} from "../../services/hooks";
-import {RootState} from "../../services/types";
 import OrderCart from "../order-card/order-card";
-import {ErrorMessage} from "../error-message/error-message";
-import {Preloader} from "../preloader/preloader";
 import {TOrder} from "../../services/types/orders";
 import {TIngredient} from "../../services/types/ingredientsTypes";
 

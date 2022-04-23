@@ -134,7 +134,7 @@ const BurgerConstructor: React.FC<TBurgerConstructorProps> = ({isLogged}) => {
     </div>
 
   return(
-    <div className={style.wr} ref={dropTarget}>
+    <div className={style.wr} ref={dropTarget} data-test="constructor-dropzone">
       {isEmpty ?
         <>
           <div className={style.block}>

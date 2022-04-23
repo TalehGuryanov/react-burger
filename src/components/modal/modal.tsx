@@ -31,13 +31,13 @@ export const Modal: React.FC<TModalProps> = ({title, children, onCloseModal}) =>
   return(
     modalContainer &&
     ReactDOM.createPortal(
-    <div className={style.wr}>
+    <div className={style.wr} data-test="modal">
       <ModalOverlay onCloseModal={onCloseModal}/>
       <div className={style.content} >
         <div className={style.header}>
           {title && modalTitle}
 
-          <div className={style.header__icon_close}>
+          <div className={style.header__icon_close} data-test="close-modal">
             <CloseIcon type="primary" onClick={onCloseModal}/>
           </div>
         </div>

@@ -3,7 +3,6 @@ import style from "./feed.module.css"
 import {useDispatch, useSelector} from "../../services/hooks";
 import {feedWsConnectionCloseActionCreator, feedWsConnectionStartActionCreator} from "../../services/actions/feed";
 import OrderCardList from "../../components/order-card-list/order-card-list";
-import {RootState} from "../../services/types";
 import FeedInfo from "../../components/feed-info/feed-info";
 import {ErrorMessage} from "../../components/error-message/error-message";
 import {Preloader} from "../../components/preloader/preloader";
@@ -25,7 +24,7 @@ const Feed: React.FC = () => {
   
   
   return (
-      feedWsRequest ? <Preloader /> :
+      !feedOrders.length ? <Preloader /> :
       feedWsError? <ErrorMessage /> :
       
       <div className={style.feed}>

@@ -19,7 +19,7 @@ type TUserData = {
   editUserDataError: boolean
 }
 
-const userDataInitialState: TUserData = {
+export const userDataInitialState: TUserData = {
   user: null,
   userDataRequest: false,
   userDataSuccess: false,
